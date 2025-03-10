@@ -37,10 +37,10 @@ VPATH += $(TEST_DIRS)
 VPATH += $(UTIL_DIRS)
 
 # sources
-SOURCES = $(PROJECT_ROOT)/main.c
-SOURCES += $(foreach index, $(SOURCE_DIRS), $(wildcard $(index)/*.c))
-SOURCES += $(foreach index, $(TEST_DIRS), $(wildcard $(index)/*.c))
-SOURCES += $(foreach index, $(UTIL_DIRS), $(wildcard $(index)/*.c))
+SOURCES = $(PROJECT_ROOT)/main.cpp
+SOURCES += $(foreach index, $(SOURCE_DIRS), $(wildcard $(index)/*.cpp $(index)/*.c))
+SOURCES += $(foreach index, $(TEST_DIRS), $(wildcard $(index)/*.cpp $(index)/*.c))
+SOURCES += $(foreach index, $(UTIL_DIRS), $(wildcard $(index)/*.cpp $(index)/*.c))
 
 # defines (if any)
 DEFINES =	-D RUN_UNITY_FRAMEWORK=0
@@ -49,10 +49,10 @@ DEFINES += 	-D UNITY_OUTPUT_COLOR
 ##############################################################################################################
 
 # Compiler
-CC = gcc
+CC = g++
 
 # Compile Flags
-CFLAGS =	-std=c99
+CFLAGS =	-std=c++11 
 CFLAGS += 	-Wall
 CFLAGS += 	-Werror
 CFLAGS += 	-Wextra
@@ -110,4 +110,6 @@ debug:
 	@echo $(SOURCES)
 	@echo "INCLUDES"
 	@echo $(INCLUDES)	
+	@echo "SOURCES DIRS"
+	@echo $(SOURCE_DIRS)	
 	@echo "Done" $@
