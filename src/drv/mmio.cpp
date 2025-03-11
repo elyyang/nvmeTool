@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
+
 //=========================================================================
 
 mmio_c::mmio_c(void) :
@@ -14,6 +15,7 @@ mmio_c::mmio_c(void) :
     pfBar0AddrPageTwo(0)
 {    
     printf("mmio constructor! \n");
+
     pfBar0_fd = open("/sys/class/uio/uio0/device/resource0", O_RDWR | O_SYNC);    
     pfBar0Addr = mmap(NULL, MMIO_REG_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, pfBar0_fd, 0); 
     pfBar0AddrPageTwo = mmap(NULL, 0x1000, PROT_READ | PROT_WRITE, MAP_SHARED, pfBar0_fd, 0x1000); 
@@ -22,6 +24,7 @@ mmio_c::mmio_c(void) :
 mmio_c::~mmio_c(void)
 {        
     printf("mmio de-constructor! \n");
+    
     close(pfBar0_fd);    
     munmap(pfBar0Addr, MMIO_REG_SIZE);      
     munmap(pfBar0AddrPageTwo, 0x1000);    
