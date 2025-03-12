@@ -1,0 +1,18 @@
+/** \file
+ * PCI device ID list
+ */
+
+
+#define PCI_DEVICE_ID_INTEL_VMD		    0x201d
+#define PCI_DEVICE_ID_INTEL_IDXD        0x0b25
+
+#define PCI_ANY_ID			            0xffff
+#define PCI_VID_INTEL		            0x8086
+#define PCI_VID_MEMBLAZE		        0x1c5f
+#define PCI_VID_SAMSUNG		            0x144d
+#define PCI_VID_VIRTUALBOX		        0x80ee
+#define PCI_VID_VIRTIO		            0x1af4
+#define PCI_VID_CNEXLABS		        0x1d1d
+#define PCI_VID_VMWARE		            0x15ad
+#define PCI_CLASS_ANY_ID		        0xffffff
+#define PCI_CLASS_NVME		            0x010802

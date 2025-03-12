@@ -1,11 +1,5 @@
 
 #include "mmio.h"
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/mman.h>
-#include <stdio.h>
-#include <stdint.h>
-#include <string.h>
 
 //=========================================================================
 
@@ -14,7 +8,7 @@ mmio_c::mmio_c(void) :
     pfBar0Addr(0),
     pfBar0AddrPageTwo(0)
 {    
-    printf("mmio constructor! \n");
+    printf("initialize mmio_c! \n");
 
     pfBar0_fd = open("/sys/class/uio/uio0/device/resource0", O_RDWR | O_SYNC);    
     pfBar0Addr = mmap(NULL, MMIO_REG_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, pfBar0_fd, 0); 
@@ -23,7 +17,7 @@ mmio_c::mmio_c(void) :
 
 mmio_c::~mmio_c(void)
 {        
-    printf("mmio de-constructor! \n");
+    printf("clean-up mmio_c! \n");
     
     close(pfBar0_fd);    
     munmap(pfBar0Addr, MMIO_REG_SIZE);      

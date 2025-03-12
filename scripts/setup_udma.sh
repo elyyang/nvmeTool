@@ -3,11 +3,11 @@
 ########################################################################################################################
 
 repoURL=https://github.com/ikwzm/udmabuf.git
-cloneDir="${PWD}/submodule/udmabuf"
+cloneDir="./submodule/udmabuf"
 module=u-dma-buf.ko
 module_name=u_dma_buf
-defineKeyWord="UDMA_BUFF_DEFAULT_SIZE"
-definePath="./define/miscDefines.h"
+defineKeyWord="UDMA_BUFFER_SIZE"
+definePath="../src/drv/include/udma.h"
 
 ########################################################################################################################
 
@@ -42,7 +42,7 @@ else
         size=0x400000
     fi
 
-    insmodCmd="insmod $module udmabuf0=$size udmabuf1=$size udmabuf2=$size udmabuf3=$size udmabuf4=$size udmabuf5=$size udmabuf6=$size udmabuf7=$size"
+    insmodCmd="sudo insmod $module udmabuf0=$size udmabuf1=$size udmabuf2=$size udmabuf3=$size udmabuf4=$size udmabuf5=$size udmabuf6=$size udmabuf7=$size"
     insmodCmdRun=$($insmodCmd 2>&1)
 
     echo -n "running: $insmodCmd"
