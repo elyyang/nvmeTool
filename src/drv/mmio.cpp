@@ -1,12 +1,13 @@
 
 #include "mmio.h"
 #include "assertLib.h"
+#include "debugPrint.h"
 
 //=========================================================================
 
 mmio_c::mmio_c(void)
 {    
-    printf("initialize mmio_c! \n");
+    DEBUG_PRINTF(info, "initialize mmio_c!");
     uio_resource0_fd = open("/sys/class/uio/uio0/device/resource0", O_RDWR | O_SYNC);    
     NVME_DBG_ASSERT((uio_resource0_fd>0), "uio_resource0_fd failed to open!")
     pfBar0Address = mmap(NULL, MMIO_REG_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, uio_resource0_fd, 0);   
@@ -15,7 +16,7 @@ mmio_c::mmio_c(void)
 
 mmio_c::~mmio_c(void)
 {        
-    printf("clean-up mmio_c! \n");    
+    DEBUG_PRINTF(info, "clean-up mmio_c!");
     close(uio_resource0_fd);
     munmap(pfBar0Address, MMIO_REG_SIZE);          
 }
