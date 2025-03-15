@@ -1,13 +1,13 @@
 
 #pragma once
 
-#include "nvmeStructs.h"
 #include <stdio.h>
-#include <string.h>
 #include <stdint.h>
+#include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/mman.h>
+#include "nvmeStructs.h"
 
 //=========================================================================
 
@@ -17,18 +17,14 @@ class mmio_c
 
         mmio_c();
         ~mmio_c();
-        int         pfBar0_fd;        
-        void*       pfBar0Addr;
-        void*       pfBar0AddrPageTwo;
+        int uio_resource0_fd;        
+        void* pfBar0Address;        
     
     public:
     
-        static mmio_c& getInstance(void);        
+        static mmio_c& getInstance(void);     
+        uint64_t getBar0Address(void);
         
-        int getPfBar0Fd(void);
-        void* getPfBar0Address(void);
-        void* getPfBar0AddressPageTwo(void);                  
-
         //==============================================================================
         // Controller Register access API
         //==============================================================================

@@ -2,8 +2,8 @@
 #pragma once
 
 #include <stdio.h>
-#include <string.h>
 #include <stdint.h>
+#include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/mman.h>
@@ -26,10 +26,11 @@ class udma_c
         
     public:
 
-        static udma_c& getInstance(void);                
-        void getUdmaBufferInformation(void);
+        static udma_c& getInstance(void);      
+
         uint64_t getBufferAddress(uint32_t bufferIndex);
         uint64_t getBufferPhysicalAddress(uint32_t bufferIndex);
-        
+
+        void getUdmaBufferInformation(void);
 };
 

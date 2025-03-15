@@ -1,5 +1,6 @@
 
 #include "udma.h"
+#include "assertLib.h"
 
 //=========================================================================
 
@@ -18,15 +19,19 @@ udma_c::udma_c(void)
         strcpy(fdPath, "/dev/udmabuf");
         strcat(fdPath, fdIdx);
         
-        udmaBuffer_fd[idx] = open(fdPath, O_RDWR);           
+        udmaBuffer_fd[idx] = open(fdPath, O_RDWR | O_SYNC);       
+        NVME_DBG_ASSERT((udmaBuffer_fd[idx]>0), "udmaBuffer_fd failed to open!")
+
         bufferAddress[idx] = mmap(NULL, UDMA_BUFFER_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, udmaBuffer_fd[idx], 0);        
+        NVME_DBG_ASSERT((bufferAddress[idx]!=MAP_FAILED), "bufferAddress map failed!")    
 
         strcpy(fdPath, "/sys/class/u-dma-buf/udmabuf");
         strcat(fdPath, fdIdx);
         strcat(fdPath, "/phys_addr");
 
         udmaBufferPhysicalAddress_fd[idx] = open(fdPath, O_RDONLY);
-        
+        NVME_DBG_ASSERT((udmaBufferPhysicalAddress_fd[idx]>0), "udmaBufferPhysicalAddress_fd failed to open!")
+
         char buffer[BYTES_TO_READ];
 
         read(udmaBufferPhysicalAddress_fd[idx], buffer, 1024);
@@ -47,22 +52,12 @@ udma_c::~udma_c(void)
     } 
 }
 
+//=========================================================================
+
 udma_c& udma_c::getInstance(void)
 {
     static udma_c instance;
     return instance;
-}
-
-void udma_c::getUdmaBufferInformation(void)
-{    
-    printf("udma buffer 0 address: 0x%lx physical address: 0x%lx \n", (uint64_t)bufferAddress[0], (uint64_t)bufferPhysicalAddress[0]);
-    printf("udma buffer 1 address: 0x%lx physical address: 0x%lx \n", (uint64_t)bufferAddress[1], (uint64_t)bufferPhysicalAddress[1]);
-    printf("udma buffer 2 address: 0x%lx physical address: 0x%lx \n", (uint64_t)bufferAddress[2], (uint64_t)bufferPhysicalAddress[2]);
-    printf("udma buffer 3 address: 0x%lx physical address: 0x%lx \n", (uint64_t)bufferAddress[3], (uint64_t)bufferPhysicalAddress[3]);
-    printf("udma buffer 4 address: 0x%lx physical address: 0x%lx \n", (uint64_t)bufferAddress[4], (uint64_t)bufferPhysicalAddress[4]);
-    printf("udma buffer 5 address: 0x%lx physical address: 0x%lx \n", (uint64_t)bufferAddress[5], (uint64_t)bufferPhysicalAddress[5]);
-    printf("udma buffer 6 address: 0x%lx physical address: 0x%lx \n", (uint64_t)bufferAddress[6], (uint64_t)bufferPhysicalAddress[6]);    
-    printf("udma buffer 7 address: 0x%lx physical address: 0x%lx \n", (uint64_t)bufferAddress[7], (uint64_t)bufferPhysicalAddress[7]); 
 }
 
 uint64_t udma_c::getBufferAddress(uint32_t bufferIndex)
@@ -75,3 +70,10 @@ uint64_t udma_c::getBufferPhysicalAddress(uint32_t bufferIndex)
     return (uint64_t)bufferPhysicalAddress[bufferIndex];
 };
 
+void udma_c::getUdmaBufferInformation(void)
+{   
+    for(uint32_t i=0; i<UDMA_BUFFER_COUNT; i++)
+    {
+        printf("udma buffer %d address: 0x%lx physical address: 0x%lx \n", i, (uint64_t)bufferAddress[i], (uint64_t)bufferPhysicalAddress[i]);    
+    }
+}
