@@ -1169,20 +1169,18 @@ static_assert(sizeof(lastSegment_t) == SGL_DESCRIPTOR_SIZE);
 typedef struct __attribute__((packed, aligned (4))) keyedDatablock_t 
 {
     uint64_t address;
-    uint32_t length         :24;
-    uint32_t key            :32;        
-    uint32_t sglSubType     :4;
-    uint32_t sglType        :4;
+    uint64_t length         :24;
+    uint64_t key            :32;        
+    uint64_t sglSubType     :4;
+    uint64_t sglType        :4;
 }keyedDatablock_t;
 static_assert(sizeof(keyedDatablock_t) == SGL_DESCRIPTOR_SIZE);
 
 typedef struct __attribute__((packed, aligned (4))) transportDatablock_t
 {
-    uint64_t reserved0;
-    
+    uint64_t reserved0;    
     uint32_t length;
-    uint32_t reserved1      :24;
-    
+    uint32_t reserved1      :24;    
     uint32_t sglSubType     :4;
     uint32_t sglType        :4;
 }transportDatablock_t;
@@ -1226,36 +1224,116 @@ static_assert(sizeof(dptr_t) == SGL_DESCRIPTOR_SIZE);
 
 typedef union __attribute__((packed, aligned (4))) nvmeCommand_t
 {
-    uint32_t all[16];
-    
+    uint32_t dword[16];
+
     struct
     {
         //dw0 bytes 0-3
         union
         {
-            uint32_t all;
-            
             struct
             {
-                uint32_t OPC            :8;
-                uint32_t FUSE           :2;
-                uint32_t reserved       :4;
-                uint32_t PSDT           :2;
-                uint32_t CID            :16;
+                uint32_t opcode         :8;     //bits 0:7
+                uint32_t fusedOperation :2;     //bits 8:9
+                uint32_t reserved       :4;     //bits 10:13
+                uint32_t psdt           :2;     //bits 14:15
+                uint32_t commandId      :16;    //bits 16:31
             };
         }dw0;
 
-        //dw1 bytes 4-7        
-        uint32_t NSID;       
-        
-        //dw2-3 bytes 8-15        
-        uint64_t reserved;   
-        
-        //dw4-5 bytes 16-23
-        uint64_t MPTR;       
+        //dw1 bytes 4-7
+        uint32_t namespaceId;
 
+        //dw2 bytes 8-11
+        union
+        {
+            uint32_t reserved;   
+        }dw2;
+
+        //dw3 bytes 12-15
+        union
+        {
+            uint32_t reserved;   
+        }dw3;
+
+        //dw4 bytes 16-19
+        union
+        {
+            uint32_t metadataPointer;
+        }dw4;
+        
+        //dw5 bytes 20-23
+        union
+        {
+            uint32_t metadataPointer;
+        }dw5;
+  
         //dw6-9 bytes 24-39
-        dptr_t dptr;
+        union
+        {
+            struct
+            {
+                uint64_t PRP1;
+                uint64_t PRP2;
+            }prp;
+          
+            struct
+            {                
+                uint64_t address;
+                uint32_t length;
+                uint32_t reserved0      :24;
+                uint32_t sglSubType     :4;
+                uint32_t sglType        :4;                
+            }
+            datablock;    
+              
+            struct
+            {
+                uint64_t reserved0;
+                uint32_t length;
+                uint32_t reserved1      :24;
+                uint32_t sglSubType     :4;
+                uint32_t sglType        :4;
+            }bitbucket;
+
+            struct
+            {
+                uint64_t address;
+                uint32_t length;
+                uint32_t reserved0      :24;
+                uint32_t sglSubType     :4;
+                uint32_t sglType        :4;
+            }segment;
+
+            struct
+            {
+                uint64_t address;
+                uint32_t length;
+                uint32_t reserved0      :24;
+                uint32_t sglSubType     :4;
+                uint32_t sglType        :4;
+            }lastSegment;
+
+
+            struct
+            {
+                uint64_t address        :64;
+                uint64_t length         :24;
+                uint64_t key            :32;
+                uint64_t sglSubType     :4;
+                uint64_t sglType        :4;
+            }keyedDatablock;
+       
+            struct
+            {
+                uint64_t reserved0;                
+                uint32_t length;
+                uint32_t reserved1      :24;                
+                uint32_t sglSubType     :4;
+                uint32_t sglType        :4;
+            }transportDatablock;
+
+        }dptr;
 
         //dw10 bytes 40-43
         union
@@ -2062,9 +2140,10 @@ typedef union __attribute__((packed, aligned (4))) nvmeCommand_t
                 uint32_t LBAT           :16; 
                 uint32_t LBATM          :16; 
             }writeZeroes;
+        
         }dw15;
-
     };    
+   
 }nvmeCommand_t;
 static_assert(sizeof(nvmeCommand_t) == NVME_COMMAND_SIZE, "NVMe command is not 16 dwords (64 Byte)");
 
