@@ -757,10 +757,10 @@ typedef union __attribute__((packed, aligned (4))) identifyController_t
     
     struct
     {
-        //----------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------------------
         //Section 1 - Controller Capabilities and Features
         //bytes 0-255 (256 bytes)
-        //----------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------------------
 
         uint32_t    VID                     :16;    //pciVendorID;                                          //byte(s) 0-1
         uint32_t    SSVID                   :16;    //pciSubsystemVendorID;                                 //byte(s) 2-3
@@ -787,10 +787,10 @@ typedef union __attribute__((packed, aligned (4))) identifyController_t
         uint8_t     section1Reserved1[106];         //reserved                                              //byte(s) 134-239
         uint8_t     managementInterface[16];        //managementInterface[16];                              //byte(s) 240-255
 
-        //----------------------------------------------------------------------------
-        //Section 2 - Admin Command Set Attributes
+        //-------------------------------------------------------------------------------------------------------------------
+        //Section 2 - Admin Command Set Attributes & Optional Controller Capabilities
         //bytes 256-511 (256 bytes)
-        //----------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------------------
 
         oacs_t      OACS;                           //optionalAdminCommandSupport;                          //byte(s) 256-257     
         uint32_t    ACL                     :8;     //abortCommandLimit;                                    //byte(s) 258    
@@ -806,8 +806,8 @@ typedef union __attribute__((packed, aligned (4))) identifyController_t
         uint32_t    MTFA                    :16;    //maximumTimeForFirmwareActivation;                     //byte(s) 270-271
         uint32_t    HMPRE;                          //hostMemoryBufferPreferredSize;                        //byte(s) 272-275
         uint32_t    HMMIN;                          //hostMemoryBufferMinimumSize;                          //byte(s) 276-279
-        uint64_t    TNVMCAP[2];                     //totalNVMCapacity[2];                                  //byte(s) 280-295    
-        uint64_t    UNVMCAP[2];                     //unallocatedNvmCapacity[2];                            //byte(s) 296-311
+        uint8_t     TNVMCAP[16];                    //totalNVMCapacity[16];                                 //byte(s) 280-295
+        uint8_t     UNVMCAP[16];                    //unallocatedNvmCapacity[16];                           //byte(s) 296-311
         rpmbs_t     RPMBS;                          //replayProtectedMemoryBlockSupport;                    //byte(s) 312-315
         uint32_t    EDSTT                   :16;    //extendedDeviceSelfTestMinutes;                        //byte(s) 316-317
         uint32_t    DSTO                    :8;     //deviceSelfTestOptions;                                //byte(s) 318
@@ -828,10 +828,10 @@ typedef union __attribute__((packed, aligned (4))) identifyController_t
         uint32_t    PELS;                           //persistentEventLogSize;                               //byte(s) 352-355
         uint8_t     section2Reserved0[156];         //reserved                                              //byte(s) 356-511
 
-        //----------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------------------
         //Section 3 - NVM Command Set Attributes
         //bytes 512-703 (192 bytes)
-        //----------------------------------------------------------------------------    
+        //-------------------------------------------------------------------------------------------------------------------
 
         sqes_t      SQES;                           //submissionQueueEntrySize;                             //byte(s) 512
         cqes_t      CQES;                           //completionQueueEntrySize;                             //byte(s) 513    
@@ -854,19 +854,19 @@ typedef union __attribute__((packed, aligned (4))) identifyController_t
         uint8_t     section3Reserved2[768];         //reserved                                              //byte(s) 1024-1791
         uint8_t     section3Reserved3[256];         //nvmeOverFabricsReserved[256];                         //byte(s) 1792-2047
 
-        //----------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------------------
         //Section 4 - Power State Descriptors
         //bytes 2048-3071 (1024 bytes)
         //bytes 2048-2079 power state 0 descriptor is mandatory with up to 31 additional optional power state descriptors at 32 bytes each for a total of 1024 bytes
         //bytes 2080-3071 power state 1-31 descriptors are optional
-        //----------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------------------
         
         psd_t       PSD[32];                        //powerStateDescriptor[32];                             //byte(s) 2048-3071
         
-        //----------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------------------
         //Section 5 - Vendor specific
         //bytes 3072-4095 (1024 bytes)
-        //----------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------------------
         
         uint8_t     vendorSpecific[1024];                                                                   //byte(s) 3072-4095    
     };
@@ -1072,7 +1072,7 @@ typedef union __attribute__((packed, aligned (4))) identifyNamespace_t
         uint32_t    NABO                    :16;    //namespaceAtomicBoundaryOffset;                //byte(s) 42-43
         uint32_t    NABSPF                  :16;    //namespaceAtomicBoundarySizePowerFail;         //byte(s) 44-45  
         uint32_t    NOIOB                   :16;    //namespaceOptimalIoBoundary;                   //byte(s) 46-47
-        uint64_t    NVMCAP[2];                      //nvmCapacity[2];                               //byte(s) 48-63    
+        uint8_t     NVMCAP[16];                     //nvmCapacity[16];                              //byte(s) 48-63    
         uint32_t    NPWG                    :16;    //namespacePreferredWriteGranularity;           //Byte(s) 64-65    
         uint32_t    NPWA                    :16;    //namespacePreferredWriteAlignment;             //Byte(s) 66-67
         uint32_t    NPDG                    :16;    //namespacePreferredDeallocatedGranularity;     //Byte(s) 68-69
@@ -1090,8 +1090,7 @@ typedef union __attribute__((packed, aligned (4))) identifyNamespace_t
         uint8_t     reserved2[192];                 //reserved                                      //byte(s) 192-383
         uint8_t     vendorSpecific[3712];                                                           //byte(s) 384-4095
     };
-    
-    
+        
 }identifyNamespace_t;
 static_assert(sizeof(identifyNamespace_t) == 4096, "identifyNamespace_t size is not 4096 bytes");
 
