@@ -754,6 +754,7 @@ static_assert(sizeof(psd_t) == 32, "psd_t size is not 32 bytes");
 typedef union __attribute__((packed, aligned (4))) identifyController_t
 {
     uint32_t dword[1024];
+    
     struct
     {
         //----------------------------------------------------------------------------
@@ -767,7 +768,17 @@ typedef union __attribute__((packed, aligned (4))) identifyController_t
         uint8_t     FR[8];                          //firmwareRevision[8];                                  //byte(s) 64-71
         uint32_t    RAB                     :8;     //recommendedArbitrationBurst;                          //byte(s) 72        
         uint32_t    IEEE                    :24;    //ieeeOuiIdentifier:24;                                 //byte(s) 73-75            
-        cmic_t      CMIC;                           //controllerMultipathIoNamespaceSharingCapabilities;    //byte(s) 76    
+        
+        //cmic_t      CMIC;                           //controllerMultipathIoNamespaceSharingCapabilities;    //byte(s) 76    
+        struct
+        {
+            uint8_t     cmicMultiSubsystemPort                      : 1;    //bit  0
+            uint8_t     cmicMultiHost                               : 1;    //bit  1
+            uint8_t     cmicSriov                                   : 1;    //bit  2
+            uint8_t     cmicAsymmetricNamespaceAccess               : 1;    //bit  3
+            uint8_t     reserved                                    : 4;    //bits 4-7
+        }CMIC;
+        
         uint32_t    MDTS                    :8;     //maximumDataTransferSize;                              //byte(s) 77    
         uint32_t    CNTLID                  :16;    //controllerId;                                         //byte(s) 78-79        
         uint32_t    VER;                            //nvmeVersion;                                          //byte(s) 80-83    
@@ -860,8 +871,7 @@ typedef union __attribute__((packed, aligned (4))) identifyController_t
         //----------------------------------------------------------------------------
         uint8_t     vendorSpecific[1024];                                                                   //byte(s) 3072-4095    
     };
-    
-    
+        
 }identifyController_t;
 static_assert(sizeof(identifyController_t) == 4096, "identifyController_t size is not 4096 bytes");
 
