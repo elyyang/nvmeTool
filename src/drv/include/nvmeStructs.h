@@ -761,24 +761,15 @@ typedef union __attribute__((packed, aligned (4))) identifyController_t
         //Section 1 - Controller Capabilities and Features
         //bytes 0-255 (256 bytes)
         //----------------------------------------------------------------------------
+
         uint32_t    VID                     :16;    //pciVendorID;                                          //byte(s) 0-1
         uint32_t    SSVID                   :16;    //pciSubsystemVendorID;                                 //byte(s) 2-3
         uint8_t     SN[20];                         //serialNumber[20];                                     //byte(s) 4-23
         uint8_t     MN[40];                         //modelNumber[40];                                      //byte(s) 24-63
         uint8_t     FR[8];                          //firmwareRevision[8];                                  //byte(s) 64-71
         uint32_t    RAB                     :8;     //recommendedArbitrationBurst;                          //byte(s) 72        
-        uint32_t    IEEE                    :24;    //ieeeOuiIdentifier:24;                                 //byte(s) 73-75            
-        
-        //cmic_t      CMIC;                           //controllerMultipathIoNamespaceSharingCapabilities;    //byte(s) 76    
-        struct
-        {
-            uint8_t     cmicMultiSubsystemPort                      : 1;    //bit  0
-            uint8_t     cmicMultiHost                               : 1;    //bit  1
-            uint8_t     cmicSriov                                   : 1;    //bit  2
-            uint8_t     cmicAsymmetricNamespaceAccess               : 1;    //bit  3
-            uint8_t     reserved                                    : 4;    //bits 4-7
-        }CMIC;
-        
+        uint32_t    IEEE                    :24;    //ieeeOuiIdentifier:24;                                 //byte(s) 73-75        
+        cmic_t      CMIC;                           //controllerMultipathIoNamespaceSharingCapabilities;    //byte(s) 76        
         uint32_t    MDTS                    :8;     //maximumDataTransferSize;                              //byte(s) 77    
         uint32_t    CNTLID                  :16;    //controllerId;                                         //byte(s) 78-79        
         uint32_t    VER;                            //nvmeVersion;                                          //byte(s) 80-83    
@@ -795,10 +786,12 @@ typedef union __attribute__((packed, aligned (4))) identifyController_t
         uint32_t    CRDT3                   :16;    //commandRetryDelayTimer3;                              //byte(s) 132-133
         uint8_t     section1Reserved1[106];         //reserved                                              //byte(s) 134-239
         uint8_t     managementInterface[16];        //managementInterface[16];                              //byte(s) 240-255
+
         //----------------------------------------------------------------------------
         //Section 2 - Admin Command Set Attributes
         //bytes 256-511 (256 bytes)
         //----------------------------------------------------------------------------
+
         oacs_t      OACS;                           //optionalAdminCommandSupport;                          //byte(s) 256-257     
         uint32_t    ACL                     :8;     //abortCommandLimit;                                    //byte(s) 258    
         uint32_t    AERL                    :8;     //asynchronousEventRequestLimit;                        //byte(s) 259    
@@ -834,10 +827,12 @@ typedef union __attribute__((packed, aligned (4))) identifyController_t
         uint32_t    NANAGRPID;                      //numberOfAnaGroupIdentifiers;                          //byte(s) 348-351
         uint32_t    PELS;                           //persistentEventLogSize;                               //byte(s) 352-355
         uint8_t     section2Reserved0[156];         //reserved                                              //byte(s) 356-511
+
         //----------------------------------------------------------------------------
         //Section 3 - NVM Command Set Attributes
         //bytes 512-703 (192 bytes)
         //----------------------------------------------------------------------------    
+
         sqes_t      SQES;                           //submissionQueueEntrySize;                             //byte(s) 512
         cqes_t      CQES;                           //completionQueueEntrySize;                             //byte(s) 513    
         uint32_t    MAXCMD                  :16;    //maximumOutstandingCommands;                           //byte(s) 514-515
@@ -858,17 +853,21 @@ typedef union __attribute__((packed, aligned (4))) identifyController_t
         uint8_t     SUBNQN[256];                    //nvmSubsystemNvmeQualifiedName[256];                   //byte(s) 768-1023
         uint8_t     section3Reserved2[768];         //reserved                                              //byte(s) 1024-1791
         uint8_t     section3Reserved3[256];         //nvmeOverFabricsReserved[256];                         //byte(s) 1792-2047
+
         //----------------------------------------------------------------------------
         //Section 4 - Power State Descriptors
         //bytes 2048-3071 (1024 bytes)
         //bytes 2048-2079 power state 0 descriptor is mandatory with up to 31 additional optional power state descriptors at 32 bytes each for a total of 1024 bytes
         //bytes 2080-3071 power state 1-31 descriptors are optional
         //----------------------------------------------------------------------------
+        
         psd_t       PSD[32];                        //powerStateDescriptor[32];                             //byte(s) 2048-3071
+        
         //----------------------------------------------------------------------------
         //Section 5 - Vendor specific
         //bytes 3072-4095 (1024 bytes)
         //----------------------------------------------------------------------------
+        
         uint8_t     vendorSpecific[1024];                                                                   //byte(s) 3072-4095    
     };
         
