@@ -753,6 +753,7 @@ static_assert(sizeof(psd_t) == 32, "psd_t size is not 32 bytes");
 
 typedef union __attribute__((packed, aligned (4))) identifyController_t
 {
+    uint32_t dword[1024];
     struct
     {
         //----------------------------------------------------------------------------
@@ -860,7 +861,7 @@ typedef union __attribute__((packed, aligned (4))) identifyController_t
         uint8_t     vendorSpecific[1024];                                                                   //byte(s) 3072-4095    
     };
     
-    uint32_t    all[1024];
+    
 }identifyController_t;
 static_assert(sizeof(identifyController_t) == 4096, "identifyController_t size is not 4096 bytes");
 
@@ -1039,6 +1040,7 @@ static_assert(sizeof(lbaFormat_t) == 4, "lbaFormat_t size is not 4 bytes");
 
 typedef union __attribute__((packed, aligned (4))) identifyNamespace_t
 {
+    uint32_t dword[1024];
     struct
     {    
         uint64_t    NSZE;                           //namespaceSize;                                //byte(s) 0-7     (host specified)
@@ -1080,7 +1082,7 @@ typedef union __attribute__((packed, aligned (4))) identifyNamespace_t
         uint8_t     vendorSpecific[3712];                                                           //byte(s) 384-4095
     };
     
-    uint32_t all[1024];
+    
 }identifyNamespace_t;
 static_assert(sizeof(identifyNamespace_t) == 4096, "identifyNamespace_t size is not 4096 bytes");
 
@@ -1313,7 +1315,6 @@ typedef union __attribute__((packed, aligned (4))) nvmeCommand_t
                 uint32_t sglSubType     :4;
                 uint32_t sglType        :4;
             }lastSegment;
-
 
             struct
             {
