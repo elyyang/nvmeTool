@@ -282,8 +282,7 @@ void mmio_c::setSqTail(uint32_t queueNumber, uint16_t value)
 
     submissionQueue.SQT = value;
     uint32_t offset = SQT_CQH_BASE_OFFSET + ((queueNumber * 2) * (4 << doorbellStride));    
-    
-    //memcpy( (void*)((uint64_t)pfBar0Address+offset), &submissionQueue, sizeof(sqtdbl_t));    
+
     *(sqtdbl_t*)((uint64_t)pfBar0Address+offset) = submissionQueue;
 }
 
@@ -298,12 +297,10 @@ void mmio_c::setCqHead(uint32_t queueNumber, uint16_t value)
 
     completionQueue.CQH = value;
     uint32_t offset = SQT_CQH_BASE_OFFSET + (((queueNumber * 2) + 1) * (4 << doorbellStride));
-    
-    //memcpy( (void*)((uint64_t)pfBar0Address+offset), &completionQueue, sizeof(cqhdbl_t));
+
     *(cqhdbl_t*)((uint64_t)pfBar0Address+offset) = completionQueue;
 }
 
-//Note: the host should NOT be reading SQTDBL - this API is implemented for testing purposes
 uint16_t mmio_c::getSqTail(uint32_t queueNumber)
 {
     cap_t capShadow;    
@@ -317,7 +314,7 @@ uint16_t mmio_c::getSqTail(uint32_t queueNumber)
     
     return submissionQueue.SQT;        
 }
-//Note: the host should NOT be reading CQHDBL - this API is implemented for testing purposes
+
 uint16_t mmio_c::getCqHead(uint32_t queueNumber)
 {
     cap_t capShadow;    
