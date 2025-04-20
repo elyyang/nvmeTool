@@ -13,7 +13,7 @@ udma_c::udma_c(void)
     char fdIdx[BYTES_TO_READ];    
     char fdPath[BYTES_TO_READ];
     
-    for(int idx=0; idx<UDMA_BUFFER_COUNT; idx++)
+    for(uint32_t idx=0; idx<UDMA_BUFFER_COUNT; idx++)
     {
         sprintf(fdIdx, "%d", idx);
      
@@ -45,7 +45,7 @@ udma_c::~udma_c(void)
 {   
     NVME_DBG_PRINTF(info, "clean-up udma_c!");    
 
-    for(int idx=0; idx<UDMA_BUFFER_COUNT; idx++)
+    for(uint32_t idx=0; idx<UDMA_BUFFER_COUNT; idx++)
     {
         close(udmaBuffer_fd[idx]);
         close(udmaBufferPhysicalAddress_fd[idx]);        

@@ -52,9 +52,12 @@ class mmio_c
         pmrsts_t    getPersistentMemoryRegionStatus(void);
         pmrebs_t    getPersistentMemoryRegionElasticityBufferSize(void);
         pmrswtp_t   getPersistentMemorySustainedWriteThroughput(void);
-        pmrmsc_t    getPersistentMemoryRegionControllerMemorySpaceControl(void);
+        pmrmscl_t   getPersistentMemoryRegionControllerMemorySpaceControlLower(void);
+        pmrmscu_t   getPersistentMemoryRegionControllerMemorySpaceControlUpper(void);
 
         void setControllerConfiguration(cc_t config);
+
+
         void setAdminQueueAttributes(uint16_t asqSize, uint16_t acqSize);
         void setAdminCompletionQueueBaseAddress(uint64_t address);
         void setAdminSubmissionQueueBaseAddress(uint64_t address);

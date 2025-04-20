@@ -6,38 +6,44 @@
 // 64B
 //==============================================================================
 
-#define CONTROLLER_REG_CAP_OFFSET                   0x00
-#define CONTROLLER_REG_VS_OFFSET                    0x08
-#define CONTROLLER_REG_INTMS_OFFSET  	            0x0C
-#define CONTROLLER_REG_INTMC_OFFSET  	            0x10
-#define CONTROLLER_REG_CC_OFFSET		            0x14
-#define CONTROLLER_REG_CSTS_OFFSET		            0x1C
-#define CONTROLLER_REG_NSSR_OFFSET                  0x20
-#define CONTROLLER_REG_AQA_OFFSET		            0x24 						
-#define CONTROLLER_REG_ASQ_OFFSET                   0x28 	
-#define CONTROLLER_REG_ACQ_OFFSET                   0x30
-#define CONTROLLER_REG_CMBLOC_OFFSET                0x38
-#define CONTROLLER_REG_CMBSZ_OFFSET                 0x3C
-#define CONTROLLER_REG_BPINFO_OFFSET                0x40
-#define CONTROLLER_REG_BPRSEL_OFFSET                0x44
-#define CONTROLLER_REG_BPMBL_OFFSET                 0x48
-#define CONTROLLER_REG_CMBMSC_OFFSET                0x50
-#define CONTROLLER_REG_CMBSTS_OFFSET                0x58
+#define CONTROLLER_REG_CAP_OFFSET                   (0x00)
+#define CONTROLLER_REG_VS_OFFSET                    (0x08)
+#define CONTROLLER_REG_INTMS_OFFSET                 (0x0C)
+#define CONTROLLER_REG_INTMC_OFFSET                 (0x10)
+#define CONTROLLER_REG_CC_OFFSET                    (0x14)
+#define CONTROLLER_REG_CSTS_OFFSET                  (0x1C)
+#define CONTROLLER_REG_NSSR_OFFSET                  (0x20)
+#define CONTROLLER_REG_AQA_OFFSET                   (0x24) 						
+#define CONTROLLER_REG_ASQ_OFFSET                   (0x28) 	
+#define CONTROLLER_REG_ACQ_OFFSET                   (0x30)
+#define CONTROLLER_REG_CMBLOC_OFFSET                (0x38)
+#define CONTROLLER_REG_CMBSZ_OFFSET                 (0x3C)
+#define CONTROLLER_REG_BPINFO_OFFSET                (0x40)
+#define CONTROLLER_REG_BPRSEL_OFFSET                (0x44)
+#define CONTROLLER_REG_BPMBL_OFFSET                 (0x48)
+#define CONTROLLER_REG_CMBMSC_OFFSET                (0x50)
+#define CONTROLLER_REG_CMBSTS_OFFSET                (0x58)
 
-#define CONTROLLER_REG_PMRCAP_OFFSET                0xE00
-#define CONTROLLER_REG_PMRCTL_OFFSET                0xE04
-#define CONTROLLER_REG_PMRSTS_OFFSET                0xE08
-#define CONTROLLER_REG_PMREBS_OFFSET                0xE0C
-#define CONTROLLER_REG_PMRSWTP_OFFSET               0xE10
-#define CONTROLLER_REG_PMRMSC_OFFSET                0xE14
+#define CONTROLLER_REG_PMRCAP_OFFSET                (0xE00)
+#define CONTROLLER_REG_PMRCTL_OFFSET                (0xE04)
+#define CONTROLLER_REG_PMRSTS_OFFSET                (0xE08)
+#define CONTROLLER_REG_PMREBS_OFFSET                (0xE0C)
+#define CONTROLLER_REG_PMRSWTP_OFFSET               (0xE10)
+#define CONTROLLER_REG_PMRMSCL_OFFSET               (0xE14)
+#define CONTROLLER_REG_PMRMSCU_OFFSET               (0xE18)
 
 //==============================================================================
 // SQ Tail & CQ Head doorbell
 // 1088B (136 x 8B)
 //==============================================================================
 
-#define SQT_CQH_BASE_OFFSET                         0x1000
-#define MSIX_BASE_OFFSET                            0x2000
+#define SQT_CQH_BASE_OFFSET                         (0x1000)
+
+//==============================================================================
+// MSIX
+//==============================================================================
+
+#define MSIX_BASE_OFFSET                            (0x2000)
 
 //==============================================================================
 // NVMe Admin Commands

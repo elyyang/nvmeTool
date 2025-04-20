@@ -317,19 +317,26 @@ typedef union __attribute__((packed, aligned (4)))  pmrswtp_t
 }pmrswtp_t;
 static_assert(sizeof(pmrswtp_t) == 4, "pmrswtp_t size is not 4 byte");
 
-typedef union __attribute__((packed, aligned (4)))  pmrmsc_t 
+typedef union __attribute__((packed, aligned (4)))  pmrmscl_t 
 {
     struct
     {
         uint32_t    rsvd0   :1;
         uint32_t    CMSE    :1;
         uint32_t    rsvd1   :10;
-        uint64_t    CBA     :52;
+        uint32_t    CBA     :20;
     };
 
-    uint64_t all;
-}pmrmsc_t;
-static_assert(sizeof(pmrmsc_t) == 8, "pmrmsc_t size is not 8 byte");
+    uint32_t all;
+}pmrmscl_t;
+static_assert(sizeof(pmrmscl_t) == 4, "pmrmscl_t size is not 4 byte");
+
+typedef union __attribute__((packed, aligned (4)))  pmrmscu_t 
+{
+    uint32_t CBA;
+    uint32_t all;
+}pmrmscu_t;
+static_assert(sizeof(pmrmscu_t) == 4, "pmrmscu_t size is not 4 byte");
 
 //-------------------------------------------------
 // NVME 1.4 - sq tail

@@ -10,8 +10,7 @@
 
 //=========================================================================
 
-#define UDMA_BUFFER_SIZE    0x400000
-#define UDMA_BUFFER_COUNT   8
+
 
 class udma_c
 {
@@ -19,6 +18,10 @@ class udma_c
 
         udma_c();        
         ~udma_c();
+
+        static const uint32_t UDMA_BUFFER_SIZE  = 0x400000;
+        static const uint32_t UDMA_BUFFER_COUNT = 8;
+
         int udmaBuffer_fd[UDMA_BUFFER_COUNT];
         int udmaBufferPhysicalAddress_fd[UDMA_BUFFER_COUNT];        
         void* bufferAddress[UDMA_BUFFER_COUNT];

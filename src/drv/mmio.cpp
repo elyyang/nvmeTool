@@ -40,232 +40,169 @@ uint64_t mmio_c::getBar0Address(void)
 
 cap_t mmio_c::getControllerCapabilities(void)
 {
-    cap_t shadow;
-    memset(&shadow, 0, sizeof(cap_t)); 
-    
+    cap_t shadow = {};
     shadow = *(cap_t*)((uint64_t)pfBar0Address+CONTROLLER_REG_CAP_OFFSET); 
-    
     return shadow;    
 }
 
 vs_t mmio_c::getVersion(void)
 {
-    vs_t shadow;
-    memset(&shadow, 0, sizeof(vs_t)); 
-    
+    vs_t shadow = {};
     shadow = *(vs_t*)((uint64_t)pfBar0Address+CONTROLLER_REG_VS_OFFSET); 
-    
     return shadow;        
 }
 
 intms_t mmio_c::getInterruptMaskSet(void)
 {
-    intms_t shadow;
-    memset(&shadow, 0, sizeof(intms_t)); 
-    
+    intms_t shadow = {};
     shadow = *(intms_t*)((uint64_t)pfBar0Address+CONTROLLER_REG_INTMS_OFFSET); 
-    
     return shadow;     
 }
 
 intmc_t mmio_c::getInterruptMaskClear(void)
 {
-    intmc_t shadow;
-    memset(&shadow, 0, sizeof(intmc_t)); 
-    
+    intmc_t shadow = {};
     shadow = *(intmc_t*)((uint64_t)pfBar0Address+CONTROLLER_REG_INTMC_OFFSET); 
-    
     return shadow;         
 }
 
 cc_t mmio_c::getControllerConfiguration(void)
 {
-    cc_t shadow;
-    memset(&shadow, 0, sizeof(cc_t)); 
-    
+    cc_t shadow = {};
     shadow = *(cc_t*)((uint64_t)pfBar0Address+CONTROLLER_REG_CC_OFFSET); 
-    
     return shadow;        
 }
 
 csts_t mmio_c::getControllerStatus(void)
 {
-    csts_t shadow;
-    memset(&shadow, 0, sizeof(csts_t)); 
-    
+    csts_t shadow = {};
     shadow = *(csts_t*)((uint64_t)pfBar0Address+CONTROLLER_REG_CSTS_OFFSET); 
-    
     return shadow;          
 }
 
 nssr_t mmio_c::getNvmSubsystemReset(void)
 {
-    nssr_t shadow;
-    memset(&shadow, 0, sizeof(nssr_t)); 
-    
+    nssr_t shadow = {};
     shadow = *(nssr_t*)((uint64_t)pfBar0Address+CONTROLLER_REG_NSSR_OFFSET); 
-   
     return shadow;
 }
 
 aqa_t mmio_c::getAdminQueueAttributes(void)
 {
-    aqa_t shadow;
-    memset(&shadow, 0, sizeof(aqa_t)); 
-    
+    aqa_t shadow = {};
     shadow = *(aqa_t*)((uint64_t)pfBar0Address+CONTROLLER_REG_AQA_OFFSET); 
-    
     return shadow;
 }
 
 asq_t mmio_c::getAdminSubmissionQueueBaseAddress(void)
 {
-    asq_t shadow;
-    memset(&shadow, 0, sizeof(asq_t)); 
-
+    asq_t shadow = {};
     shadow = *(asq_t*)((uint64_t)pfBar0Address+CONTROLLER_REG_ASQ_OFFSET); 
-    
     return shadow;
 }
 
 acq_t mmio_c::getAdminCompletionQueueBaseAddress(void)
 {
-    acq_t shadow;
-    memset(&shadow, 0, sizeof(acq_t)); 
-    
+    acq_t shadow = {};
     shadow = *(acq_t*)((uint64_t)pfBar0Address+CONTROLLER_REG_ACQ_OFFSET); 
-    
     return shadow;
 }
 
 cmbloc_t mmio_c::getControllerMemoryBufferLocation(void)
 {
-    cmbloc_t shadow;
-    memset(&shadow, 0, sizeof(cmbloc_t)); 
-    
+    cmbloc_t shadow = {};
     shadow = *(cmbloc_t*)((uint64_t)pfBar0Address+CONTROLLER_REG_CMBLOC_OFFSET); 
-    
     return shadow;    
 }
 
 cmbsz_t mmio_c::getControllerMemoryBufferSize(void)
 {
-    cmbsz_t shadow;
-    memset(&shadow, 0, sizeof(cmbsz_t)); 
-    
+    cmbsz_t shadow = {};
     shadow = *(cmbsz_t*)((uint64_t)pfBar0Address+CONTROLLER_REG_CMBSZ_OFFSET); 
-    
     return shadow;      
 }
 
 bpinfo_t mmio_c::getBootParitionInformation(void)
 {
-    bpinfo_t shadow;
-    memset(&shadow, 0, sizeof(bpinfo_t)); 
-    
+    bpinfo_t shadow = {};
     shadow = *(bpinfo_t*)((uint64_t)pfBar0Address+CONTROLLER_REG_BPINFO_OFFSET); 
-    
     return shadow;     
 }
 
 bprsel_t mmio_c::getBootParitionReadSelect(void)
 {
-    bprsel_t shadow;
-    memset(&shadow, 0, sizeof(bprsel_t)); 
-    
+    bprsel_t shadow = {};
     shadow = *(bprsel_t*)((uint64_t)pfBar0Address+CONTROLLER_REG_BPRSEL_OFFSET); 
-    
     return shadow;      
 }
 
 bpmbl_t mmio_c::getBootParitionMemoryBufferLocation(void)
 {
-    bpmbl_t shadow;
-    memset(&shadow, 0, sizeof(bpmbl_t)); 
-    
+    bpmbl_t shadow = {};
     shadow = *(bpmbl_t*)((uint64_t)pfBar0Address+CONTROLLER_REG_BPMBL_OFFSET); 
-    
     return shadow;      
 }
 
 cmbmsc_t mmio_c::getControllerMemoryBufferMemorySpaceControl(void)
 {
-    cmbmsc_t shadow;
-    memset(&shadow, 0, sizeof(cmbmsc_t)); 
-    
+    cmbmsc_t shadow = {};
     shadow = *(cmbmsc_t*)((uint64_t)pfBar0Address+CONTROLLER_REG_CMBMSC_OFFSET); 
-    
     return shadow;    
 }
 
 cmbsts_t mmio_c::getControllerMemoryBufferStatus(void)
 {
-    cmbsts_t shadow;
-    memset(&shadow, 0, sizeof(cmbsts_t)); 
-    
+    cmbsts_t shadow = {};
     shadow = *(cmbsts_t*)((uint64_t)pfBar0Address+CONTROLLER_REG_CMBSTS_OFFSET); 
-    
     return shadow;     
 }
 
-
 pmrcap_t mmio_c::getPersistentMemoryCapabilities(void)
 {
-    pmrcap_t shadow;
-    memset(&shadow, 0, sizeof(pmrcap_t)); 
-    
+    pmrcap_t shadow = {};
     shadow = *(pmrcap_t*)((uint64_t)pfBar0Address+CONTROLLER_REG_PMRCAP_OFFSET); 
-    
     return shadow;     
 }
 
 pmrctl_t mmio_c::getPersistentMemoryRegionControl(void)
 {
-    pmrctl_t shadow;
-    memset(&shadow, 0, sizeof(pmrctl_t)); 
-    
+    pmrctl_t shadow = {};
     shadow = *(pmrctl_t*)((uint64_t)pfBar0Address+CONTROLLER_REG_PMRCTL_OFFSET); 
-    
     return shadow;      
 }
 
 pmrsts_t mmio_c::getPersistentMemoryRegionStatus(void)
 {
-    pmrsts_t shadow;
-    memset(&shadow, 0, sizeof(pmrsts_t)); 
-    
+    pmrsts_t shadow = {};
     shadow = *(pmrsts_t*)((uint64_t)pfBar0Address+CONTROLLER_REG_PMRSTS_OFFSET); 
-    
     return shadow;     
 }
 
 pmrebs_t mmio_c::getPersistentMemoryRegionElasticityBufferSize(void)
 {
-    pmrebs_t shadow;
-    memset(&shadow, 0, sizeof(pmrebs_t)); 
-    
+    pmrebs_t shadow = {};
     shadow = *(pmrebs_t*)((uint64_t)pfBar0Address+CONTROLLER_REG_PMREBS_OFFSET);
-    
     return shadow;      
 }
 
 pmrswtp_t mmio_c::getPersistentMemorySustainedWriteThroughput(void)
 {
-    pmrswtp_t shadow;
-    memset(&shadow, 0, sizeof(pmrswtp_t)); 
-    
+    pmrswtp_t shadow = {};
     shadow = *(pmrswtp_t*)((uint64_t)pfBar0Address+CONTROLLER_REG_PMRSWTP_OFFSET); 
-    
     return shadow;       
 }
 
-pmrmsc_t mmio_c::getPersistentMemoryRegionControllerMemorySpaceControl(void)
+pmrmscl_t mmio_c::getPersistentMemoryRegionControllerMemorySpaceControlLower(void)
 {
-    pmrmsc_t shadow;
-    memset(&shadow, 0, sizeof(pmrmsc_t)); 
-    
-    shadow = *(pmrmsc_t*)((uint64_t)pfBar0Address+CONTROLLER_REG_PMRMSC_OFFSET); 
-    
+    pmrmscl_t shadow = {};
+    shadow = *(pmrmscl_t*)((uint64_t)pfBar0Address+CONTROLLER_REG_PMRMSCL_OFFSET); 
+    return shadow;      
+}
+
+pmrmscu_t mmio_c::getPersistentMemoryRegionControllerMemorySpaceControlUpper(void)
+{
+    pmrmscu_t shadow = {};
+    shadow = *(pmrmscu_t*)((uint64_t)pfBar0Address+CONTROLLER_REG_PMRMSCU_OFFSET); 
     return shadow;      
 }
 

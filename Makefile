@@ -27,7 +27,8 @@ TEST_DIRS = $(foreach index, $(TEST_NAME), $(addprefix $(TEST_ROOT)/, $(index)))
 BUILD_DIR = $(PROJECT_ROOT)/build
 
 #includes
-INCLUDES = $(foreach index, $(SOURCE_DIRS), $(addprefix -I , $(index)/include))
+INCLUDES =  $(addprefix -I , $(SOURCE_ROOT)/include)
+INCLUDES += $(foreach index, $(SOURCE_DIRS), $(addprefix -I , $(index)/include))
 INCLUDES += $(foreach index, $(TEST_DIRS), $(addprefix -I , $(index)/include))
 INCLUDES += $(foreach index, $(UTIL_DIRS), $(addprefix -I , $(index)/include))
 
