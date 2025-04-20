@@ -8,8 +8,6 @@
 #define ENABLE_DEBUG_MSG    (1)
 #endif
 
-#if ENABLE_DEBUG_MSG
-
 #ifndef DEBUG_INFO_LEVELS
 #define DEBUG_INFO_LEVELS   (1)
 #endif
@@ -22,6 +20,7 @@
 #define DEBUG_OUTPUT_METHOD (1)
 #endif
 
+#if ENABLE_DEBUG_MSG
 /*
 DEBUG_OUTPUT_METHOD
 1 - standard printf
@@ -61,13 +60,13 @@ DEBUG_SENSITIVITY
 default - dont print any message
 */
 #if (DEBUG_SENSITIVITY==1)
-#define DEBUG_PRINTF(tag, msg, ...)    if(tag==2)                   {_formatMsg(tag, msg, ##__VA_ARGS__)}
+#define NVME_DBG_PRINTF(tag, msg, ...)    if(tag==2)                   {_formatMsg(tag, msg, ##__VA_ARGS__)}
 #elif (DEBUG_SENSITIVITY==2)
-#define DEBUG_PRINTF(tag, msg, ...)    if(tag==1||tag==2)           {_formatMsg(tag, msg, ##__VA_ARGS__)}
+#define NVME_DBG_PRINTF(tag, msg, ...)    if(tag==1||tag==2)           {_formatMsg(tag, msg, ##__VA_ARGS__)}
 #elif (DEBUG_SENSITIVITY==3)
-#define DEBUG_PRINTF(tag, msg, ...)    if(tag==0||tag==1||tag==2)   {_formatMsg(tag, msg, ##__VA_ARGS__)}
+#define NVME_DBG_PRINTF(tag, msg, ...)    if(tag==0||tag==1||tag==2)   {_formatMsg(tag, msg, ##__VA_ARGS__)}
 #else
-#define DEBUG_PRINTF(tag, msg, ...)    
+#define NVME_DBG_PRINTF(tag, msg, ...)    
 #endif
 
 //Helpers
@@ -84,6 +83,6 @@ enum msgTag_e {
 
 #else   //ENABLE_DEBUG_MSG
 
-#define DEBUG_PRINTF(tag, msg, ...) 
+#define NVME_DBG_PRINTF(tag, msg, ...) 
 
 #endif  //ENABLE_DEBUG_MSG

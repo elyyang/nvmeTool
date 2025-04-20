@@ -7,7 +7,7 @@
 
 udma_c::udma_c(void)
 {    
-    DEBUG_PRINTF(info, "initialize udma_c!");
+    NVME_DBG_PRINTF(info, "initialize udma_c!");
     
     #define BYTES_TO_READ 64    
     char fdIdx[BYTES_TO_READ];    
@@ -43,7 +43,7 @@ udma_c::udma_c(void)
 
 udma_c::~udma_c(void)
 {   
-    DEBUG_PRINTF(info, "clean-up udma_c!");    
+    NVME_DBG_PRINTF(info, "clean-up udma_c!");    
 
     for(int idx=0; idx<UDMA_BUFFER_COUNT; idx++)
     {

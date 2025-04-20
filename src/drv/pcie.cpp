@@ -7,14 +7,14 @@
 
 pcie_c::pcie_c(void)
 {
-    DEBUG_PRINTF(info, "initialize pcie_c!");
+    NVME_DBG_PRINTF(info, "initialize pcie_c!");
     uio_config_fd = open("/sys/class/uio/uio0/device/config", O_RDWR | O_SYNC);    
     NVME_DBG_ASSERT((uio_config_fd>0), "uio_config_fd failed to open!")
 }
 
 pcie_c::~pcie_c(void)
 {    
-    DEBUG_PRINTF(info, "clean-up pcie_c!");    
+    NVME_DBG_PRINTF(info, "clean-up pcie_c!");    
     close(uio_config_fd);    
 }
 

@@ -5,6 +5,7 @@
 #include "mmio.h"
 #include "udma.h"
 #include "pcie.h"
+#include "debugPrint.h"
 
 int main(void)
 {
