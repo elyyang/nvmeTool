@@ -4,20 +4,21 @@
 #include <stdio.h>
 #include <stdarg.h>
 
+// user defined assert options
+
 #ifndef ENABLE_NVME_DBG_ASSERT
-#define ENABLE_NVME_DBG_ASSERT           (1)
+#define ENABLE_NVME_DBG_ASSERT              (1)
 #endif
 
-#if ENABLE_NVME_DBG_ASSERT
-
-// user defined assert options
 #ifndef NVME_DBG_ASSERT_NOTIFICATION_OPTION
-#define NVME_DBG_ASSERT_NOTIFICATION_OPTION  (1)
+#define NVME_DBG_ASSERT_NOTIFICATION_OPTION (1)
 #endif
 
 #ifndef NVME_DBG_ASSERT_ACTION_OPTION
-#define NVME_DBG_ASSERT_ACTION_OPTION        (3)
+#define NVME_DBG_ASSERT_ACTION_OPTION       (2)
 #endif
+
+#if ENABLE_NVME_DBG_ASSERT
 
 #define NVME_DBG_ASSERT(condition, message)                              _assert_condition((!condition), message)
 #define NVME_DBG_ASSERT_IF_TRUE(condition, message)                      _assert_condition((condition), message)
@@ -67,7 +68,7 @@ default no action
 #if(NVME_DBG_ASSERT_ACTION_OPTION==1)
 #define _assert_action                      while(1);
 #elif(NVME_DBG_ASSERT_ACTION_OPTION==2)
-#define _assert_action                      exit(1);
+#define _assert_action                      _exit(1);
 #else
 #define _assert_action                      
 #endif
