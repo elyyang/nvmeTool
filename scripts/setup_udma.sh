@@ -2,12 +2,13 @@
 
 ########################################################################################################################
 
+rootdir=$(readlink -f $(dirname $0))/
 repoURL=https://github.com/ikwzm/udmabuf.git
 cloneDir="./submodule/udmabuf"
 module=u-dma-buf.ko
 module_name=u_dma_buf
 defineKeyWord="UDMA_BUFFER_SIZE"
-definePath="../src/drv/include/udma.h"
+definePath="$rootdir../src/drv/include/udma.h"
 
 ########################################################################################################################
 
