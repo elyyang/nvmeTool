@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-rootdir=$(readlink -f $(dirname $0))/..
+rootdir=$(readlink -f $(dirname $0))/
 
 ###########################################################################
 # from common.sh...
@@ -184,7 +184,7 @@ function collect_devices()
 				drivers_d["$bdf"]=${driver##*/}
 			fi
 		done	    
-    done < <(grep -E "$ids" "./pci_ids.txt")
+    done < <(grep -E "$ids" "$rootdir/pci_ids.txt")
 }
 
 function collect_driver() 
@@ -265,7 +265,7 @@ fi
 
 collect_devices "$mode"
 
-if [ "$mode" == "config" ]; then        
+if [ "$mode" == "config" ]; then	
     configure_linux_pci
 elif [ "$mode" == "reset" ]; then
     reset_linux_pci    
