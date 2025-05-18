@@ -20,6 +20,10 @@ function get_buffer_size
         bufferSize=$VAL       
     done < <(grep -E $defineBufferSizeKeyWord $definePath)
 
+    if [[ -z $bufferSize ]]; then
+        bufferSize=0x100000
+    fi
+
     echo "buffer size: " $bufferSize    
 }
 
@@ -30,7 +34,11 @@ function get_buffer_count
         bufferCount=$VAL       
     done < <(grep -E $defineBufferCountKeyWord $definePath)
 
-    echo "buffer count: " $bufferCount    
+    if [[ -z $bufferCount ]]; then
+        bufferCount=1
+    fi
+
+    echo "buffer count: " $bufferCount
 }
 
 ########################################################################################################################
@@ -54,14 +62,10 @@ if ( lsmod | grep -E "$module_name" > /dev/null 2>&1 ); then
 else    
     echo "installing udma module...."
 
-    if [[ -z $bufferSize ]]; then
-        bufferSize=0x400000
-    fi
+    insmodCmd="sudo insmod $module "
 
-    insmodCmd="sudo insmod $module"
-
-    for bufferIndex in $(seq 0 $bufferCount); do
-        insmodCmd+=" udmabuf"${bufferIndex}=$bufferSize
+    for bufferIndex in $(seq 0 $((bufferCount - 1))); do
+        insmodCmd+=" udmabuf"${bufferIndex}=$bufferSize" "
     done
 
     insmodCmdRun=$($insmodCmd 2>&1)
