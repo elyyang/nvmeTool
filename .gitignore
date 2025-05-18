@@ -1,4 +1,3 @@
 build/*
 build/nvmeTool
-scripts/submodule
-/submodule
+scripts/subrepo

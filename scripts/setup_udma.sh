@@ -4,7 +4,7 @@
 
 rootdir=$(readlink -f $(dirname $0))/
 repoURL=https://github.com/ikwzm/udmabuf.git
-cloneDir="$rootdir/submodule/udmabuf"
+cloneDir="$rootdir/subrepo/udmabuf"
 module=u-dma-buf.ko
 module_name=u_dma_buf
 defineBufferSizeKeyWord="DEFAULT_UDMA_BUFFER_SIZE"
