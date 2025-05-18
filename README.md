@@ -5,6 +5,8 @@
 ### bind uio driver to nvme device
 
   $ sudo ./scripts/setup.sh 
+  or
+  $ sudo ./scripts/setup.sh config
 
 ### setup udma driver
 

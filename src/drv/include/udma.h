@@ -8,9 +8,7 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 
-//=========================================================================
-
-
+#include "udmaDefines.h"
 
 class udma_c
 {
@@ -19,8 +17,8 @@ class udma_c
         udma_c();        
         ~udma_c();
 
-        static const uint32_t UDMA_BUFFER_SIZE  = 0x400000;
-        static const uint32_t UDMA_BUFFER_COUNT = 8;
+        static const uint32_t UDMA_BUFFER_SIZE = DEFAULT_UDMA_BUFFER_SIZE;
+        static const uint32_t UDMA_BUFFER_COUNT = DEFAULT_UDMA_BUFFER_COUNT;        
 
         int udmaBuffer_fd[UDMA_BUFFER_COUNT];
         int udmaBufferPhysicalAddress_fd[UDMA_BUFFER_COUNT];        
