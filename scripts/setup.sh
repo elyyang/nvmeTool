@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
 ###########################################################################
+# ELY 2022
+###########################################################################
 
 rootdir=$(readlink -f $(dirname $0))/
 
 ###########################################################################
-# from common.sh...
 
 cache_pci_init() 
 {
@@ -85,8 +86,6 @@ cache_pci_bus()
 
 function check_for_driver() 
 {
-    echo "DEBUG: (check_for_driver() function...)"
-
 	if lsmod | grep -q ${1//-/_}; then
 		return 1
 	fi
@@ -102,8 +101,6 @@ function check_for_driver()
 
 function pci_dev_echo() 
 {
-    echo "DEBUG: (pci_dev_echo() function...)"
-
 	local bdf="$1"
 	shift
 	echo "$bdf (${pci_ids_vendor["$bdf"]#0x} ${pci_ids_device["$bdf"]#0x}): $*"
@@ -111,18 +108,10 @@ function pci_dev_echo()
 
 function linux_bind_driver() 
 {
-    echo "DEBUG: (linux_bind_driver() function...)"
-
 	bdf="$1"
 	driver_name="$2"
 	old_driver_name=${drivers_d["$bdf"]:-no driver}
 	ven_dev_id="${pci_ids_vendor["$bdf"]#0x} ${pci_ids_device["$bdf"]#0x}"
-
-
-    echo "DEBUG: (linux_bind_driver() bdf: $bdf)"
-    echo "DEBUG: (linux_bind_driver() driver_name: $driver_name)"
-    echo "DEBUG: (linux_bind_driver() ven_dev_id: $ven_dev_id)"    
-    
 
 	if [[ $driver_name == "$old_driver_name" ]]; then
 		pci_dev_echo "$bdf" "Already using the $old_driver_name driver"
@@ -142,8 +131,6 @@ function linux_bind_driver()
 
 function linux_unbind_driver() 
 {
-    echo "DEBUG: (linux_unbind_driver() function...)"
-    
 	local bdf="$1"
 	local ven_dev_id
 	ven_dev_id="${pci_ids_vendor["$bdf"]#0x} ${pci_ids_device["$bdf"]#0x}"
@@ -159,9 +146,7 @@ function linux_unbind_driver()
 
 function collect_devices() 
 {
-    echo "DEBUG: (collect_devices() function...)"
 	# NVMe, IOAT, IDXD, VIRTIO, VMD
-
 	local ids dev_type dev_id bdf bdfs in_use driver
 
     ids+="PCI_CLASS_NVME"
@@ -209,8 +194,6 @@ function collect_driver()
 
 function configure_linux_pci() 
 {
-    echo "DEBUG: (configure_linux_pci() function...)"
-    
 	local driver_path=""
 	driver_name=""
 
@@ -240,8 +223,6 @@ function configure_linux_pci()
 
 function reset_linux_pci() 
 {
-    echo "DEBUG: (reset_linux_pci() function...)"
-
 	for bdf in "${!all_devices_d[@]}"; do
 		((all_devices_d["$bdf"] == 0)) || continue
 
