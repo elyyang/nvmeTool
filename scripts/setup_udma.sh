@@ -43,33 +43,53 @@ function get_buffer_count
 
 ########################################################################################################################
 
-get_buffer_size
-get_buffer_count
+mode=$1
 
-if [[ ! -d $cloneDir ]]; then
-    echo "cloning..."
-    git clone $repoURL $cloneDir 2>&1    
+if [ -z "$mode" ]; then
+	mode="config"
 fi
 
-cd $cloneDir
+if [ "$mode" == "config" ]; then	
 
-if [[ ! -e $module ]]; then    
-    make
-fi
+    get_buffer_size
+    get_buffer_count
 
-if ( lsmod | grep -E "$module_name" > /dev/null 2>&1 ); then    
-    echo "udma module available!"
-else    
-    echo "installing udma module...."
+    if ( lsmod | grep -E "$module_name" > /dev/null 2>&1 ); then    
+        echo "udma module available!"
+    else    
+        echo "installing udma module...."
 
-    insmodCmd="sudo insmod $module "
+        if [[ ! -d $cloneDir ]]; then        
+            echo "cloning repo...."        
+            git clone $repoURL $cloneDir 2>&1        
+            cd $cloneDir
+            make all
+        else
+            cd $cloneDir
+            if [[ ! -e $module ]]; then    
+                make all
+            fi
+        fi
 
-    for bufferIndex in $(seq 0 $((bufferCount - 1))); do
-        insmodCmd+=" udmabuf"${bufferIndex}=$bufferSize" "
-    done
+        insmodCmd="sudo insmod $module "
 
-    insmodCmdRun=$($insmodCmd 2>&1)
+        for bufferIndex in $(seq 0 $((bufferCount - 1))); do
+            insmodCmd+=" udmabuf"${bufferIndex}=$bufferSize" "
+        done
 
-    echo -n "running: $insmodCmd"
-    echo "${insmodCmdRun}"
+        echo "running: $insmodCmd"
+        echo $($insmodCmd 2>&1)
+    fi
+
+elif [ "$mode" == "reset" ]; then
+
+    echo "removing udma module...."
+    rmmodCmd="sudo rmmod $module_name"
+    echo "running: $rmmodCmd"
+    echo $($rmmodCmd 2>&1)
+
+else
+
+    echo "Invalid argument '$mode'"
+
 fi

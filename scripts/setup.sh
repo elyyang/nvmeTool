@@ -272,5 +272,5 @@ if [ "$mode" == "config" ]; then
 elif [ "$mode" == "reset" ]; then
     reset_linux_pci    
 else
-    "Invalid argument '$mode'"
+    echo "Invalid argument '$mode'"
 fi
