@@ -30,10 +30,8 @@
 
 ### module fail to build
 
-"ERROR: Kernel configuration is invalid. include/generated/autoconf.h or include/config/auto.conf are missing. Run 'make oldconfig && make prepare' on kernel src to fix it."
-
-### solution
+error message: 
+* "ERROR: Kernel configuration is invalid. include/generated/autoconf.h or include/config/auto.conf are missing. Run 'make oldconfig && make prepare' on kernel src to fix it."
 
 re-install linux-headers:
-
-shell$ sudo apt install --reinstall linux-headers-$(uname -r)
+* shell$ sudo apt install --reinstall linux-headers-$(uname -r)
