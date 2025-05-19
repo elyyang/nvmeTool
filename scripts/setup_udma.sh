@@ -61,7 +61,8 @@ if [ "$mode" == "config" ]; then
 
         if [[ ! -d $cloneDir ]]; then        
             echo "cloning repo...."        
-            git clone $repoURL $cloneDir 2>&1        
+            echo "running: git clone $repoURL $cloneDir"
+            echo $(git clone $repoURL $cloneDir 2>&1)        
             cd $cloneDir
             make all
         else
@@ -87,7 +88,7 @@ elif [ "$mode" == "reset" ]; then
     rmmodCmd="sudo rmmod $module_name"
     echo "running: $rmmodCmd"
     echo $($rmmodCmd 2>&1)
-
+    
 else
 
     echo "Invalid argument '$mode'"
