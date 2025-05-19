@@ -35,7 +35,7 @@ udma_c::udma_c(void)
 
         char buffer[BYTES_TO_READ];
 
-        read(udmaBufferPhysicalAddress_fd[idx], buffer, 1024);
+        read(udmaBufferPhysicalAddress_fd[idx], buffer, 64);
         sscanf(buffer, "%p", &bufferPhysicalAddress[idx]);
     }
 
