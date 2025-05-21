@@ -9,7 +9,7 @@
 
 int main(void)
 {
-  mmio_c& mmioDriver = mmio_c::getInstance();
+  mmio_c& mmioDriver = mmio_c::getInstance(0);
   udma_c& udmaDriver = udma_c::getInstance();
   pcie_c& pcieDriver = pcie_c::getInstance();
 

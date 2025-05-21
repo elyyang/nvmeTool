@@ -5,11 +5,24 @@
 
 //=========================================================================
 
-mmio_c::mmio_c(void)
-{    
+mmio_c::mmio_c(int id)
+{
+    #define BYTES_TO_READ 64    
+    char fdPath[BYTES_TO_READ];
+    char fdIdx[BYTES_TO_READ];    
+
+    uioId = id;
+    sprintf(fdIdx, "%d", uioId);
+
     NVME_DBG_PRINTF(info, "initialize mmio_c!");
-    uio_resource0_fd = open("/sys/class/uio/uio0/device/resource0", O_RDWR | O_SYNC);    
+
+    strcpy(fdPath, "/sys/class/uio/uio");
+    strcat(fdPath, fdIdx);
+    strcat(fdPath, "/device/resource0");
+
+    uio_resource0_fd = open(fdPath, O_RDWR | O_SYNC);    
     NVME_DBG_ASSERT((uio_resource0_fd>0), "uio_resource0_fd failed to open!")
+    
     pfBar0Address = mmap(NULL, MMIO_REG_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, uio_resource0_fd, 0);   
     NVME_DBG_ASSERT((pfBar0Address!=MAP_FAILED), "pfBar0Address map failed!")    
 }
@@ -23,9 +36,9 @@ mmio_c::~mmio_c(void)
 
 //=========================================================================
 
-mmio_c& mmio_c::getInstance(void)
+mmio_c& mmio_c::getInstance(int id)
 {
-    static mmio_c mInstance;
+    static mmio_c mInstance(id);
     return mInstance;
 }
 

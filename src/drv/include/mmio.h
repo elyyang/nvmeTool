@@ -15,14 +15,15 @@ class mmio_c
 {
     private:
 
-        mmio_c();
+        mmio_c(int uioId);
         ~mmio_c();
+        int uioId;
         int uio_resource0_fd;        
-        void* pfBar0Address;        
-    
+        void* pfBar0Address;
+
     public:
     
-        static mmio_c& getInstance(void);     
+        static mmio_c& getInstance(int id);     
         uint64_t getBar0Address(void);
         
         //==============================================================================
