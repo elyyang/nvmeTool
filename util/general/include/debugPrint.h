@@ -28,11 +28,11 @@ DEBUG_OUTPUT_METHOD
 default - convert to char array but dont print any message
 */
 #if (DEBUG_OUTPUT_METHOD==1)
-#define _printMsg(...)  printf(__VA_ARGS__);
+#define _printMsg(...)                  printf(__VA_ARGS__);
 #elif (DEBUG_OUTPUT_METHOD==2)
-#define _printMsg(...)  char argString[256]; sprintf(argString, __VA_ARGS__); printf("%s", argString);
+#define _printMsg(...)                  char argString[256]; sprintf(argString, __VA_ARGS__); printf("%s", argString);
 #else
-#define _printMsg(...)  char argString[256]; sprintf(argString, __VA_ARGS__);
+#define _printMsg(...)                  char argString[256]; sprintf(argString, __VA_ARGS__);
 #endif
 
 /*

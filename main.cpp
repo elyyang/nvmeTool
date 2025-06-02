@@ -1,17 +1,25 @@
 
 #include <stdio.h>
 #include <stdint.h>
+ #include <stdlib.h> 
 
 #include "mmio.h"
 #include "udma.h"
 #include "pcie.h"
 #include "debugPrint.h"
+#include "udmaDefines.h"
 
-int main(void)
+int main(int argc, char* argv[])
 {
-  mmio_c& mmioDriver = mmio_c::getInstance(0);
+  int uioId = 0;
+  if((argc>1)&&(argv[1]!=NULL))
+  { 
+    uioId = atoi(argv[1]);
+  }
+
+  mmio_c& mmioDriver = mmio_c::getInstance(uioId);
+  pcie_c& pcieDriver = pcie_c::getInstance(uioId);
   udma_c& udmaDriver = udma_c::getInstance();
-  pcie_c& pcieDriver = pcie_c::getInstance();
 
   printf("Bar0 Address: 0x%lx \n", mmioDriver.getBar0Address());
   

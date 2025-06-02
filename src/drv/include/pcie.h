@@ -15,13 +15,13 @@ class pcie_c
 {
     private:
 
-        pcie_c(void);
+        pcie_c(int id);
         ~pcie_c(void);
         int uio_config_fd;
         
     public:
 
-        static pcie_c& getInstance(void);
+        static pcie_c& getInstance(int id);
 
         pcieConfigurationHeader_t getPcieConfigHeader(void);
         bool isCapabilitiesListPresent(void);                

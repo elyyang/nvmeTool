@@ -5,10 +5,22 @@
 
 //=========================================================================
 
-pcie_c::pcie_c(void)
+pcie_c::pcie_c(int id)
 {
+    #define BYTES_TO_READ 64    
+    char fdPath[BYTES_TO_READ];
+    char fdIdx[BYTES_TO_READ];    
+
+    int uioId = id;
+    sprintf(fdIdx, "%d", uioId);
+
     NVME_DBG_PRINTF(info, "initialize pcie_c!");
-    uio_config_fd = open("/sys/class/uio/uio0/device/config", O_RDWR | O_SYNC);    
+
+    strcpy(fdPath, "/sys/class/uio/uio");
+    strcat(fdPath, fdIdx);
+    strcat(fdPath, "/device/config");
+
+    uio_config_fd = open(fdPath, O_RDWR | O_SYNC);
     NVME_DBG_ASSERT((uio_config_fd>0), "uio_config_fd failed to open!")
 }
 
@@ -20,9 +32,9 @@ pcie_c::~pcie_c(void)
 
 //=========================================================================
 
-pcie_c& pcie_c::getInstance(void)
+pcie_c& pcie_c::getInstance(int id)
 {
-    static pcie_c instance;
+    static pcie_c instance(id);
     return instance;
 }
 

@@ -43,9 +43,11 @@ SOURCES += $(foreach index, $(SOURCE_DIRS), $(wildcard $(index)/*.cpp $(index)/*
 SOURCES += $(foreach index, $(TEST_DIRS), $(wildcard $(index)/*.cpp $(index)/*.c))
 SOURCES += $(foreach index, $(UTIL_DIRS), $(wildcard $(index)/*.cpp $(index)/*.c))
 
+##############################################################################################################
+
 # defines (if any)
-DEFINES =	-D RUN_UNITY_FRAMEWORK=0
-DEFINES += 	-D UNITY_OUTPUT_COLOR
+DEFINES = 	-D ENABLE_DEBUG_MSG=1
+DEFINES +=	-D ENABLE_ASSERT_LIB=1
 
 ##############################################################################################################
 
@@ -53,7 +55,7 @@ DEFINES += 	-D UNITY_OUTPUT_COLOR
 CC = g++
 
 # Compile Flags
-CFLAGS =	-std=c++11 
+CFLAGS =	-std=c++2a
 CFLAGS += 	-Wall
 CFLAGS += 	-Werror
 CFLAGS += 	-Wextra
