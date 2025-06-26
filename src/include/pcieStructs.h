@@ -42,7 +42,7 @@ typedef struct statusReg_t
 static_assert(sizeof(statusReg_t) == 2); //2 Bytes
 
 //-------------------------------------------------
-// PCIe configuration headers (Type 0 header for now...)
+// PCIe configuration headers
 //-------------------------------------------------
 
 typedef struct pcieConfigurationHeader_t
@@ -246,14 +246,17 @@ typedef struct pcieConfigurationHeader_t
             uint32_t interruptLine :8;
             uint32_t interruptPin  :8;
 
+            
             union
             {
+                //type 1 config space header specific
                 uint16_t bridgeControl;                
 
+                //type 0 config space header specific
                 struct
                 {
-                    uint16_t minGnt        :8;
-                    uint16_t maxLat        :8;                    
+                    uint16_t minGnt :8;
+                    uint16_t maxLat :8;                    
                 };
             };
         };
