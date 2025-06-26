@@ -49,7 +49,7 @@ bool pcie_c::isCapabilitiesListPresent(void)
 {
     pcieConfigurationHeader_t configSpace;    
     pread(uio_config_fd, &configSpace, sizeof(pcieConfigurationHeader_t), 0x0);      
-    return configSpace.status.bits.capabilityList;
+    return configSpace.dw1.status.capabilityList;
 }
 
 void pcie_c::setBusMasterEnable(bool bmeStatus)
@@ -96,9 +96,9 @@ void pcie_c::getPcieCapability(void)
     pcieConfigurationHeader_t  configSpace;
     pread(uio_config_fd, &configSpace, sizeof(pcieConfigurationHeader_t), 0x0);    
 
-    if(configSpace.status.bits.capabilityList)
+    if(configSpace.dw1.status.capabilityList)
     {   
-        currentCapPtr = configSpace.capPtr;            
+        currentCapPtr = configSpace.dw13.capPtr;            
 
         while(currentCapPtr != 0x0)
         {            
@@ -399,9 +399,9 @@ capability_msix_t pcie_c::getMsixCapability(void)
     pcieConfigurationHeader_t  configSpace;
     pread(uio_config_fd, &configSpace, sizeof(pcieConfigurationHeader_t), 0x0);    
         
-    if(configSpace.status.bits.capabilityList)
+    if(configSpace.dw1.status.capabilityList)
     {   
-        nextCapPtr = configSpace.capPtr;            
+        nextCapPtr = configSpace.dw13.capPtr;            
 
         while(nextCapPtr != PCIE_EXTCAPID_NULL)
         {
@@ -435,9 +435,9 @@ void pcie_c::enableMsixCapability(void)
     pcieConfigurationHeader_t  configSpace;
     pread(uio_config_fd, &configSpace, sizeof(pcieConfigurationHeader_t), 0x0);    
         
-    if(configSpace.status.bits.capabilityList)
+    if(configSpace.dw1.status.capabilityList)
     {   
-        nextCapPtr = configSpace.capPtr;            
+        nextCapPtr = configSpace.dw13.capPtr;            
 
         while(nextCapPtr != PCIE_EXTCAPID_NULL)
         {
@@ -473,9 +473,9 @@ uint32_t pcie_c::getMsixCapabilityTableSize(void)
     pcieConfigurationHeader_t  configSpace;
     pread(uio_config_fd, &configSpace, sizeof(pcieConfigurationHeader_t), 0x0);    
         
-    if(configSpace.status.bits.capabilityList)
+    if(configSpace.dw1.status.capabilityList)
     {   
-        nextCapPtr = configSpace.capPtr;            
+        nextCapPtr = configSpace.dw13.capPtr;            
 
         while(nextCapPtr != PCIE_EXTCAPID_NULL)
         {

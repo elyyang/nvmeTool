@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
   udmaDriver.getUdmaBufferInformation();
 
   pcieConfigurationHeader_t shadow = pcieDriver.getPcieConfigHeader();  
-  printf("vendor id: %x device id: %x \n", shadow.vendorId, shadow.deviceId);
+  printf("vendor id: %x device id: %x \n", shadow.dw0.vendorId, shadow.dw0.deviceId);
 
   printf("NVMe 2.0 Tool All done! \n");
   return 0;

@@ -6,7 +6,7 @@
 //=========================================================================
 
 //-------------------------------------------------
-// PCIe configure header registers
+// PCIe configure header individual registers
 //-------------------------------------------------
 
 typedef struct commandReg_t
@@ -22,7 +22,7 @@ typedef struct commandReg_t
     uint16_t    interruptDisable    :1;
     uint16_t    reserved3           :5;
 }commandReg_t;
-static_assert(sizeof(commandReg_t) == 2);
+static_assert(sizeof(commandReg_t) == 2); //2 Bytes
 
 typedef struct statusReg_t
 {
@@ -39,7 +39,7 @@ typedef struct statusReg_t
     uint16_t    signaledSystemError     :1; //bit 14
     uint16_t    detectedParityError     :1; //bit 15
 }statusReg_t;
-static_assert(sizeof(statusReg_t) == 2);
+static_assert(sizeof(statusReg_t) == 2); //2 Bytes
 
 //-------------------------------------------------
 // PCIe configuration headers (Type 0 header for now...)
@@ -47,46 +47,221 @@ static_assert(sizeof(statusReg_t) == 2);
 
 typedef struct pcieConfigurationHeader_t
 {
-    uint32_t    vendorId                :16;
-    uint32_t    deviceId                :16;
-    
+    //PCIe config header Dword 0 (byte offset 00h)
     union
     {
-        commandReg_t    bits;
-        uint16_t        rawdata;
-    }command;
-    
+        struct
+        {
+            uint32_t vendorId :16;    
+            uint32_t deviceId :16;    
+        };
+
+        uint32_t all;
+    }dw0;
+
+    //PCIe config header Dword 1 (byte offset 04h)
     union
     {
-        statusReg_t     bits;
-        uint16_t        rawdata;
-    }status;
+        struct
+        {
+            commandReg_t command;                           
+            statusReg_t status;                         
+        };
+
+        uint32_t all;
+    }dw1;
+
+    //PCIe config header Dword 2 (byte offset 08h)
+    union
+    {
+        struct
+        {
+            uint32_t revId     :8;     
+            uint32_t classCode :24;    
+        };
+
+        uint32_t all;
+    }dw2;
+
+    //PCIe config header Dword 3 (byte offset 0Ch)
+    union
+    {
+        struct
+        {
+            uint32_t cacheLineSize :8;     
+            uint32_t latencyTimer  :8;
+            uint32_t headerType    :8;
+            uint32_t bist          :8;
+        };
+
+        uint32_t all;
+    }dw3;
+
+    //PCIe config header Dword 4 (byte offset 10h)
+    uint32_t bar0;
     
-    uint32_t    revId                   :8;
-    uint32_t    classCode               :24;
-    uint32_t    cacheLineSize           :8;  
-    uint32_t    latencyTimer            :8;
-    uint32_t    headerType              :8;
-    uint32_t    bist                    :8;
-    uint32_t    bar0;
-    uint32_t    bar1;
-    uint32_t    bar2;
-    uint32_t    bar3;
-    uint32_t    bar4;
-    uint32_t    bar5;
-    uint32_t    cardBusCisPtr;
-    uint32_t    subsysVendorId          :16;
-    uint32_t    subsysDeviceId          :16;
-    uint32_t    expansionRomBaseAddr;
-    uint32_t    capPtr                  :8;
-    uint32_t    reserved0               :24;
-    uint32_t    reserved1;
-    uint32_t    interruptLine           :8;
-    uint32_t    interruptPin            :8;
-    uint32_t    minGnt                  :8;
-    uint32_t    maxLat                  :8;
+    //PCIe config header Dword 5 (byte offset 14h)
+    uint32_t bar1;
+    
+    //PCIe config header Dword 6 (byte offset 18h)
+    union
+    {
+        //type 1 config space header specific
+        struct 
+        {
+            uint32_t primaryBusNumber       :8;
+            uint32_t secondaryBusNumber     :8;
+            uint32_t subordinateBusNumber   :8;
+            uint32_t secondaryLatencyTimer  :8;
+        };
+
+        //type 0 config space header specific
+        uint32_t bar2;
+
+        uint32_t all;
+    }dw6;
+    
+    //PCIe config header Dword 7 (byte offset 1Ch)
+    union
+    {
+        //type 1 config space header specific
+        struct 
+        {
+            uint32_t ioBase          :8;
+            uint32_t ioLimit         :8;
+            uint32_t secondaryStatus :16;
+        };
+
+        //type 0 config space header specific
+        uint32_t bar3;
+
+        uint32_t all;
+    }dw7;
+
+    //PCIe config header Dword 8 (byte offset 20h)
+    union
+    {
+        //type 1 config space header specific
+        struct 
+        {
+            uint32_t memoryBase  :16;
+            uint32_t memoryLimit :16;
+        };
+
+        //type 0 config space header specific
+        uint32_t bar4;
+
+        uint32_t all;
+    }dw8;
+
+    //PCIe config header Dword 9 (byte offset 24h)
+    union
+    {
+        //type 1 config space header specific
+        struct 
+        {
+            uint32_t prefetchableMemoryBase  :16;
+            uint32_t prefetchableMemoryLimit :16;
+        };
+
+        //type 0 config space header specific
+        uint32_t bar5;
+
+        uint32_t all;
+    }dw9;
+
+    //PCIe config header Dword 10 (byte offset 28h)
+    union
+    {
+        //type 1 config space header specific
+        uint32_t prefetchableBaseUpper;
+
+        //type 0 config space header specific
+        uint32_t cardBusCisPtr;
+
+        uint32_t all;
+    }dw10;
+
+    //PCIe config header Dword 11 (byte offset 2Ch)
+    union
+    {
+        //type 1 config space header specific
+        uint32_t prefetchableBaseLower;
+
+        //type 0 config space header specific
+        struct
+        {
+            uint32_t subsysVendorId :16;
+            uint32_t subsysDeviceId :16;
+        };
+
+        uint32_t all;
+    }dw11;
+    
+    //PCIe config header Dword 12 (byte offset 30h)
+    union
+    {
+        //type 1 config space header specific
+        struct
+        {
+            uint32_t ioBaseUpper  :16;
+            uint32_t ioLimitUpper :16;
+        };
+
+        //type 0 config space header specific
+        uint32_t expansionRomBaseAddr;
+
+        uint32_t all;
+    }dw12;
+
+    //PCIe config header Dword 13 (byte offset 34h)
+    union
+    {
+        struct
+        {
+            uint32_t capPtr    :8;
+            uint32_t reserved  :24;
+        };
+
+        uint32_t all;
+    }dw13;
+
+    //PCIe config header Dword 14 (byte offset 38h)
+    union
+    {
+        //type 1 config space header specific
+        uint32_t expansionRomBaseAddr;
+
+        //type 0 config space header specific
+        uint32_t reserved;
+
+        uint32_t all;
+    }dw14;
+
+    //PCIe config header Dword 15 (byte offset 3Ch)
+    union
+    {
+        struct
+        {
+            uint32_t interruptLine :8;
+            uint32_t interruptPin  :8;
+
+            union
+            {
+                uint16_t bridgeControl;                
+
+                struct
+                {
+                    uint16_t minGnt        :8;
+                    uint16_t maxLat        :8;                    
+                };
+            };
+        };
+
+        uint32_t all;
+    }dw15;
 }pcieConfigurationHeader_t;
-static_assert(sizeof(pcieConfigurationHeader_t) == PCIE_CONFIG_HEADER_SIZE);
+static_assert(sizeof(pcieConfigurationHeader_t) == PCIE_CONFIG_HEADER_SIZE); //64 Bytes
 
 //-------------------------------------------------
 // PCIe capability structures
