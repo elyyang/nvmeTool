@@ -245,7 +245,6 @@ typedef struct pcieConfigurationHeader_t
         {
             uint32_t interruptLine :8;
             uint32_t interruptPin  :8;
-
             
             union
             {
