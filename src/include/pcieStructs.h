@@ -45,6 +45,7 @@ static_assert(sizeof(statusReg_t) == 2); //2 Bytes
 // PCIe configuration headers
 //-------------------------------------------------
 
+#pragma pack (push, 4)
 typedef struct pcieConfigurationHeader_t
 {
     //PCIe config header Dword 0 (byte offset 00h)
@@ -264,6 +265,7 @@ typedef struct pcieConfigurationHeader_t
     }dw15;
 }pcieConfigurationHeader_t;
 static_assert(sizeof(pcieConfigurationHeader_t) == PCIE_CONFIG_HEADER_SIZE); //64 Bytes
+#pragma pack (pop)
 
 //-------------------------------------------------
 // PCIe capability structures
