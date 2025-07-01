@@ -8,9 +8,9 @@
 TARGET = nvmeTool
 VERBOSE = FALSE
 RUN = FALSE
-SOURCE_NAME = drv app
-UTIL_NAME = general
-TEST_NAME = 
+SOURCE_NAME = drv app 
+UTIL_NAME = general menu
+TEST_NAME = sanity 
 
 ##############################################################################################################
 

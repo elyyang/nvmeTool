@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
 
@@ -68,7 +69,7 @@ default no action
 #if(NVME_DBG_ASSERT_ACTION_OPTION==1)
 #define _assert_action                      while(1);
 #elif(NVME_DBG_ASSERT_ACTION_OPTION==2)
-#define _assert_action                      _exit(1);
+#define _assert_action                      _Exit(1);
 #else
 #define _assert_action                      
 #endif
