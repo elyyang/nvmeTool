@@ -3,8 +3,9 @@
 #include "udma.h"
 #include "pcie.h"
 
-void simpleExample(int uioId)
+void demo(void)
 {
+    int uioId = 0;
     mmio_c& mmioDriver = mmio_c::getInstance(uioId);
     pcie_c& pcieDriver = pcie_c::getInstance(uioId);
     udma_c& udmaDriver = udma_c::getInstance();
