@@ -23,9 +23,9 @@ void menu_c::build(mainMenu project)
 void menu_c::displayMenuTree()
 {
     CONSOLE_PRINT("\n\n")
-    CONSOLE_PRINT("==================================================\n");
+    displayBorder();
     CONSOLE_PRINT("[%s Menu Tree] \n", mProject.getDescription());
-    CONSOLE_PRINT("--------------------------------------------------\n");
+    displayInnerBorder();
     for (uint32_t i=0; i<mProject.getItemCount(); i++)
     {
         CONSOLE_PRINT("(%d)-%-40s \n", (i+1), mProject.getItemDescription(i));
@@ -35,31 +35,29 @@ void menu_c::displayMenuTree()
             CONSOLE_PRINT("|____(%d)-%-40s \n", (j+1), mProject.getItem(i).getItemDescription(j));
         }
     }
-    CONSOLE_PRINT("==================================================\n");
-    
+    displayBorder();    
     displayPrompt();    
 }
 
 void menu_c::displayMainMenuItems()
 {
     CONSOLE_PRINT("\n\n")
-    CONSOLE_PRINT("==================================================\n");
+    displayBorder();
     CONSOLE_PRINT("[Main Menu] (%s) \n", mProject.getDescription());        
-    CONSOLE_PRINT("--------------------------------------------------\n");
+    displayInnerBorder();
     mProject.displayItems();
-    CONSOLE_PRINT("==================================================\n");
-    
+    displayBorder();    
     displayPrompt();
 }
 
 void menu_c::displayCurrentSubMenuItems()
 {
     CONSOLE_PRINT("\n\n")
-    CONSOLE_PRINT("==================================================\n");
+    displayBorder();
     CONSOLE_PRINT("[Sub Menu] (%s) \n", mProject.getItem(mCurrentMenuIndex).getDescription());        
-    CONSOLE_PRINT("--------------------------------------------------\n");
+    displayInnerBorder();
     mProject.getItem(mCurrentMenuIndex).displayItems();
-    CONSOLE_PRINT("==================================================\n");
+    displayBorder();
     
     displayPrompt();
 }
@@ -67,6 +65,16 @@ void menu_c::displayCurrentSubMenuItems()
 void menu_c::displayPrompt()
 {
     CONSOLE_PRINT("(q)uit, return to (m)ain men, menu (t)ree | selection: ");
+}
+
+void menu_c::displayBorder()
+{
+    CONSOLE_PRINT("==================================================\n");
+}
+
+void menu_c::displayInnerBorder()
+{
+    CONSOLE_PRINT("--------------------------------------------------\n");
 }
 
 void menu_c::clearOutput()
@@ -78,11 +86,11 @@ void menu_c::execute()
 {
     clearOutput();
 
-    CONSOLE_PRINT("==================================================\n");
+    displayBorder();
     CONSOLE_PRINT("[Test Output] (%s) \n", mProject.getItem(mCurrentMenuIndex).getItemDescription(mCurrentSubMenuIndex));
-    CONSOLE_PRINT("--------------------------------------------------\n\n");
+    displayInnerBorder();
     (mCurrentTestFunction_p)(); //execute function
-    CONSOLE_PRINT("\n==================================================\n");    
+    displayBorder();
 }
 
 void menu_c::run()

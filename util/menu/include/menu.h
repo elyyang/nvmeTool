@@ -39,6 +39,8 @@ class menu_c
         void displayMainMenuItems();
         void displayCurrentSubMenuItems();
         void displayPrompt();
+        void displayBorder();
+        void displayInnerBorder();
         void clearOutput();
         void execute();
 
