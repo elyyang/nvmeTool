@@ -8,7 +8,7 @@
 TARGET = nvmeTool
 VERBOSE = FALSE
 RUN = FALSE
-SOURCE_NAME = drv app 
+SOURCE_NAME = drv handler 
 UTIL_NAME = general menu
 TEST_NAME = sample
 
