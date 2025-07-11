@@ -24,7 +24,7 @@ class mmio_c
     public:
     
         static mmio_c& getInstance(int id);     
-        uint64_t getBar0Address(void);
+        uintptr_t getBar0Address(void);
         
         //==============================================================================
         // Controller Register access API
@@ -47,7 +47,6 @@ class mmio_c
         bpmbl_t     getBootParitionMemoryBufferLocation(void);
         cmbmsc_t    getControllerMemoryBufferMemorySpaceControl(void);
         cmbsts_t    getControllerMemoryBufferStatus(void);
-
         pmrcap_t    getPersistentMemoryCapabilities(void);
         pmrctl_t    getPersistentMemoryRegionControl(void);
         pmrsts_t    getPersistentMemoryRegionStatus(void);
@@ -56,30 +55,15 @@ class mmio_c
         pmrmscl_t   getPersistentMemoryRegionControllerMemorySpaceControlLower(void);
         pmrmscu_t   getPersistentMemoryRegionControllerMemorySpaceControlUpper(void);
 
-        void setControllerConfiguration(cc_t config);
-
-
+        void setControllerConfiguration(uint32_t config);
         void setAdminQueueAttributes(uint16_t asqSize, uint16_t acqSize);
         void setAdminCompletionQueueBaseAddress(uint64_t address);
         void setAdminSubmissionQueueBaseAddress(uint64_t address);
-
-        void setInterruptMaskSet(uint8_t intVector);
-        void setInterruptMaskClear(uint8_t intVector);
         
         //==============================================================================
         // SQT/CQH access API
         //==============================================================================
-
-        uint16_t getSqTail(uint32_t queueNumber);
-        uint16_t getCqHead(uint32_t queueNumber);
-
         void setSqTail(uint32_t queueNumber, uint16_t value);
         void setCqHead(uint32_t queueNumber, uint16_t value);
 
-        //==============================================================================
-        // MSIX access API
-        //==============================================================================
-        
-        msix_t getMsixEntry(uint32_t entryNumber,  uint32_t msixTableOffset);
-        void setMsixEntry(uint32_t entryNumber, msix_t entry, uint32_t msixTableOffset);
 };

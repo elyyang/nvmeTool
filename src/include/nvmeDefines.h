@@ -1,10 +1,12 @@
 
 #pragma once
 
-//==============================================================================
-// Controller Reigster (BAR 0)
-// 64B
-//==============================================================================
+/**************************************************************
+Controller Reigster
+
+NVM-Express-Base-Specification-Revision-2.2-2025.03.11-Ratified
+3.1.4 Controller Properties
+**************************************************************/
 
 #define CONTROLLER_REG_CAP_OFFSET                   (0x00)
 #define CONTROLLER_REG_VS_OFFSET                    (0x08)
@@ -23,7 +25,10 @@
 #define CONTROLLER_REG_BPMBL_OFFSET                 (0x48)
 #define CONTROLLER_REG_CMBMSC_OFFSET                (0x50)
 #define CONTROLLER_REG_CMBSTS_OFFSET                (0x58)
-
+#define CONTROLLER_REG_CMBEBS_OFFSET                (0x5C) 
+#define CONTROLLER_REG_CMBSWTP_OFFSET               (0x60) 
+#define CONTROLLER_REG_NSSD_OFFSET                  (0x64) 
+#define CONTROLLER_REG_CRTO_OFFSET                  (0x68)
 #define CONTROLLER_REG_PMRCAP_OFFSET                (0xE00)
 #define CONTROLLER_REG_PMRCTL_OFFSET                (0xE04)
 #define CONTROLLER_REG_PMRSTS_OFFSET                (0xE08)
@@ -32,22 +37,22 @@
 #define CONTROLLER_REG_PMRMSCL_OFFSET               (0xE14)
 #define CONTROLLER_REG_PMRMSCU_OFFSET               (0xE18)
 
-//==============================================================================
-// SQ Tail & CQ Head doorbell
-// 1088B (136 x 8B)
-//==============================================================================
+/**************************************************************
+SQ Tail & CQ Head doorbell
+1088B (136 x 8B)
+**************************************************************/
 
 #define SQT_CQH_BASE_OFFSET                         (0x1000)
 
-//==============================================================================
-// MSIX
-//==============================================================================
+/**************************************************************
+ MSIX
+**************************************************************/
 
 #define MSIX_BASE_OFFSET                            (0x2000)
 
-//==============================================================================
-// NVMe Admin Commands
-//==============================================================================
+/**************************************************************
+NVMe Admin Commands
+**************************************************************/
 
 #define ACMD_DELETE_IO_SQ                           0x0
 #define ACMD_CREATE_IO_SQ                           0x1
@@ -78,9 +83,9 @@
 #define ACMD_SANITIZE                               0x84
 #define ACMD_LBA_STATUS                             0x86
 
-//==============================================================================
-// Identify Controller or Namespace Structure (CNS)
-//==============================================================================
+/**************************************************************
+Identify Controller or Namespace Structure (CNS)
+**************************************************************/
 
 #define CNS_IDENTIFY_NAMESPACE                      0x00
 #define CNS_IDENTIFY_CONTROLLER                     0x01
@@ -88,9 +93,9 @@
 #define CNS_NAMESPACE_ID_DESCRIPTOR_LIST            0X03
 #define CNS_NVME_SET_LIST                           0x04
 
-//==============================================================================
-// Controller and Namespace Management CNS
-//==============================================================================
+/**************************************************************
+Controller and Namespace Management CNS
+**************************************************************/
 
 #define CNS_ALLOCATED_NAMESPACE_ID_LIST             0x10
 #define CNS_IDENTIFY_NAMESPACE_ALLOCATED_NSID       0x11
@@ -101,9 +106,9 @@
 #define CNS_NAMESPACE_GRANULARITY_LIST              0x16
 #define CNS_UUID_LIST                               0x17
 
-//==============================================================================
-// Nvme Command Set
-//==============================================================================
+/**************************************************************
+Nvme Command Set
+**************************************************************/
 
 #define NVM_FLUSH                                   0x0
 #define NVM_WRITE                                   0x1
@@ -118,9 +123,9 @@
 #define NVM_RESERVATION_ACQUIRE                     0x11
 #define NVM_RESERVATION_RELEASE                     0x15
 
-//==============================================================================
-// Features for set/get features
-//==============================================================================
+/**************************************************************
+Features for set/get features
+**************************************************************/
 
 #define FEAT_ARBITATION                             0x1
 #define FEAT_LBA_RANGE_TYPE                         0x3
@@ -152,9 +157,9 @@
 #define FEAT_RERSERVATION_PERSISTENCE               0x83
 #define FEAT_NAMESPACE_WRITE_PROTECTION_CONFIG      0x84
 
-//==============================================================================
-// get log page identifier
-//==============================================================================
+/**************************************************************
+get log page identifier
+**************************************************************/
 
 #define LOG_PAGE_ID_ERROR                           0x1
 #define LOG_PAGE_ID_SMART                           0x2
@@ -172,9 +177,9 @@
 #define LOG_PAGE_ID_LBA_STATUS_INFO                 0xE
 #define LOG_PAGE_ID_ENDURANCE_GROUP_EVENT_AGGR      0xF
 
-//==============================================================================
-// Misc NVMe 
-//==============================================================================
+/**************************************************************
+Misc NVMe 
+**************************************************************/
 
 #define MMIO_REG_SIZE                               0x4000
 

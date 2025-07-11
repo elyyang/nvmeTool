@@ -2,7 +2,7 @@
 #pragma once
 
 #include <stdint.h>
-#include "nvmeStruct.h"
+#include "nvmeStructs.h"
 
 class admin_c
 {
@@ -20,12 +20,13 @@ class admin_c
             ADMIN_ERROR_GENERIC       = 0xFF
         };
 
-        admin_c(void);
-        ~admin_c(void);
-        static admin_c& getInstance(void);
+        admin_c();
+        ~admin_c();
 
     public:
-                
+
+        static admin_c& getInstance();
+
         adminStatus_e submitCommand(nvmeCommand_t command);
         adminStatus_e completeCommand(nvmeCompletion_t& completion);
         
@@ -40,17 +41,17 @@ class admin_c
         adminStatus_e issueAdminCreateIOSubmissionQueue(uint32_t queueId, uint32_t queueSize, uint32_t priority , uint32_t completionQueueId, uint64_t prp);
         adminStatus_e issueFormatNvm(uint32_t lbaf, uint32_t ms, uint32_t pi, uint32_t pil, uint32_t sess);
         adminStatus_e issueGetLogPage(uint32_t logPageId);
-        adminStatus_e issueAsyncEventRequest(void);
+        adminStatus_e issueAsyncEventRequest();
 
-        uint32_t getQueueId(void);
-        uint32_t getAsqSize(void);
-        uint32_t getAcqSize(void);
-        uint64_t getAsqBaseAddress(void);
-        uint64_t getAsqBaseAddressPhysical(void);
-        uint64_t getAcqBaseAddress(void);
-        uint64_t getAcqBaseAddressPhysical(void);
-        uint32_t getCommandId(void);
-        uint32_t getControllerId(void);
-        uint64_t getAdminDataAddress(void);
-        uint64_t getAdminDataAddressPhysical(void);
+        uint32_t getQueueId();
+        uint32_t getAsqSize();
+        uint32_t getAcqSize();
+        uint64_t getAsqBaseAddress();
+        uint64_t getAsqBaseAddressPhysical();
+        uint64_t getAcqBaseAddress();
+        uint64_t getAcqBaseAddressPhysical();
+        uint32_t getCommandId();
+        uint32_t getControllerId();
+        uint64_t getAdminDataAddress();
+        uint64_t getAdminDataAddressPhysical();
 };

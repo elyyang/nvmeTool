@@ -12,7 +12,7 @@
 
 typedef union __attribute__((packed, aligned (4))) cap_t
 {
-    struct
+    volatile struct
     {
         uint32_t    MQES    :16;
         uint32_t    CQR     :1;
@@ -31,38 +31,38 @@ typedef union __attribute__((packed, aligned (4))) cap_t
         uint32_t    rsvd2   :6;
     };
 
-    uint64_t all;
+    volatile uint64_t all;
 }cap_t;
 static_assert(sizeof(cap_t) == 8, "cap_t size is not 8 byte");
 
 typedef union __attribute__((packed, aligned (4))) vs_t
 {
-    struct 
+    volatile struct 
     {    
         uint32_t    TER     :16;
         uint32_t    MNR     :8;
         uint32_t    MJR     :8;
     };
 
-    uint32_t all;
+    volatile uint32_t all;
 }vs_t;
 static_assert(sizeof(vs_t) == 4, "vs_t size is not 4 byte");
 
 typedef struct __attribute__((packed, aligned (4))) intms_t
 {
-    uint32_t    IVMS;
+    volatile uint32_t    IVMS;
 }intms_t;
 static_assert(sizeof(intms_t) == 4, "intms_t size is not 4 byte");
 
 typedef struct __attribute__((packed, aligned (4))) intmc_t
 {
-    uint32_t    IVMC;
+    volatile uint32_t    IVMC;
 }intmc_t;
 static_assert(sizeof(intmc_t) == 4, "intmc_t size is not 4 byte");
 
 typedef union __attribute__((packed, aligned (4))) cc_t
 {
-    struct
+    volatile struct
     {
         uint32_t    EN      :1;
         uint32_t    rsvd0   :3;
@@ -75,13 +75,13 @@ typedef union __attribute__((packed, aligned (4))) cc_t
         uint32_t    rsvd1   :8;
     };
 
-    uint32_t all;
+    volatile uint32_t all;
 }cc_t;
 static_assert(sizeof(cc_t) == 4, "cc_t size is not 4 byte");
 
 typedef union __attribute__((packed, aligned (4))) csts_t
 {
-    struct
+    volatile struct
     {
         uint32_t     RDY     :1;
         uint32_t     CFS     :1;
@@ -91,19 +91,19 @@ typedef union __attribute__((packed, aligned (4))) csts_t
         uint32_t     SHN     :25;
     };
 
-    uint32_t all;
+    volatile uint32_t all;
 }csts_t;
 static_assert(sizeof(csts_t) == 4, "csts_t size is not 4 byte");
 
 typedef struct __attribute__((packed, aligned (4))) nssr_t
 {
-    uint32_t NSSRC;
+    volatile uint32_t NSSRC;
 }nssr_t;
 static_assert(sizeof(nssr_t) == 4, "nssr_t size is not 4 byte");
 
 typedef union __attribute__((packed, aligned (4))) aqa_t
 {
-    struct
+    volatile struct
     {
         uint32_t    ASQS    :12;
         uint32_t    rsvd0   :4;
@@ -111,37 +111,37 @@ typedef union __attribute__((packed, aligned (4))) aqa_t
         uint32_t    rsvd1   :4;
     };
 
-    uint32_t all;
+    volatile uint32_t all;
 }aqa_t;
 static_assert(sizeof(aqa_t )== 4, "aqa_t size is not 4 byte");
 
 typedef union __attribute__((packed, aligned (4))) asq_t
 {
-    struct 
+    volatile struct 
     {    
         uint32_t    rsvd0   :12;
         uint64_t    ASQB    :52;
     };
 
-    uint64_t    all;    
+    volatile uint64_t    all;    
 }asq_t;
 static_assert(sizeof(asq_t) == 8, "asq_t size is not 8 byte");
 
 typedef union __attribute__((packed, aligned (4))) acq_t
 {
-    struct
+    volatile struct
     {
         uint32_t    rsvd0   :12;
         uint64_t    ACQB    :52;
     };
 
-    uint64_t all;
+    volatile uint64_t all;
 }acq_t;
 static_assert(sizeof(acq_t) == 8, "acq_t size is not 8 byte");
 
 typedef union __attribute__((packed, aligned (4))) cmbloc_t
 {
-    struct
+    volatile struct
     {
         uint32_t    BIR     :3;
         uint32_t    CQMMS   :1;
@@ -154,13 +154,13 @@ typedef union __attribute__((packed, aligned (4))) cmbloc_t
         uint32_t    OFST    :20;
     };
 
-    uint32_t all;    
+    volatile uint32_t all;    
 }cmbloc_t;
 static_assert(sizeof(cmbloc_t) == 4, "cmbloc_t size is not 4 byte");
 
 typedef union __attribute__((packed, aligned (4))) cmbsz_t
 {    
-    struct    
+    volatile struct    
     {
         uint32_t    SQS     :1;
         uint32_t    CQS     :1;
@@ -172,13 +172,13 @@ typedef union __attribute__((packed, aligned (4))) cmbsz_t
         uint32_t    SZ      :20;
     };
 
-    uint32_t all;
+    volatile uint32_t all;
 }cmbsz_t;
 static_assert(sizeof(cmbsz_t) == 4, "cmbsz_t size is not 4 byte");
 
 typedef union __attribute__((packed, aligned (4))) bpinfo_t
 {
-    struct
+    volatile struct
     {
         uint32_t    BPSZ    :15;
         uint32_t    rsvd0   :5;
@@ -187,13 +187,13 @@ typedef union __attribute__((packed, aligned (4))) bpinfo_t
         uint32_t    ABPID   :1;
     };
 
-    uint32_t all;
+    volatile uint32_t all;
 }bpinfo_t;
 static_assert(sizeof(bpinfo_t) == 4, "bpinfo_t size is not 4 byte");
 
 typedef union __attribute__((packed, aligned (4))) bprsel_t
 {
-    struct
+    volatile struct
     {
         uint32_t    BPRSZ   :10;
         uint32_t    BPROF   :20;
@@ -201,25 +201,25 @@ typedef union __attribute__((packed, aligned (4))) bprsel_t
         uint32_t    BPID    :1;
     };
 
-    uint32_t all;
+    volatile uint32_t all;
 }bprsel_t;
 static_assert(sizeof(bprsel_t) == 4, "bprsel_t size is not 4 byte");
 
 typedef union __attribute__((packed, aligned (4))) bpmbl_t
 {
-    struct
+    volatile struct
     {
         uint32_t    rsvd0   :12;
         uint64_t    BMBBA   :52;
     };
 
-    uint64_t all;
+    volatile uint64_t all;
 }bpmbl_t;
 static_assert(sizeof(bpmbl_t) == 8, "bpmbl_t size is not 8 byte");
 
 typedef union __attribute__((packed, aligned (4))) cmbmsc_t
 {
-    struct
+    volatile struct
     {
         uint32_t    CRE     :1;
         uint32_t    CMSE    :1;
@@ -227,25 +227,25 @@ typedef union __attribute__((packed, aligned (4))) cmbmsc_t
         uint64_t    CBA     :52;
     };
 
-    uint64_t all;
+    volatile uint64_t all;
 }cmbmsc_t;
 static_assert(sizeof(cmbmsc_t) == 8, "cmbmsc_t size is not 8 byte");
 
 typedef union __attribute__((packed, aligned (4))) cmbsts_t
 {
-    struct
+    volatile struct
     {
         uint32_t    CBAI    :1;
         uint32_t    rsvd0   :31;
     };
 
-    uint32_t all;
+    volatile uint32_t all;
 }cmbsts_t;
 static_assert(sizeof(cmbsts_t) == 4, "cmbsts_t size is not 4 byte");
 
 typedef union __attribute__((packed, aligned (4))) pmrcap_t
 {
-    struct
+    volatile struct
     {
         uint32_t    rsvd0   :3;
         uint32_t    RDS     :1;
@@ -259,25 +259,25 @@ typedef union __attribute__((packed, aligned (4))) pmrcap_t
         uint32_t    rsvd2   :7;
     };
 
-    uint32_t all;
+    volatile uint32_t all;
 }pmrcap_t;
 static_assert(sizeof(pmrcap_t) == 4, "pmrcap_t size is not 4 byte");
 
 typedef union __attribute__((packed, aligned (4))) pmrctl_t
 {
-    struct
+    volatile struct
     {
         uint32_t    EN      :1;
         uint32_t    rsvd0   :31;
     };
 
-    uint32_t all;
+    volatile uint32_t all;
 }pmrctl_t;
 static_assert(sizeof(pmrctl_t) == 4, "pmrctl_t size is not 4 byte");
 
 typedef union __attribute__((packed, aligned (4))) pmrsts_t
 {
-    struct
+    volatile struct
     {
         uint32_t    ERR     :8;
         uint32_t    NRDY    :1;
@@ -286,13 +286,13 @@ typedef union __attribute__((packed, aligned (4))) pmrsts_t
         uint32_t    rsvd0   :19;
     };
 
-    uint32_t all;
+    volatile uint32_t all;
 }pmrsts_t;
 static_assert(sizeof(pmrsts_t) == 4, "pmrsts_t size is not 4 byte");
 
 typedef union __attribute__((packed, aligned (4)))  pmrebs_t
 {
-    struct
+    volatile struct
     {
         uint32_t    PMRSZU  :4; 
         uint32_t    RBB     :1;
@@ -300,26 +300,26 @@ typedef union __attribute__((packed, aligned (4)))  pmrebs_t
         uint32_t    PMRWBZ  :24;
     };
 
-    uint32_t all;
+    volatile uint32_t all;
 }pmrebs_t;
 static_assert(sizeof(pmrebs_t) == 4, "pmrebs_t size is not 4 byte");
 
 typedef union __attribute__((packed, aligned (4)))  pmrswtp_t
 {
-    struct
+    volatile struct
     {
         uint32_t    PMRSWTU :4;
         uint32_t    rsvd0   :4;
         uint32_t    PMRSWTV :24;
     };
 
-    uint32_t all;
+    volatile uint32_t all;
 }pmrswtp_t;
 static_assert(sizeof(pmrswtp_t) == 4, "pmrswtp_t size is not 4 byte");
 
 typedef union __attribute__((packed, aligned (4)))  pmrmscl_t 
 {
-    struct
+    volatile struct
     {
         uint32_t    rsvd0   :1;
         uint32_t    CMSE    :1;
@@ -327,14 +327,14 @@ typedef union __attribute__((packed, aligned (4)))  pmrmscl_t
         uint32_t    CBA     :20;
     };
 
-    uint32_t all;
+    volatile uint32_t all;
 }pmrmscl_t;
 static_assert(sizeof(pmrmscl_t) == 4, "pmrmscl_t size is not 4 byte");
 
 typedef union __attribute__((packed, aligned (4)))  pmrmscu_t 
 {
-    uint32_t CBA;
-    uint32_t all;
+    volatile uint32_t CBA;
+    volatile uint32_t all;
 }pmrmscu_t;
 static_assert(sizeof(pmrmscu_t) == 4, "pmrmscu_t size is not 4 byte");
 
@@ -344,13 +344,13 @@ static_assert(sizeof(pmrmscu_t) == 4, "pmrmscu_t size is not 4 byte");
 
 typedef union __attribute__((packed, aligned (4))) sqtdbl_t
 {
-    struct
+    volatile struct
     {
         uint32_t    SQT     :16;
         uint32_t    rsvd0   :16;
     };
 
-    uint32_t all;
+    volatile uint32_t all;
 }sqtdbl_t;
 static_assert(sizeof(sqtdbl_t) == 4, "sqtdbl_t size is not 4 byte");
 
@@ -360,13 +360,13 @@ static_assert(sizeof(sqtdbl_t) == 4, "sqtdbl_t size is not 4 byte");
 
 typedef union __attribute__((packed, aligned (4))) cqhdbl_t
 {
-    struct
+    volatile struct
     {
         uint32_t    CQH     :16;
         uint32_t    rsvd0   :16;
     };
 
-    uint32_t all;
+    volatile uint32_t all;
 }cqhdbl_t;
 static_assert(sizeof(cqhdbl_t) == 4, "cqhdbl_t size is not 4 byte");
 
@@ -376,13 +376,13 @@ static_assert(sizeof(cqhdbl_t) == 4, "cqhdbl_t size is not 4 byte");
 
 typedef struct __attribute__((packed, aligned (4))) msix_t
 {
-    uint32_t MXTMLA;
-    uint32_t MXTMUA;
-    uint32_t MXTMD;
+    volatile uint32_t MXTMLA;
+    volatile uint32_t MXTMUA;
+    volatile uint32_t MXTMD;
     
     union
     {
-        struct
+        volatile struct
         {
             uint16_t maskBit     :1;
             uint16_t reserved    :15;
@@ -390,7 +390,7 @@ typedef struct __attribute__((packed, aligned (4))) msix_t
             uint16_t stUpper     :8;
         };
 
-        uint32_t all;
+        volatile uint32_t all;
     }MXTVC;
 }msix_t;
 static_assert(sizeof(msix_t) == MSIX_ENTRY_SIZE);
