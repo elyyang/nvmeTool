@@ -3,6 +3,11 @@
 #include "udma.h"
 #include "pcie.h"
 
+
+
+menu_c::nvmeTools;
+
+
 void demo(void)
 {
     int uioId = 0;
