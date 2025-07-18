@@ -23,12 +23,8 @@ int main(int argc, char* argv[])
   { 
     uioId = atoi(argv[1]);
   }  
-  (void)uioId;
 
-  demo();
-
-
-
+  demo(uioId);
 
   printf("NVMe Tool all done! \n");
   return 0;

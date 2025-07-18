@@ -3,14 +3,8 @@
 #include "udma.h"
 #include "pcie.h"
 
-
-
-menu_c::nvmeTools;
-
-
-void demo(void)
+void demo(int uioId)
 {
-    int uioId = 0;
     mmio_c& mmioDriver = mmio_c::getInstance(uioId);
     pcie_c& pcieDriver = pcie_c::getInstance(uioId);
     udma_c& udmaDriver = udma_c::getInstance();
