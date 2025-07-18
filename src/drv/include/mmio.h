@@ -65,5 +65,5 @@ class mmio_c
         //==============================================================================
         void setSqTail(uint32_t queueNumber, uint16_t value);
         void setCqHead(uint32_t queueNumber, uint16_t value);
-
+        void setCqHead(uint32_t queueNumber, uint16_t value);
 };

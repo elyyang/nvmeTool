@@ -273,11 +273,16 @@ static_assert(sizeof(pcieConfigurationHeader_t) == PCIE_CONFIG_HEADER_SIZE); //6
 
 typedef struct capability_msix_t
 {
-    uint32_t    capId                       :8;
-    uint32_t    nextCapIdPtr                :8;
-    uint32_t    messageControl              :16;
-    uint32_t    msixTableOffset;
-    uint32_t    pbaOffset;
+    //dw0
+    uint32_t    capId           :8;
+    uint32_t    nextCapIdPtr    :8;
+    uint32_t    messageControl  :16;
+    //dw1
+    uint32_t    msixTableBir    :3;
+    uint32_t    msixTableOffset :29;    
+    //dw2
+    uint32_t    pbaBir          :3;
+    uint32_t    pbaOffset       :29;
 }capability_msix_t;
 static_assert(sizeof(capability_msix_t) == 12);
 

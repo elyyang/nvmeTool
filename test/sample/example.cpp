@@ -18,7 +18,7 @@ void demo(void)
 
     //example on pcie drv
     pcieConfigurationHeader_t shadow = pcieDriver.getPcieConfigHeader();  
-    printf("vendor id: %x device id: %x \n", shadow.dw0.vendorId, shadow.dw0.deviceId);
+    printf("vendor id: 0x%x device id: 0x%x \n", shadow.dw0.vendorId, shadow.dw0.deviceId);
 
     pcieDriver.getPcieCapability();
     pcieDriver.getPcieExtendedCapability();
