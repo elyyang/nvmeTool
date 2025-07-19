@@ -1151,7 +1151,7 @@ typedef struct __attribute__((packed, aligned (4))) datablock_t
     uint32_t sglSubType     :4;
     uint32_t sglType        :4;
 }datablock_t;
-static_assert(sizeof(datablock_t) == SGL_DESCRIPTOR_SIZE);
+static_assert(sizeof(datablock_t) == NVME_SGL_DESCRIPTOR_SIZE);
 
 typedef struct __attribute__((packed, aligned (4))) bitbucket_t
 {
@@ -1161,7 +1161,7 @@ typedef struct __attribute__((packed, aligned (4))) bitbucket_t
     uint32_t sglSubType     :4;
     uint32_t sglType        :4;
 }bitbucket_t;
-static_assert(sizeof(bitbucket_t) == SGL_DESCRIPTOR_SIZE);
+static_assert(sizeof(bitbucket_t) == NVME_SGL_DESCRIPTOR_SIZE);
 
 typedef struct __attribute__((packed, aligned (4))) segment_t
 {
@@ -1171,7 +1171,7 @@ typedef struct __attribute__((packed, aligned (4))) segment_t
     uint32_t sglSubType     :4;
     uint32_t sglType        :4;
 }segment_t;
-static_assert(sizeof(segment_t) == SGL_DESCRIPTOR_SIZE);
+static_assert(sizeof(segment_t) == NVME_SGL_DESCRIPTOR_SIZE);
 
 typedef struct __attribute__((packed, aligned (4))) lastSegment_t
 {
@@ -1181,7 +1181,7 @@ typedef struct __attribute__((packed, aligned (4))) lastSegment_t
     uint32_t sglSubType     :4;
     uint32_t sglType        :4;
 }lastSegment_t;
-static_assert(sizeof(lastSegment_t) == SGL_DESCRIPTOR_SIZE);
+static_assert(sizeof(lastSegment_t) == NVME_SGL_DESCRIPTOR_SIZE);
 
 typedef struct __attribute__((packed, aligned (4))) keyedDatablock_t 
 {
@@ -1191,7 +1191,7 @@ typedef struct __attribute__((packed, aligned (4))) keyedDatablock_t
     uint64_t sglSubType     :4;
     uint64_t sglType        :4;
 }keyedDatablock_t;
-static_assert(sizeof(keyedDatablock_t) == SGL_DESCRIPTOR_SIZE);
+static_assert(sizeof(keyedDatablock_t) == NVME_SGL_DESCRIPTOR_SIZE);
 
 typedef struct __attribute__((packed, aligned (4))) transportDatablock_t
 {
@@ -1201,7 +1201,7 @@ typedef struct __attribute__((packed, aligned (4))) transportDatablock_t
     uint32_t sglSubType     :4;
     uint32_t sglType        :4;
 }transportDatablock_t;
-static_assert(sizeof(transportDatablock_t) == SGL_DESCRIPTOR_SIZE);
+static_assert(sizeof(transportDatablock_t) == NVME_SGL_DESCRIPTOR_SIZE);
 
 typedef union __attribute__((packed, aligned (4))) sglDescriptor_t
 {
@@ -1219,7 +1219,7 @@ typedef union __attribute__((packed, aligned (4))) sglDescriptor_t
     
     transportDatablock_t    transportDatablock;        
 }sglDescriptor_t;
-static_assert(sizeof(sglDescriptor_t) == SGL_DESCRIPTOR_SIZE);
+static_assert(sizeof(sglDescriptor_t) == NVME_SGL_DESCRIPTOR_SIZE);
 
 typedef union __attribute__((packed, aligned (4))) dptr_t
 {
@@ -1233,7 +1233,7 @@ typedef union __attribute__((packed, aligned (4))) dptr_t
     
     sglDescriptor_t sgl;
 }dptr_t;
-static_assert(sizeof(dptr_t) == SGL_DESCRIPTOR_SIZE);
+static_assert(sizeof(dptr_t) == NVME_SGL_DESCRIPTOR_SIZE);
 
 //-------------------------------------------------
 // NVME 1.4 - NVMe Command
