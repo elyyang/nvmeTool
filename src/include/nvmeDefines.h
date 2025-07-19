@@ -1,6 +1,9 @@
 
 #pragma once
 
+
+#define NVM_CONTROLLER_MMIO_REG_SIZE                (0x4000)
+
 /**************************************************************
 Controller Reigster
 
@@ -8,90 +11,84 @@ NVM-Express-Base-Specification-Revision-2.2-2025.03.11-Ratified
 3.1.4 Controller Properties
 **************************************************************/
 
-#define CONTROLLER_REG_CAP_OFFSET                   (0x00)
-#define CONTROLLER_REG_VS_OFFSET                    (0x08)
-#define CONTROLLER_REG_INTMS_OFFSET                 (0x0C)
-#define CONTROLLER_REG_INTMC_OFFSET                 (0x10)
-#define CONTROLLER_REG_CC_OFFSET                    (0x14)
-#define CONTROLLER_REG_CSTS_OFFSET                  (0x1C)
-#define CONTROLLER_REG_NSSR_OFFSET                  (0x20)
-#define CONTROLLER_REG_AQA_OFFSET                   (0x24) 						
-#define CONTROLLER_REG_ASQ_OFFSET                   (0x28) 	
-#define CONTROLLER_REG_ACQ_OFFSET                   (0x30)
-#define CONTROLLER_REG_CMBLOC_OFFSET                (0x38)
-#define CONTROLLER_REG_CMBSZ_OFFSET                 (0x3C)
-#define CONTROLLER_REG_BPINFO_OFFSET                (0x40)
-#define CONTROLLER_REG_BPRSEL_OFFSET                (0x44)
-#define CONTROLLER_REG_BPMBL_OFFSET                 (0x48)
-#define CONTROLLER_REG_CMBMSC_OFFSET                (0x50)
-#define CONTROLLER_REG_CMBSTS_OFFSET                (0x58)
-#define CONTROLLER_REG_CMBEBS_OFFSET                (0x5C) 
-#define CONTROLLER_REG_CMBSWTP_OFFSET               (0x60) 
-#define CONTROLLER_REG_NSSD_OFFSET                  (0x64) 
-#define CONTROLLER_REG_CRTO_OFFSET                  (0x68)
-#define CONTROLLER_REG_PMRCAP_OFFSET                (0xE00)
-#define CONTROLLER_REG_PMRCTL_OFFSET                (0xE04)
-#define CONTROLLER_REG_PMRSTS_OFFSET                (0xE08)
-#define CONTROLLER_REG_PMREBS_OFFSET                (0xE0C)
-#define CONTROLLER_REG_PMRSWTP_OFFSET               (0xE10)
-#define CONTROLLER_REG_PMRMSCL_OFFSET               (0xE14)
-#define CONTROLLER_REG_PMRMSCU_OFFSET               (0xE18)
+#define CONTROLLER_REG_OFFSET_CAP                   (0x00)
+#define CONTROLLER_REG_OFFSET_VS                    (0x08)
+#define CONTROLLER_REG_OFFSET_INTMS                 (0x0C)
+#define CONTROLLER_REG_OFFSET_INTMC                 (0x10)
+#define CONTROLLER_REG_OFFSET_CC                    (0x14)
+#define CONTROLLER_REG_OFFSET_CSTS                  (0x1C)
+#define CONTROLLER_REG_OFFSET_NSSR                  (0x20)
+#define CONTROLLER_REG_OFFSET_AQA                   (0x24) 						
+#define CONTROLLER_REG_OFFSET_ASQ                   (0x28) 	
+#define CONTROLLER_REG_OFFSET_ACQ                   (0x30)
+#define CONTROLLER_REG_OFFSET_CMBLOC                (0x38)
+#define CONTROLLER_REG_OFFSET_CMBSZ                 (0x3C)
+#define CONTROLLER_REG_OFFSET_BPINFO                (0x40)
+#define CONTROLLER_REG_OFFSET_BPRSEL                (0x44)
+#define CONTROLLER_REG_OFFSET_BPMBL                 (0x48)
+#define CONTROLLER_REG_OFFSET_CMBMSC                (0x50)
+#define CONTROLLER_REG_OFFSET_CMBSTS                (0x58)
+#define CONTROLLER_REG_OFFSET_CMBEBS                (0x5C) 
+#define CONTROLLER_REG_OFFSET_CMBSWTP               (0x60) 
+#define CONTROLLER_REG_OFFSET_NSSD                  (0x64) 
+#define CONTROLLER_REG_OFFSET_CRTO                  (0x68)
+#define CONTROLLER_REG_OFFSET_PMRCAP                (0xE00)
+#define CONTROLLER_REG_OFFSET_PMRCTL                (0xE04)
+#define CONTROLLER_REG_OFFSET_PMRSTS                (0xE08)
+#define CONTROLLER_REG_OFFSET_PMREBS                (0xE0C)
+#define CONTROLLER_REG_OFFSET_PMRSWTP               (0xE10)
+#define CONTROLLER_REG_OFFSET_PMRMSCL               (0xE14)
+#define CONTROLLER_REG_OFFSET_PMRMSCU               (0xE18)
 
 /**************************************************************
-SQ Tail & CQ Head doorbell
-1088B (136 x 8B)
+Controller Reigster
+SQ Tail & CQ Head doorbell base
 **************************************************************/
 
-#define SQT_CQH_BASE_OFFSET                         (0x1000)
-
-/**************************************************************
- MSIX
-**************************************************************/
-
-#define MSIX_BASE_OFFSET                            (0x2000)
+#define CONTROLLER_REG_OFFSET_SQT_CQH_BASE         (0x1000)
 
 /**************************************************************
 NVMe Admin Commands
 **************************************************************/
 
-#define ACMD_DELETE_IO_SQ                           0x0
-#define ACMD_CREATE_IO_SQ                           0x1
-#define ACMD_GET_LOG_PAGE                           0x2
-#define ACMD_DELETE_IO_CQ                           0x4
-#define ACMD_CREATE_IO_CQ                           0x5
-#define ACMD_IDENTIFY                               0x6
-#define ACMD_ABORT                                  0x8
-#define ACMD_SET_FEATURES                           0x9
-#define ACMD_GET_FEATURES                           0xA
-#define ACMD_ASYNC_EVENT_REQUEST                    0xC
-#define ACMD_NS_MANAGEMENT                          0xD
-#define ACMD_FW_COMMIT                              0x10
-#define ACMD_FW_IMAGE_DOWNLOAD                      0x11
-#define ACMD_DEVICE_SELF_TEST                       0x14
-#define ACMD_NS_ATTACHMENT                          0x15
-#define ACMD_KEEP_ALIVE                             0x18
-#define ACMD_DIRECTIVE_SEND                         0x19
-#define ACMD_DIRECTIVE_RECEIVE                      0x1A
-#define ACMD_VIRTUALIZATION_MANAGEMENT              0x1C
-#define ACMD_NVME_MI_SEND                           0x1D // Refer to the NVM Express Management Interface Specification for details on the NVMe-MI Send command.
-#define ACMD_NVME_MI_RECEIVE                        0x1E // Refer to the NVM Express Management Interface Specification for details on the NVMe-MI Receive command.
-#define ACMD_DOORBELL_BUFFER_CONFIG                 0x7C
-#define ACMD_FABRICS                                0x7F
-#define ACMD_FORMAT_NVM                             0x80
-#define ACMD_SECURITY_SEND                          0x81
-#define ACMD_SECURITY_RECEIVE                       0x82
-#define ACMD_SANITIZE                               0x84
-#define ACMD_LBA_STATUS                             0x86
+#define NVM_ADMIN_CMD_DELETE_IO_SQ                      (0x00)
+#define NVM_ADMIN_CMD_CREATE_IO_SQ                      (0x01)
+#define NVM_ADMIN_CMD_GET_LOG_PAGE                      (0x02)
+#define NVM_ADMIN_CMD_DELETE_IO_CQ                      (0x04)
+#define NVM_ADMIN_CMD_CREATE_IO_CQ                      (0x05)
+#define NVM_ADMIN_CMD_IDENTIFY                          (0x06)
+#define NVM_ADMIN_CMD_ABORT                             (0x08)
+#define NVM_ADMIN_CMD_SET_FEATURES                      (0x09)
+#define NVM_ADMIN_CMD_GET_FEATURES                      (0x0A)
+#define NVM_ADMIN_CMD_ASYNC_EVENT_REQUEST               (0x0C)
+#define NVM_ADMIN_CMD_NS_MANAGEMENT                     (0x0D)
+#define NVM_ADMIN_CMD_FW_COMMIT                         (0x10)
+#define NVM_ADMIN_CMD_FW_IMAGE_DOWNLOAD                 (0x11)
+#define NVM_ADMIN_CMD_DEVICE_SELF_TEST                  (0x14)
+#define NVM_ADMIN_CMD_NS_ATTACHMENT                     (0x15)
+#define NVM_ADMIN_CMD_KEEP_ALIVE                        (0x18)
+#define NVM_ADMIN_CMD_DIRECTIVE_SEND                    (0x19)
+#define NVM_ADMIN_CMD_DIRECTIVE_RECEIVE                 (0x1A)
+#define NVM_ADMIN_CMD_VIRTUALIZATION_MANAGEMENT         (0x1C)
+#define NVM_ADMIN_CMD_NVME_MI_SEND                      (0x1D) // Refer to the NVM Express Management Interface Specification for details on the NVMe-MI Send command.
+#define NVM_ADMIN_CMD_NVME_MI_RECEIVE                   (0x1E) // Refer to the NVM Express Management Interface Specification for details on the NVMe-MI Receive command.
+#define NVM_ADMIN_CMD_DOORBELL_BUFFER_CONFIG            (0x7C)
+#define NVM_ADMIN_CMD_FABRICS                           (0x7F)
+#define NVM_ADMIN_CMD_FORMAT_NVM                        (0x80)
+#define NVM_ADMIN_CMD_SECURITY_SEND                     (0x81)
+#define NVM_ADMIN_CMD_SECURITY_RECEIVE                  (0x82)
+#define NVM_ADMIN_CMD_SANITIZE                          (0x84)
+#define NVM_ADMIN_CMD_LBA_STATUS                        (0x86)
 
 /**************************************************************
 Identify Controller or Namespace Structure (CNS)
 **************************************************************/
 
-#define CNS_IDENTIFY_NAMESPACE                      0x00
-#define CNS_IDENTIFY_CONTROLLER                     0x01
-#define CNS_ACTIVE_NAMESPACE_ID_LIST                0X02
-#define CNS_NAMESPACE_ID_DESCRIPTOR_LIST            0X03
-#define CNS_NVME_SET_LIST                           0x04
+#define CNS_IDENTIFY_NAMESPACE                      (0x00)
+#define CNS_IDENTIFY_CONTROLLER                     (0x01)
+#define CNS_ACTIVE_NAMESPACE_ID_LIST                (0X02)
+#define CNS_NAMESPACE_ID_DESCRIPTOR_LIST            (0X03)
+#define CNS_NVME_SET_LIST                           (0x04)
 
 /**************************************************************
 Controller and Namespace Management CNS
@@ -110,18 +107,18 @@ Controller and Namespace Management CNS
 Nvme Command Set
 **************************************************************/
 
-#define NVM_FLUSH                                   0x0
-#define NVM_WRITE                                   0x1
-#define NVM_READ                                    0x2
-#define NVM_WRITE_UNCORRECTABLE                     0x4
-#define NVM_COMPARE                                 0x5
-#define NVM_WRITE_ZEROES                            0x8
-#define NVM_DATASET_MANAGEMENT                      0X9
-#define NVM_VERIFY                                  0xC
-#define NVM_RESERVATION_REGISTER                    0xD
-#define NVM_RESERVATION_REPORT                      0xE
-#define NVM_RESERVATION_ACQUIRE                     0x11
-#define NVM_RESERVATION_RELEASE                     0x15
+#define NVM_CMD_FLUSH                                   0x0
+#define NVM_CMD_WRITE                                   0x1
+#define NVM_CMD_READ                                    0x2
+#define NVM_CMD_WRITE_UNCORRECTABLE                     0x4
+#define NVM_CMD_COMPARE                                 0x5
+#define NVM_CMD_WRITE_ZEROES                            0x8
+#define NVM_CMD_DATASET_MANAGEMENT                      0X9
+#define NVM_CMD_VERIFY                                  0xC
+#define NVM_CMD_RESERVATION_REGISTER                    0xD
+#define NVM_CMD_RESERVATION_REPORT                      0xE
+#define NVM_CMD_RESERVATION_ACQUIRE                     0x11
+#define NVM_CMD_RESERVATION_RELEASE                     0x15
 
 /**************************************************************
 Features for set/get features
@@ -180,8 +177,6 @@ get log page identifier
 /**************************************************************
 Misc NVMe 
 **************************************************************/
-
-#define MMIO_REG_SIZE                               0x4000
 
 #define MSIX_ENTRY_SIZE                             0x10
 #define SGL_DESCRIPTOR_SIZE                         0x10
