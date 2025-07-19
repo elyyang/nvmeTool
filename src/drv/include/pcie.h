@@ -8,6 +8,7 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 #include "pcieStructs.h"
+#include "pciDefine.h"
 
 //=========================================================================
 
@@ -16,7 +17,7 @@ class pcie_c
     private:
 
         pcie_c(int id);
-        ~pcie_c(void);
+        ~pcie_c();
         int uio_config_fd;
         
     public:

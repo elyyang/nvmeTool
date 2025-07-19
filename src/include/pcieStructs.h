@@ -1,8 +1,6 @@
 
 #pragma once
 
-#include "pcieDefines.h"
-
 //=========================================================================
 
 //-------------------------------------------------
@@ -264,7 +262,7 @@ typedef struct pcieConfigurationHeader_t
         uint32_t all;
     }dw15;
 }pcieConfigurationHeader_t;
-static_assert(sizeof(pcieConfigurationHeader_t) == PCIE_CONFIG_HEADER_SIZE); //64 Bytes
+static_assert(sizeof(pcieConfigurationHeader_t) == 64); //64 Bytes
 #pragma pack (pop)
 
 //-------------------------------------------------
