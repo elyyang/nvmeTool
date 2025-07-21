@@ -11,9 +11,9 @@ class uio_c
         uio_c(int id);        
         ~uio_c();
 
-        int uio_resource0_fd;
-        int uio_config_fd;
-        int uioId;
+        int mUioResource0_fd;
+        int mUioConfig_fd;
+        int mUioId;
         void* mPfBar0;
 
     public:

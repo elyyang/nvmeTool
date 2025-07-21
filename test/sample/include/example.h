@@ -1,4 +1,5 @@
 
 #pragma once
 
-void demo(int uioId);
+void demo_udma();
+void demo_uio(int uioId);

@@ -24,7 +24,8 @@ int main(int argc, char* argv[])
     uioId = atoi(argv[1]);
   }  
 
-  demo(uioId);
+  demo_uio(uioId);
+  demo_udma();
 
   printf("NVMe Tool all done! \n");
   return 0;
