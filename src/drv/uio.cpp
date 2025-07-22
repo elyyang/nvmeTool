@@ -59,25 +59,21 @@ uintptr_t uio_c::getBar0Address() const
     return (uintptr_t)mPfBar0Address;
 }
 
-void uio_c::dumpNvmeControllerMem(void) const
+int uio_c::getId() const
 {
-    printf("00h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x00)); 
-    printf("08h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x08)); 
-    printf("10h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x10)); 
-    printf("18h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x18)); 
-    printf("20h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x20)); 
-    printf("28h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x28)); 
-    printf("30h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x30)); 
-    printf("38h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x38)); 
-    printf("40h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x40)); 
-    printf("48h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x48)); 
-    printf("50h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x50)); 
-    printf("58h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x58)); 
-
-    printf("1000h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x1000)); 
-    printf("1008h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x1008));   
+    return mUioId;
 }
 
+void uio_c::dumpNvmeControllerMem(uint32_t itr, uint32_t offset) const
+{
+    NVME_DBG_ASSERT((offset%0x8)==0, "offset must in multiples of 0x8")
+    NVME_DBG_ASSERT_IF_GREATER_THAN((offset+(itr*0x8)), 0x4000, "out of range")
+
+    for(uint32_t i=0; i<itr; i++)
+    {
+        printf("%.02xh: \t 0x%.16lx \n", (0x8*i)+offset, *(uint64_t*)((uint64_t)mPfBar0Address+(0x8*i)+offset)); 
+    }    
+}
 
 pcieConfigurationHeader_t uio_c::getPcieConfigHeader(void) const
 {   

@@ -21,8 +21,9 @@ class uio_c
         static uio_c& getInstance(int id);
 
         uintptr_t getBar0Address() const;
+        int getId() const;
 
-        void dumpNvmeControllerMem(void) const;
+        void dumpNvmeControllerMem(uint32_t itr, uint32_t offset) const;
 
         cap_t getControllerCapabilities() const;
         vs_t getVersion() const;

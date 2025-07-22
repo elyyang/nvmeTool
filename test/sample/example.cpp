@@ -33,5 +33,6 @@ void demo_uio()
 void demo_uio2()
 {
     uio_c& uioDriver = uio_c::getInstance(g_uioId);
-    uioDriver.dumpNvmeControllerMem();
+    uioDriver.dumpNvmeControllerMem(4,0);
+    uioDriver.dumpNvmeControllerMem(4,0x1000);
 }
