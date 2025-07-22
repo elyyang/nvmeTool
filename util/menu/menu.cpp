@@ -167,12 +167,13 @@ void menu_c::run()
     }
 }
 
-void nvmeToolMenuBuilder(void)
+void menuBuilder(void)
 {
     pcieUtil_subMenu.addDescription("PCIe utilities");
     nvmeUtil_subMenu.addDescription("NVMe utilities");
     tests_subMenu.addDescription("tests");
     tests_subMenu.addItem(demo_uio, "a brief demo on uio_c driver...");
+    tests_subMenu.addItem(demo_uio2, "bar 0 mem dump...");
 
     nvmeTool_mainMenu.addDescription("NVMe tools");
     nvmeTool_mainMenu.addItem(pcieUtil_subMenu, "PCIe utilities");

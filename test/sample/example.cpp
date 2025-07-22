@@ -29,3 +29,9 @@ void demo_uio()
     printf("pcie vendor id: 0x%x \n", pcieHeaderShadow.dw0.vendorId);
     printf("pcie device id: 0x%x \n", pcieHeaderShadow.dw0.deviceId);    
 }
+
+void demo_uio2()
+{
+    uio_c& uioDriver = uio_c::getInstance(g_uioId);
+    uioDriver.dumpNvmeControllerMem();
+}

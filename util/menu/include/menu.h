@@ -5,7 +5,7 @@
 #include <stdarg.h>
 #include "menuTemplate.hpp"
 
-void nvmeToolMenuBuilder(void);
+void menuBuilder(void);
 
 class menu_c
 {

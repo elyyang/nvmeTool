@@ -25,7 +25,7 @@ int main(int argc, char* argv[])
     g_uioId = atoi(argv[1]);
   }  
 
-  nvmeToolMenuBuilder();
+  menuBuilder();
 
   printf("NVMe Tool all done! \n");
   return 0;

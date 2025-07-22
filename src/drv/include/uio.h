@@ -14,13 +14,15 @@ class uio_c
         int mUioResource0_fd;
         int mUioConfig_fd;
         int mUioId;
-        void* mPfBar0;
+        void* mPfBar0Address;
 
     public:
 
         static uio_c& getInstance(int id);
 
         uintptr_t getBar0Address() const;
+
+        void dumpNvmeControllerMem(void) const;
 
         cap_t getControllerCapabilities() const;
         vs_t getVersion() const;

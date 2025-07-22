@@ -36,8 +36,8 @@ uio_c::uio_c(int id)
     strcat(fdPath, "/device/resource0");
     mUioResource0_fd = open(fdPath, O_RDWR | O_SYNC);    
     NVME_DBG_ASSERT((mUioResource0_fd>0), "mUioResource0_fd failed to open!")
-    mPfBar0 = mmap(NULL, NVM_CONTROLLER_MMIO_REG_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, mUioResource0_fd, 0);   
-    NVME_DBG_ASSERT((mPfBar0!=MAP_FAILED), "pfBar0Address map failed!")        
+    mPfBar0Address = mmap(NULL, NVM_CONTROLLER_MMIO_REG_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, mUioResource0_fd, 0);   
+    NVME_DBG_ASSERT((mPfBar0Address!=MAP_FAILED), "pfBar0Address map failed!")        
 }
 
 uio_c::~uio_c()
@@ -45,7 +45,7 @@ uio_c::~uio_c()
     NVME_DBG_PRINTF(info, "clean-up uio_c!");
     close(mUioConfig_fd);    
     close(mUioResource0_fd);
-    munmap(mPfBar0, NVM_CONTROLLER_MMIO_REG_SIZE);   
+    munmap(mPfBar0Address, NVM_CONTROLLER_MMIO_REG_SIZE);   
 }
 
 uio_c& uio_c::getInstance(int id)
@@ -56,8 +56,28 @@ uio_c& uio_c::getInstance(int id)
 
 uintptr_t uio_c::getBar0Address() const
 {
-    return (uintptr_t)mPfBar0;
+    return (uintptr_t)mPfBar0Address;
 }
+
+void uio_c::dumpNvmeControllerMem(void) const
+{
+    printf("00h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x00)); 
+    printf("08h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x08)); 
+    printf("10h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x10)); 
+    printf("18h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x18)); 
+    printf("20h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x20)); 
+    printf("28h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x28)); 
+    printf("30h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x30)); 
+    printf("38h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x38)); 
+    printf("40h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x40)); 
+    printf("48h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x48)); 
+    printf("50h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x50)); 
+    printf("58h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x58)); 
+
+    printf("1000h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x1000)); 
+    printf("1008h: \t 0x%.16lx \n", *(uint64_t*)((uint64_t)mPfBar0Address+0x1008));   
+}
+
 
 pcieConfigurationHeader_t uio_c::getPcieConfigHeader(void) const
 {   
@@ -87,9 +107,7 @@ capability_msix_t uio_c::getMsixCapability(void) const
     uint8_t nextCapPtr;
     uint8_t capId;
     
-    capability_msix_t shadow;
-    memset(&shadow, 0, sizeof(capability_msix_t)); 
-    
+    capability_msix_t shadow = {};
     pcieConfigurationHeader_t  configSpace;
     pread(mUioConfig_fd, &configSpace, sizeof(pcieConfigurationHeader_t), 0x0);    
         
