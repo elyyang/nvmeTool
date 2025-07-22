@@ -2,6 +2,8 @@
 #include "udma.h"
 #include "uio.h"
 
+extern int g_uioId;
+
 void demo_udma()
 {
     udma_c& udmaDriver = udma_c::getInstance();
@@ -10,9 +12,9 @@ void demo_udma()
     udmaDriver.getUdmaBufferInformation();
 }
 
-void demo_uio(int uioId)
+void demo_uio()
 {
-    uio_c& uioDriver = uio_c::getInstance(uioId);
+    uio_c& uioDriver = uio_c::getInstance(g_uioId);
 
     //example on uio drv to mem access 
     printf("Bar0 Address: 0x%lx \n", uioDriver.getBar0Address());    

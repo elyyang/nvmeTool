@@ -2,4 +2,4 @@
 #pragma once
 
 void demo_udma();
-void demo_uio(int uioId);
+void demo_uio();

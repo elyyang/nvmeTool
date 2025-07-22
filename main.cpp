@@ -14,18 +14,18 @@
 #include <stdint.h>
 #include <stdlib.h> 
 
-#include "example.h"
+#include "menu.h"
+
+int g_uioId= 0;
 
 int main(int argc, char* argv[])
-{
-  int uioId = 0;
+{  
   if((argc>1)&&(argv[1]!=NULL))
   { 
-    uioId = atoi(argv[1]);
+    g_uioId = atoi(argv[1]);
   }  
 
-  demo_uio(uioId);
-  demo_udma();
+  nvmeToolMenuBuilder();
 
   printf("NVMe Tool all done! \n");
   return 0;

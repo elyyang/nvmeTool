@@ -5,6 +5,8 @@
 #include <stdarg.h>
 #include "menuTemplate.hpp"
 
+void nvmeToolMenuBuilder(void);
+
 class menu_c
 {
     public:
@@ -52,5 +54,4 @@ class menu_c
         void build(mainMenu project);
         void run();
 };
-  
-    
+
