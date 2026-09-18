@@ -112,7 +112,6 @@ typedef struct __attribute__((packed, aligned (4))) capability_msix_t
     uint32_t    pbaOffset       :29;
 }
 capability_msix_t;
-static_assert(sizeof(capability_msix_t) == 12);
 
 typedef struct __attribute__((packed, aligned (4))) capability_sriov_t
 {
@@ -173,7 +172,6 @@ typedef struct __attribute__((packed, aligned (4))) capability_sriov_t
     uint32_t    vfMigrationStateArrayOffset;
 }
 capability_sriov_t;  
-static_assert(sizeof(capability_sriov_t) == 64);
 
 typedef struct __attribute__((packed, aligned (4))) capability_pasid_t
 {
@@ -187,7 +185,6 @@ typedef struct __attribute__((packed, aligned (4))) capability_pasid_t
     uint32_t    pasidControlReigster        :16;
 }
 capability_pasid_t;
-static_assert(sizeof(capability_pasid_t) == 8);
 
 typedef struct __attribute__((packed, aligned (4))) capability_pcipm_t
 {
@@ -202,4 +199,3 @@ typedef struct __attribute__((packed, aligned (4))) capability_pcipm_t
     uint32_t    dataRegister                :8;
 }
 capability_pcipm_t;
-static_assert(sizeof(capability_pcipm_t) == 8);

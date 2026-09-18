@@ -18,8 +18,8 @@
 
 #if (PCIE_GEN_SUPPORTED==4)
 
-#include "pcieConfigHeader.h"
-#include "pcieCapability.h"
+#include "pcieConfigHeader_g4.h"
+#include "pcieCapability_g4.h"
 
 #else 
 

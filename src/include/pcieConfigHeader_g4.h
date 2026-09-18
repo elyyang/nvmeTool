@@ -51,6 +51,7 @@ PCIe config space header (type 0)
 #define PCIE_CONFIG_SPACE_HEADER_OFFSET_MAX_LAT               (0x3F)
 
 #define PCIE_CONFIG_SPACE_HEADER_SIZE                         (0x40)
+
 /**************************************************************
 PCIe header status bit
 **************************************************************/
