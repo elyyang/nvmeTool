@@ -22,6 +22,7 @@
 
 #elif (NVME_VERSION_SUPPORTED==22)
 
+#elif (NVME_VERSION_SUPPORTED==24)
 
 #else 
 
