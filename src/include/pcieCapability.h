@@ -12,35 +12,13 @@
 
 #pragma once
 
-/**************************************************************
-PCIe config space header (type 0)
-**************************************************************/
+#include <stdint.h>
 
-#define PCIE_CONFIG_HEADER_OFFSET_VENDOR_ID             (0x0)
-#define PCIE_CONFIG_HEADER_OFFSET_DEVICE_ID             (0x2)
-#define PCIE_CONFIG_HEADER_OFFSET_COMMAND               (0x4)
-#define PCIE_CONFIG_HEADER_OFFSET_STATUS                (0x6)
-#define PCIE_CONFIG_HEADER_OFFSET_REV_ID                (0x8)
-#define PCIE_CONFIG_HEADER_OFFSET_CLASS_CODE            (0x9)
-#define PCIE_CONFIG_HEADER_OFFSET_CACHE_LINE_SIZE       (0xC)
-#define PCIE_CONFIG_HEADER_OFFSET_LATENCY_TIMER         (0xD)
-#define PCIE_CONFIG_HEADER_OFFSET_HEADER_TYPE           (0xE)
-#define PCIE_CONFIG_HEADER_OFFSET_BIST                  (0xF)
-#define PCIE_CONFIG_HEADER_OFFSET_BAR0                  (0x10)
-#define PCIE_CONFIG_HEADER_OFFSET_BAR1                  (0x14)
-#define PCIE_CONFIG_HEADER_OFFSET_BAR2                  (0x18)
-#define PCIE_CONFIG_HEADER_OFFSET_BAR3                  (0x1C)
-#define PCIE_CONFIG_HEADER_OFFSET_BAR4                  (0x20)
-#define PCIE_CONFIG_HEADER_OFFSET_BAR5                  (0x24)
-#define PCIE_CONFIG_HEADER_OFFSET_CARDBUS_CIS_PTR       (0x28)
-#define PCIE_CONFIG_HEADER_OFFSET_SUBSYSTEM_VENDOR_ID   (0x2C)
-#define PCIE_CONFIG_HEADER_OFFSET_SUBSYSTEM_ID          (0x2E)
-#define PCIE_CONFIG_HEADER_OFFSET_EXPANSION_ROM         (0x30)
-#define PCIE_CONFIG_HEADER_OFFSET_CAP_PTR               (0x34)
-#define PCIE_CONFIG_HEADER_OFFSET_INT_LINE              (0x3C)
-#define PCIE_CONFIG_HEADER_OFFSET_INT_PIN               (0x3D)
-#define PCIE_CONFIG_HEADER_OFFSET_MIN_GNT               (0x3E)
-#define PCIE_CONFIG_HEADER_OFFSET_MAX_LAT               (0x3F)
+#ifndef __cplusplus
+    #if !defined(static_assert)
+        #define static_assert _Static_assert
+    #endif
+#endif // __cplusplus
 
 /**************************************************************
 PCIe capability structure IDs
@@ -114,43 +92,71 @@ PCIe extended capability structure IDs
 #define PCIE_EXT_CAP_ID_ALTERNATE_PROTOCOL              (0x2B)    
 #define PCIE_EXT_CAP_ID_SFI                             (0x2C)    
 
-/**************************************************************
-PCIe header status bit
-**************************************************************/
+//-------------------------------------------------
+// PCIe capability structures
+//-------------------------------------------------
 
-#define PCIE_HEADER_STATUS_IMMEDIATE_READINESS          (0x1)
-#define PCIE_HEADER_STATUS_INTERRUPT_STATUS             (0x8)
-#define PCIE_HEADER_STATUS_CAPABILITIES_LIST            (0x10)
-#define PCIE_HEADER_STATUS_MASTER_DATA_PARITY_ERROR     (0x100)
-#define PCIE_HEADER_STATUS_SIGNALED_TARGET_ABORT        (0x800)
-#define PCIE_HEADER_STATUS_RECEIVED_TARGET_ABORT        (0x1000)
-#define PCIE_HEADER_STATUS_RECEIVED_MASTER_ABORT        (0x2000)
-#define PCIE_HEADER_STATUS_SIGNALED_SYSTEM_ERROR        (0x4000)
-#define PCIE_HEADER_STATUS_DETECTED_PARITY_ERROR        (0x8000)
+typedef struct capability_msix_t
+{
+    //dw0
+    uint32_t    capId           :8;
+    uint32_t    nextCapIdPtr    :8;
+    uint32_t    messageControl  :16;
+    //dw1
+    uint32_t    msixTableBir    :3;
+    uint32_t    msixTableOffset :29;    
+    //dw2
+    uint32_t    pbaBir          :3;
+    uint32_t    pbaOffset       :29;
+}capability_msix_t;
+static_assert(sizeof(capability_msix_t) == 12);
 
-/**************************************************************
-PCIe header class code
+typedef struct capability_sriov_t
+{
+    uint32_t    extCapId                    :16;
+    uint32_t    capVersion                  :4;
+    uint32_t    nextExtCapIdPtr             :12;
+    uint32_t    sriovCapabilities;
+    uint32_t    sriovControl                :16;
+    uint32_t    sriovStatus                 :16;
+    uint32_t    initialVf                   :16;
+    uint32_t    totalVf                     :16;
+    uint32_t    numVf                       :16;
+    uint32_t    functionDependencyLink      :8;
+    uint32_t    reserved0                   :8;
+    uint32_t    firstVfOffset               :16;
+    uint32_t    vfStride                    :16;
+    uint32_t    reserved1                   :16;
+    uint32_t    vfDeviceId                  :16;
+    uint32_t    supportedPageSize;
+    uint32_t    systemPageSize;
+    uint32_t    vfBar0;
+    uint32_t    vfBar1;
+    uint32_t    vfBar2;
+    uint32_t    vfBar3;
+    uint32_t    vfBar4;
+    uint32_t    vfBar5;
+    uint32_t    vfMigrationStateArrayOffset;
+}capability_sriov_t;  
+static_assert(sizeof(capability_sriov_t) == 64);
 
-https://pcisig.com/sites/default/files/files/PCI_Code-ID_r_1_11__v24_Jan_2019.pdf
-**************************************************************/
+typedef struct capability_pasid_t
+{
+    uint32_t    extCapId                    :16;
+    uint32_t    capVersion                  :4;
+    uint32_t    nextExtCapIdPtr             :12;
+    uint32_t    pasidCapabilityReigster     :16;
+    uint32_t    pasidControlReigster        :16;
+}capability_pasid_t;
+static_assert(sizeof(capability_pasid_t) == 8);
 
-#define PCIE_HEADER_CLASS_CODE_MASS_STORAGE_CONTROLLER                          (0x01)
-#define PCIE_HEADER_CLASS_CODE_NETWORK_CONTROLLER                               (0x02)
-#define PCIE_HEADER_CLASS_CODE_DISPLAY_CONTROLLER                               (0x03)
-#define PCIE_HEADER_CLASS_CODE_MULTIMEDIA_DEVICE                                (0x04)
-#define PCIE_HEADER_CLASS_CODE_MEMORY_CONTROLLER                                (0x05)
-#define PCIE_HEADER_CLASS_CODE_BRIDGE_DEVICE                                    (0x06)
-#define PCIE_HEADER_CLASS_CODE_SIMPLE_COMMUNICATION_CONTROLLER                  (0x07)
-#define PCIE_HEADER_CLASS_CODE_BASE_SYSTEM_PERIPHERAL                           (0x08)
-#define PCIE_HEADER_CLASS_CODE_INPUT_DEVICE                                     (0x09)
-#define PCIE_HEADER_CLASS_CODE_DOCKING_STATION                                  (0x0A)
-#define PCIE_HEADER_CLASS_CODE_PROCESSOR                                        (0x0B)
-#define PCIE_HEADER_CLASS_CODE_SERIAL_BUS_CONTROLLER                            (0x0C)
-#define PCIE_HEADER_CLASS_CODE_WIRELESS_CONTROLLER                              (0x0D)
-#define PCIE_HEADER_CLASS_CODE_INTELLIGENT_IO_CONTROLLER                        (0x0E)
-#define PCIE_HEADER_CLASS_CODE_SATELLITE_COMMUNICATION_CONTROLLER               (0x0F)
-#define PCIE_HEADER_CLASS_CODE_ENCRYPTION_DECRYPTION_CONTROLLER                 (0x10)
-#define PCIE_HEADER_CLASS_CODE_DATA_ACQUISITION_SIGNAL_PROCESSING_CONTROLLERS   (0x11)
-#define PCIE_HEADER_CLASS_CODE_PROCESSING_ACCELERATORS                          (0x12)
-#define PCIE_HEADER_CLASS_CODE_NON_ESSENTIAL_INSTRUMENTATION                    (0x13)
-#define PCIE_HEADER_CLASS_CODE_UNDEFINED                                        (0xFF)
+typedef struct capability_pcipm_t
+{
+    uint32_t    capId                       :8;
+    uint32_t    nextCapIdPtr                :8;
+    uint32_t    pmc                         :16;
+    uint32_t    pmcsr                       :16;
+    uint32_t    pmcsrBse                    :8;
+    uint32_t    dataRegister                :8;
+}capability_pcipm_t;
+static_assert(sizeof(capability_pcipm_t) == 8);

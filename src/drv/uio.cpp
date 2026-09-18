@@ -20,7 +20,6 @@
 #include "assertLib.h"
 #include "debugPrint.h"
 #include "pcieStructs.h"
-#include "pciDefine.h"
 #include "nvmeStructs.h"
 
 uio_c::uio_c(int id)
@@ -96,15 +95,15 @@ pcieConfigurationHeader_t uio_c::getPcieConfigHeader(void) const
 void uio_c::setBusMasterEnable(bool bmeStatus)
 {
     commandReg_t reg;
-    pread(mUioConfig_fd, &reg, sizeof(commandReg_t), PCIE_CONFIG_HEADER_OFFSET_COMMAND);
+    pread(mUioConfig_fd, &reg, sizeof(commandReg_t), PCIE_CONFIG_SPACE_HEADER_OFFSET_COMMAND);
     reg.busMasterEnable = bmeStatus;
-    pwrite(mUioConfig_fd, &reg, sizeof(commandReg_t), PCIE_CONFIG_HEADER_OFFSET_COMMAND);
+    pwrite(mUioConfig_fd, &reg, sizeof(commandReg_t), PCIE_CONFIG_SPACE_HEADER_OFFSET_COMMAND);
 }
 
 bool uio_c::getBusMasterEnable(void) const
 {    
     commandReg_t reg;
-    pread(mUioConfig_fd, &reg, sizeof(commandReg_t), PCIE_CONFIG_HEADER_OFFSET_COMMAND);    
+    pread(mUioConfig_fd, &reg, sizeof(commandReg_t), PCIE_CONFIG_SPACE_HEADER_OFFSET_COMMAND);    
     return reg.busMasterEnable;
 }
 
