@@ -96,67 +96,110 @@ PCIe extended capability structure IDs
 // PCIe capability structures
 //-------------------------------------------------
 
-typedef struct capability_msix_t
+typedef struct __attribute__((packed, aligned (4))) capability_msix_t
 {
     //dw0
     uint32_t    capId           :8;
     uint32_t    nextCapIdPtr    :8;
     uint32_t    messageControl  :16;
+
     //dw1
     uint32_t    msixTableBir    :3;
     uint32_t    msixTableOffset :29;    
+    
     //dw2
     uint32_t    pbaBir          :3;
     uint32_t    pbaOffset       :29;
-}capability_msix_t;
+}
+capability_msix_t;
 static_assert(sizeof(capability_msix_t) == 12);
 
-typedef struct capability_sriov_t
+typedef struct __attribute__((packed, aligned (4))) capability_sriov_t
 {
+    //dw0
     uint32_t    extCapId                    :16;
     uint32_t    capVersion                  :4;
     uint32_t    nextExtCapIdPtr             :12;
+    
+    //dw1
     uint32_t    sriovCapabilities;
+    
+    //dw2
     uint32_t    sriovControl                :16;
     uint32_t    sriovStatus                 :16;
+    
+    //dw3
     uint32_t    initialVf                   :16;
     uint32_t    totalVf                     :16;
+
+    //dw4
     uint32_t    numVf                       :16;
     uint32_t    functionDependencyLink      :8;
     uint32_t    reserved0                   :8;
+    
+    //dw5
     uint32_t    firstVfOffset               :16;
     uint32_t    vfStride                    :16;
+    
+    //dw6
     uint32_t    reserved1                   :16;
     uint32_t    vfDeviceId                  :16;
+    
+    //dw7
     uint32_t    supportedPageSize;
+    
+    //dw8
     uint32_t    systemPageSize;
+    
+    //dw9
     uint32_t    vfBar0;
+    
+    //dw10
     uint32_t    vfBar1;
+
+    //dw11
     uint32_t    vfBar2;
+
+    //dw12
     uint32_t    vfBar3;
+
+    //dw13
     uint32_t    vfBar4;
+
+    //dw14
     uint32_t    vfBar5;
+
+    //dw15  
     uint32_t    vfMigrationStateArrayOffset;
-}capability_sriov_t;  
+}
+capability_sriov_t;  
 static_assert(sizeof(capability_sriov_t) == 64);
 
-typedef struct capability_pasid_t
+typedef struct __attribute__((packed, aligned (4))) capability_pasid_t
 {
+    //dw0
     uint32_t    extCapId                    :16;
     uint32_t    capVersion                  :4;
     uint32_t    nextExtCapIdPtr             :12;
+    
+    //dw1
     uint32_t    pasidCapabilityReigster     :16;
     uint32_t    pasidControlReigster        :16;
-}capability_pasid_t;
+}
+capability_pasid_t;
 static_assert(sizeof(capability_pasid_t) == 8);
 
-typedef struct capability_pcipm_t
+typedef struct __attribute__((packed, aligned (4))) capability_pcipm_t
 {
+    //dw0
     uint32_t    capId                       :8;
     uint32_t    nextCapIdPtr                :8;
     uint32_t    pmc                         :16;
+
+    //dw1
     uint32_t    pmcsr                       :16;
     uint32_t    pmcsrBse                    :8;
     uint32_t    dataRegister                :8;
-}capability_pcipm_t;
+}
+capability_pcipm_t;
 static_assert(sizeof(capability_pcipm_t) == 8);
