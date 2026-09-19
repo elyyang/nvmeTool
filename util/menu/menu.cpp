@@ -204,13 +204,15 @@ void menuBuilder(void)
 {
     pcieUtil_subMenu.addDescription("PCIe utilities");
     nvmeUtil_subMenu.addDescription("NVMe utilities");
+
     tests_subMenu.addDescription("tests");
     tests_subMenu.addItem(demo_uio, "a brief demo on uio_c driver...");
     tests_subMenu.addItem(demo_uio2, "bar 0 mem dump...");
+    tests_subMenu.addItem(demo_udma, "udma_c driver");
 
-    nvmeTool_mainMenu.addDescription("NVMe tools");
-    nvmeTool_mainMenu.addItem(pcieUtil_subMenu, "PCIe utilities");
-    nvmeTool_mainMenu.addItem(nvmeUtil_subMenu, "NVMe utilities");
+    nvmeTool_mainMenu.addDescription("NVMe tools 2.0");
+    nvmeTool_mainMenu.addItem(pcieUtil_subMenu, "pcie utilities");
+    nvmeTool_mainMenu.addItem(nvmeUtil_subMenu, "nvme utilities");
     nvmeTool_mainMenu.addItem(tests_subMenu,    "tests");
 
     nvmeToolMenu.build(nvmeTool_mainMenu);

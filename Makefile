@@ -35,7 +35,7 @@
 TARGET = nvmeTool
 VERBOSE = FALSE
 RUN = FALSE
-SOURCE_NAME = app controller drv 
+SOURCE_NAME = app drv 
 UTIL_NAME = general menu
 TEST_NAME = sample
 
