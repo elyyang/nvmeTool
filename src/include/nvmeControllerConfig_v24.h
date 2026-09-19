@@ -42,6 +42,17 @@
     #endif
 #endif // __cplusplus
 
+/**************************************************************
+NVM-Express-Base-Specification-Revision-2.2-2025.03.11-Ratified
+3.1.4 Controller Properties
+**************************************************************/
+
+#define NVM_CONTROLLER_MMIO_REG_SIZE                        (0x4000)
+
+/**************************************************************
+controller register defines
+**************************************************************/
+
 #define CONTROLLER_REG_STARTING_OFFSET                      (0x0)
 #define CONTROLLER_REG_OFFSET_CAP                           (CONTROLLER_REG_STARTING_OFFSET)
 #define CONTROLLER_REG_OFFSET_VS                            (0x8)

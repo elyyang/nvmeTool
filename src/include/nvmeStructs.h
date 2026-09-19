@@ -35,16 +35,18 @@
 #pragma once
 
 #ifndef NVME_VERSION_SUPPORTED
-#define NVME_VERSION_SUPPORTED (14)
+#define NVME_VERSION_SUPPORTED (24)
 #endif
 
 #if (NVME_VERSION_SUPPORTED==14)
 
-#include "nvmeStructs_v14.h"
-
 #elif (NVME_VERSION_SUPPORTED==22)
 
 #elif (NVME_VERSION_SUPPORTED==24)
+
+#include "nvmeCompletion_v24.h"
+#include "nvmeCommand_v24.h"
+#include "nvmeControllerConfig_v24.h"
 
 #else 
 
