@@ -41,7 +41,8 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 
-#include "udmaDefines.h"
+#define DEFAULT_UDMA_BUFFER_SIZE    0x400000        
+#define DEFAULT_UDMA_BUFFER_COUNT   8
 
 class udma_c
 {
