@@ -68,4 +68,3 @@ class udma_c
 
         void getUdmaBufferInformation(void);
 };
-

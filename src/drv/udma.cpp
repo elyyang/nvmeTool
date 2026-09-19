@@ -93,12 +93,12 @@ udma_c& udma_c::getInstance(void)
 uint64_t udma_c::getBufferAddress(uint32_t bufferIndex)
 {
     return (uint64_t)bufferAddress[bufferIndex];
-};
+}
 
 uint64_t udma_c::getBufferPhysicalAddress(uint32_t bufferIndex)
 {
     return (uint64_t)bufferPhysicalAddress[bufferIndex];
-};
+}
 
 void udma_c::getUdmaBufferInformation(void)
 {   
