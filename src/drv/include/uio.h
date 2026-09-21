@@ -58,11 +58,5 @@ class uio_c
 
         void dumpNvmeControllerMem(uint32_t itr, uint32_t offset) const;
 
-        friend class controller_c;
-
-        //TODO: make these friend functions of controller_c class        
-        pcieConfigurationHeader_t getPcieConfigHeader() const;
-        bool getBusMasterEnable() const;
-        capability_msix_t getMsixCapability() const;
-        
+        friend class controller_c;        
 };

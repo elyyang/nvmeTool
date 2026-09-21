@@ -34,6 +34,7 @@
 
 #include "udma.h"
 #include "uio.h"
+#include "controller.h"
 
 extern int g_uioId;
 
@@ -47,20 +48,25 @@ void demo_udma()
 
 void demo_uio()
 {
+
     uio_c& uioDriver = uio_c::getInstance(g_uioId);
+    controller_c& controllerDriver = controller_c::getInstance();
+
 
     //example on uio drv to mem access 
     printf("Bar0 Address: 0x%lx \n", uioDriver.getBar0Address());    
-    printf("BME status: %d \n", uioDriver.getBusMasterEnable());
+    printf("BME status: %d \n", controllerDriver.getBusMasterEnable(uioDriver));
 
-    capability_msix_t msixShadow = uioDriver.getMsixCapability();
+    capability_msix_t msixShadow = controllerDriver.getMsixCapability(uioDriver);
     printf("MSIX table BIR: 0x%x \n", msixShadow.msixTableBir);
     printf("MSIX table offset: 0x%x \n", msixShadow.msixTableOffset*8);
     printf("MSIX pba offset: 0x%x \n", msixShadow.pbaOffset*8);
     
-    pcieConfigurationHeader_t pcieHeaderShadow = uioDriver.getPcieConfigHeader();
+    pcieConfigurationHeader_t pcieHeaderShadow = controllerDriver.getPcieConfigHeader(uioDriver);
     printf("pcie vendor id: 0x%x \n", pcieHeaderShadow.dw0.vendorId);
     printf("pcie device id: 0x%x \n", pcieHeaderShadow.dw0.deviceId);    
+
+
 }
 
 void demo_uio2()

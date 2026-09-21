@@ -34,6 +34,7 @@
 
 #include "controller.h"
 
+#include <stdio.h>
 #include <stdint.h>
 #include <string.h>
 #include <unistd.h>
@@ -61,6 +62,52 @@ void controller_c::setBusMasterEnable(uio_c& uioDrv, bool status)
     pread(uioDrv.mUioConfig_fd, &reg, sizeof(commandReg_t), PCIE_CONFIG_SPACE_HEADER_OFFSET_COMMAND);
     reg.busMasterEnable = status;
     pwrite(uioDrv.mUioConfig_fd, &reg, sizeof(commandReg_t), PCIE_CONFIG_SPACE_HEADER_OFFSET_COMMAND);
-    
+}
 
+pcieConfigurationHeader_t controller_c::getPcieConfigHeader(uio_c& uioDrv) const
+{   
+    pcieConfigurationHeader_t configSpace;
+    pread(uioDrv.mUioConfig_fd, &configSpace, sizeof(pcieConfigurationHeader_t), 0x0);
+    return configSpace;    
+}
+
+bool controller_c::getBusMasterEnable(uio_c& uioDrv) const
+{    
+    commandReg_t reg;
+    pread(uioDrv.mUioConfig_fd, &reg, sizeof(commandReg_t), PCIE_CONFIG_SPACE_HEADER_OFFSET_COMMAND);    
+    return reg.busMasterEnable;
+}
+
+capability_msix_t controller_c::getMsixCapability(uio_c& uioDrv) const
+{
+    uint8_t capPtr;
+    uint8_t nextCapPtr;
+    uint8_t capId;
+    
+    capability_msix_t shadow = {};
+    pcieConfigurationHeader_t  configSpace;
+    pread(uioDrv.mUioConfig_fd, &configSpace, sizeof(pcieConfigurationHeader_t), 0x0);    
+        
+    if(configSpace.dw1.status.capabilityList)
+    {   
+        nextCapPtr = configSpace.dw13.capPtr;            
+
+        while(nextCapPtr != PCIE_EXT_CAP_ID_NULL)
+        {
+            capPtr = nextCapPtr;
+            pread(uioDrv.mUioConfig_fd, &nextCapPtr, 1, (capPtr+0x1));
+            pread(uioDrv.mUioConfig_fd, &capId, 1, capPtr);    
+            
+            if(capId == PCIE_CAP_ID_MSIX)
+            {
+                pread(uioDrv.mUioConfig_fd, &shadow, sizeof(capability_msix_t), capPtr);                    
+            }
+        }
+    }  
+    else
+    {
+        printf("WARNING: PCIe capability list not present! \n");
+    }
+ 
+    return shadow;
 }
