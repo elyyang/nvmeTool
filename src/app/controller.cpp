@@ -34,6 +34,12 @@
 
 #include "controller.h"
 
+#include <stdint.h>
+#include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/mman.h>
+
 controller_c::controller_c(void)
 {
 }
@@ -46,4 +52,15 @@ controller_c& controller_c::getInstance(void)
 {
     static controller_c mInstance;
     return mInstance;
+}
+
+
+void controller_c::setBusMasterEnable(uio_c& uioDrv, bool status)
+{
+    commandReg_t reg;
+    pread(uioDrv.mUioConfig_fd, &reg, sizeof(commandReg_t), PCIE_CONFIG_SPACE_HEADER_OFFSET_COMMAND);
+    reg.busMasterEnable = status;
+    pwrite(uioDrv.mUioConfig_fd, &reg, sizeof(commandReg_t), PCIE_CONFIG_SPACE_HEADER_OFFSET_COMMAND);
+    
+
 }

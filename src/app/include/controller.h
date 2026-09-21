@@ -50,28 +50,30 @@ class controller_c
 
         
 
-        cap_t getControllerCapabilities() const;
-        vs_t getVersion() const;
-        intms_t getInterruptMaskSet() const;
-        intmc_t getInterruptMaskClear() const;
-        cc_t getControllerConfiguration() const;
-        csts_t getControllerStatus() const;
-        nssr_t getNvmSubsystemReset() const;
-        aqa_t getAdminQueueAttributes() const;
-        asq_t getAdminSubmissionQueueBaseAddress() const;
-        acq_t getAdminCompletionQueueBaseAddress() const;
-        cmbloc_t getControllerMemoryBufferLocation() const;
-        cmbsz_t getControllerMemoryBufferSize() const;
-        bpinfo_t getBootParitionInformation() const;
-        bprsel_t getBootParitionReadSelect() const;
-        bpmbl_t getBootParitionMemoryBufferLocation() const;
-        cmbmsc_t getControllerMemoryBufferMemorySpaceControl() const;
-        cmbsts_t getControllerMemoryBufferStatus() const;
-        pmrcap_t getPersistentMemoryCapabilities() const;
-        pmrctl_t getPersistentMemoryRegionControl() const;
-        pmrsts_t getPersistentMemoryRegionStatus() const;
-        pmrebs_t getPersistentMemoryRegionElasticityBufferSize() const;
-        pmrswtp_t getPersistentMemorySustainedWriteThroughput() const;
-        pmrmscl_t getPersistentMemoryRegionControllerMemorySpaceControlLower() const;
-        pmrmscu_t getPersistentMemoryRegionControllerMemorySpaceControlUpper() const;
+        void setBusMasterEnable(uio_c& uioDrv, bool status);
+
+        cap_t getControllerCapabilities(uio_c& uioDrv) const;
+        vs_t getVersion(uio_c& uioDrv) const;
+        intms_t getInterruptMaskSet(uio_c& uioDrv) const;
+        intmc_t getInterruptMaskClear(uio_c& uioDrv) const;
+        cc_t getControllerConfiguration(uio_c& uioDrv) const;
+        csts_t getControllerStatus(uio_c& uioDrv) const;
+        nssr_t getNvmSubsystemReset(uio_c& uioDrv) const;
+        aqa_t getAdminQueueAttributes(uio_c& uioDrv) const;
+        asq_t getAdminSubmissionQueueBaseAddress(uio_c& uioDrv) const;
+        acq_t getAdminCompletionQueueBaseAddress(uio_c& uioDrv) const;   
+        cmbloc_t getControllerMemoryBufferLocation(uio_c& uioDrv) const; 
+        cmbsz_t getControllerMemoryBufferSize(uio_c& uioDrv) const;
+        bpinfo_t getBootParitionInformation(uio_c& uioDrv) const;
+        bprsel_t getBootParitionReadSelect(uio_c& uioDrv) const;
+        bpmbl_t getBootParitionMemoryBufferLocation(uio_c& uioDrv) const;
+        cmbmsc_t getControllerMemoryBufferMemorySpaceControl(uio_c& uioDrv) const;
+        cmbsts_t getControllerMemoryBufferStatus(uio_c& uioDrv) const;
+        pmrcap_t getPersistentMemoryCapabilities(uio_c& uioDrv) const;
+        pmrctl_t getPersistentMemoryRegionControl(uio_c& uioDrv) const;
+        pmrsts_t getPersistentMemoryRegionStatus(uio_c& uioDrv) const;
+        pmrebs_t getPersistentMemoryRegionElasticityBufferSize(uio_c& uioDrv) const;
+        pmrswtp_t getPersistentMemorySustainedWriteThroughput(uio_c& uioDrv) const;
+        pmrmscl_t getPersistentMemoryRegionControllerMemorySpaceControlLower(uio_c& uioDrv) const;
+        pmrmscu_t getPersistentMemoryRegionControllerMemorySpaceControlUpper(uio_c& uioDrv) const;
 };

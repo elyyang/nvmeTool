@@ -111,19 +111,12 @@ void uio_c::dumpNvmeControllerMem(uint32_t itr, uint32_t offset) const
 
 
 #pragma message("TODO: make these friend functions of controller_c class")
+
 pcieConfigurationHeader_t uio_c::getPcieConfigHeader(void) const
 {   
     pcieConfigurationHeader_t configSpace;
     pread(mUioConfig_fd, &configSpace, sizeof(pcieConfigurationHeader_t), 0x0);
     return configSpace;    
-}
-
-void uio_c::setBusMasterEnable(bool bmeStatus)
-{
-    commandReg_t reg;
-    pread(mUioConfig_fd, &reg, sizeof(commandReg_t), PCIE_CONFIG_SPACE_HEADER_OFFSET_COMMAND);
-    reg.busMasterEnable = bmeStatus;
-    pwrite(mUioConfig_fd, &reg, sizeof(commandReg_t), PCIE_CONFIG_SPACE_HEADER_OFFSET_COMMAND);
 }
 
 bool uio_c::getBusMasterEnable(void) const
