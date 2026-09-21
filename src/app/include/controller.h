@@ -48,5 +48,30 @@ class controller_c
 
         static controller_c& getInstance();
 
+        
 
+        cap_t getControllerCapabilities() const;
+        vs_t getVersion() const;
+        intms_t getInterruptMaskSet() const;
+        intmc_t getInterruptMaskClear() const;
+        cc_t getControllerConfiguration() const;
+        csts_t getControllerStatus() const;
+        nssr_t getNvmSubsystemReset() const;
+        aqa_t getAdminQueueAttributes() const;
+        asq_t getAdminSubmissionQueueBaseAddress() const;
+        acq_t getAdminCompletionQueueBaseAddress() const;
+        cmbloc_t getControllerMemoryBufferLocation() const;
+        cmbsz_t getControllerMemoryBufferSize() const;
+        bpinfo_t getBootParitionInformation() const;
+        bprsel_t getBootParitionReadSelect() const;
+        bpmbl_t getBootParitionMemoryBufferLocation() const;
+        cmbmsc_t getControllerMemoryBufferMemorySpaceControl() const;
+        cmbsts_t getControllerMemoryBufferStatus() const;
+        pmrcap_t getPersistentMemoryCapabilities() const;
+        pmrctl_t getPersistentMemoryRegionControl() const;
+        pmrsts_t getPersistentMemoryRegionStatus() const;
+        pmrebs_t getPersistentMemoryRegionElasticityBufferSize() const;
+        pmrswtp_t getPersistentMemorySustainedWriteThroughput() const;
+        pmrmscl_t getPersistentMemoryRegionControllerMemorySpaceControlLower() const;
+        pmrmscu_t getPersistentMemoryRegionControllerMemorySpaceControlUpper() const;
 };

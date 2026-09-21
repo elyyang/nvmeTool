@@ -110,6 +110,7 @@ void uio_c::dumpNvmeControllerMem(uint32_t itr, uint32_t offset) const
 
 
 
+#pragma message("TODO: make these friend functions of controller_c class")
 pcieConfigurationHeader_t uio_c::getPcieConfigHeader(void) const
 {   
     pcieConfigurationHeader_t configSpace;
