@@ -43,16 +43,13 @@ module=u-dma-buf.ko
 module_name=u_dma_buf
 defineBufferSizeKeyWord="DEFAULT_UDMA_BUFFER_SIZE"
 defineBufferCountKeyWord="DEFAULT_UDMA_BUFFER_COUNT"
-definePath="$rootdir../src/drv/include/udmaDefines.h"
+definePath="$rootdir../src/drv/include/udma.h"
 
 ########################################################################################################################
 
 function get_buffer_size
 {
-    #grep udma define header to for buffer size
-    while read -r _ _ VAL; do
-        bufferSize=$VAL       
-    done < <(grep -E $defineBufferSizeKeyWord $definePath)
+    bufferSize=$(awk -v key="$defineBufferSizeKeyWord" '$1 == "#define" && $2 == key { print $3; exit }' "$definePath")
 
     if [[ -z $bufferSize ]]; then
         bufferSize=0x100000
@@ -63,10 +60,7 @@ function get_buffer_size
 
 function get_buffer_count
 {
-    #grep udma define header to for buffer count
-    while read -r _ _ VAL; do
-        bufferCount=$VAL       
-    done < <(grep -E $defineBufferCountKeyWord $definePath)
+    bufferCount=$(awk -v key="$defineBufferCountKeyWord" '$1 == "#define" && $2 == key { print $3; exit }' "$definePath")
 
     if [[ -z $bufferCount ]]; then
         bufferCount=1
