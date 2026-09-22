@@ -48,12 +48,6 @@ class controller_c
 
         static controller_c& getInstance();
         
-
-        void setBusMasterEnable(uio_c& uioDrv, bool status);
-        pcieConfigurationHeader_t getPcieConfigHeader(uio_c& uioDrv) const;
-        bool getBusMasterEnable(uio_c& uioDrv) const;
-        capability_msix_t getMsixCapability(uio_c& uioDrv) const;
-
         cap_t getControllerCapabilities(uio_c& uioDrv) const;
         vs_t getVersion(uio_c& uioDrv) const;
         intms_t getInterruptMaskSet(uio_c& uioDrv) const;

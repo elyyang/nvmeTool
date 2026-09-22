@@ -58,5 +58,7 @@ class uio_c
 
         void dumpNvmeControllerMem(uint32_t itr, uint32_t offset) const;
 
-        friend class controller_c;        
+        friend class controller_c;
+        friend class pcieHandler_c;
+        friend class adminHandler_c;
 };
