@@ -115,7 +115,6 @@ NVM-Express-Base-Specification-Revision-2.4-Ratified-2026.07.31
 
 #define CONTROLLER_REG_SQT_ENTRY_SIZE                       (0x4)
 #define CONTROLLER_REG_CQH_ENTRY_SIZE                       (0x4)
-#define CONTROLLER_REG_MSIX_ENTRY_SIZE                      (0x10)
 
 typedef union __attribute__((packed, aligned (4))) cap_t
 {

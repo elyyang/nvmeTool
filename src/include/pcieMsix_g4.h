@@ -50,6 +50,8 @@ NCB-PCI_Express_Base_4.0r1.0_September-27-2017-c
 7.7.2.8 Vector Control Register for MSI-X Table Entries
 ********************************************************************/
 
+#define MSIX_ENTRY_SIZE                      (0x10)
+
 typedef struct __attribute__((packed, aligned (4))) msix_t
 {
     volatile uint32_t MXTMLA;
@@ -70,4 +72,4 @@ typedef struct __attribute__((packed, aligned (4))) msix_t
     }MXTVC;
 }
 msix_t;
-static_assert(sizeof(msix_t) == CONTROLLER_REG_MSIX_ENTRY_SIZE, "msix_t size incorrect");
+static_assert(sizeof(msix_t) == MSIX_ENTRY_SIZE, "msix_t size incorrect");

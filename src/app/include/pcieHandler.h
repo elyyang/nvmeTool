@@ -36,6 +36,7 @@
 
 #include <stdint.h>
 #include "uio.h"
+#include "pcieStructs.h"
 
 class pcieHandler_c
 {
