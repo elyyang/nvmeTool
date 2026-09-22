@@ -34,28 +34,40 @@
 
 #pragma once
 
-class uio_c
+#include <stdint.h>
+
+#ifndef __cplusplus
+    #if !defined(static_assert)
+        #define static_assert _Static_assert
+    #endif
+#endif // __cplusplus
+
+/********************************************************************
+NCB-PCI_Express_Base_4.0r1.0_September-27-2017-c
+7.7.2.5 Message Address Register for MSI-X Table Entries
+7.7.2.6 Message Upper Address Register for MSI-X Table Entries
+7.7.2.7 Message Data Register for MSI-X Table Entries
+7.7.2.8 Vector Control Register for MSI-X Table Entries
+********************************************************************/
+
+typedef struct __attribute__((packed, aligned (4))) msix_t
 {
-    private:
+    volatile uint32_t MXTMLA;
+    volatile uint32_t MXTMUA;
+    volatile uint32_t MXTMD;
+    
+    union
+    {
+        volatile struct
+        {
+            uint16_t maskBit     :1;
+            uint16_t reserved    :15;
+            uint16_t stLower     :8;
+            uint16_t stUpper     :8;
+        };
 
-        uio_c(int id);        
-        ~uio_c();
-
-        int mUioResource0_fd;
-        int mUioConfig_fd;
-        int mUioId;
-        void* mPfBar0Address;
-
-    public:
-
-        static uio_c& getInstance(int id);
-        
-        uintptr_t getBar0Address() const;
-        int getId() const;
-
-        void dumpBar0MemorySpace(uint32_t offset, uint32_t iterations) const;
-
-        friend class controller_c;        
-        friend class pcieHandler_c;
-        friend class adminHandler_c;
-};
+        volatile uint32_t all;
+    }MXTVC;
+}
+msix_t;
+static_assert(sizeof(msix_t) == CONTROLLER_REG_MSIX_ENTRY_SIZE, "msix_t size incorrect");

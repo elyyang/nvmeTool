@@ -66,5 +66,5 @@ class udma_c
         uint64_t getBufferAddress(uint32_t bufferIndex);
         uint64_t getBufferPhysicalAddress(uint32_t bufferIndex);
 
-        void getUdmaBufferInformation(void);
+        void dumpUdmaBufferInformation(void);
 };

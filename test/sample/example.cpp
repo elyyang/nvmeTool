@@ -44,7 +44,7 @@ void demo_udma()
     udma_c& udmaDriver = udma_c::getInstance();
 
     //example on udma drv
-    udmaDriver.getUdmaBufferInformation();
+    udmaDriver.dumpUdmaBufferInformation();
 }
 
 void demo_uio()
@@ -73,6 +73,6 @@ void demo_uio()
 void demo_uio2()
 {
     uio_c& uioDriver = uio_c::getInstance(g_uioId);
-    uioDriver.dumpNvmeControllerMem(4,0);
-    uioDriver.dumpNvmeControllerMem(4,0x1000);
+    uioDriver.dumpBar0MemorySpace(0, 4);
+    uioDriver.dumpBar0MemorySpace(0x1000, 6);
 }

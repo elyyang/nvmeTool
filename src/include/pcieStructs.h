@@ -42,6 +42,7 @@
 
 #include "pcieConfigHeader_g4.h"
 #include "pcieCapability_g4.h"
+#include "pcieMsix_g4.h"
 
 #else 
 

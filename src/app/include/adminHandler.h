@@ -35,7 +35,10 @@
 #pragma once
 
 #include <stdint.h>
+#include "uio.h"
 #include "nvmeStructs.h"
+
+class uio_c;
 
 class admin_c
 {
@@ -60,31 +63,31 @@ class admin_c
 
         static admin_c& getInstance();
 
-        adminStatus_e submitCommand(nvmeCommand_t command);
-        adminStatus_e completeCommand(nvmeCompletion_t& completion);
+        adminStatus_e submitCommand(uio_c& uioDrv, nvmeCommand_t command);
+        adminStatus_e completeCommand(uio_c& uioDrv, nvmeCompletion_t& completion);
         
-		adminStatus_e issueAdminIdentify(uint32_t cns);
-        adminStatus_e issueAdminIdentify(uint32_t cns, uint32_t namespaceId);        
-        adminStatus_e issueSetFeature_arbitration(uint32_t arbitratonBurst, uint32_t lowPriorityWeight, uint32_t medPriorityWeight, uint32_t highPriorityWeight);
-        adminStatus_e issueSetFeature_powerMgmt(uint32_t powerState, uint32_t workloadHit);
-        adminStatus_e issueSetFeature_lbaRange(uint32_t numLbaRange);
-        adminStatus_e issueSetFeature_numOfQueues(uint32_t numSqRequest, uint32_t numCqRequest);
-        adminStatus_e issueSetFeature_interruptCoalescing(uint32_t aggregationTime, uint32_t aggregationThreshold);
-        adminStatus_e issueAdminCreateIOCompletionQueue(uint32_t queueId, uint32_t queueSize, bool interruptEn, uint32_t interruptVector, uint64_t prp);
-        adminStatus_e issueAdminCreateIOSubmissionQueue(uint32_t queueId, uint32_t queueSize, uint32_t priority , uint32_t completionQueueId, uint64_t prp);
-        adminStatus_e issueFormatNvm(uint32_t lbaf, uint32_t ms, uint32_t pi, uint32_t pil, uint32_t sess);
-        adminStatus_e issueGetLogPage(uint32_t logPageId);
-        adminStatus_e issueAsyncEventRequest();
+		adminStatus_e issueAdminIdentify(uio_c& uioDrv, uint32_t cns);
+        adminStatus_e issueAdminIdentify(uio_c& uioDrv, uint32_t cns, uint32_t namespaceId);        
+        adminStatus_e issueSetFeature_arbitration(uio_c& uioDrv, uint32_t arbitratonBurst, uint32_t lowPriorityWeight, uint32_t medPriorityWeight, uint32_t highPriorityWeight);
+        adminStatus_e issueSetFeature_powerMgmt(uio_c& uioDrv, uint32_t powerState, uint32_t workloadHit);
+        adminStatus_e issueSetFeature_lbaRange(uio_c& uioDrv, uint32_t numLbaRange);
+        adminStatus_e issueSetFeature_numOfQueues(uio_c& uioDrv, uint32_t numSqRequest, uint32_t numCqRequest);
+        adminStatus_e issueSetFeature_interruptCoalescing(uio_c& uioDrv, uint32_t aggregationTime, uint32_t aggregationThreshold);
+        adminStatus_e issueAdminCreateIOCompletionQueue(uio_c& uioDrv, uint32_t queueId, uint32_t queueSize, bool interruptEn, uint32_t interruptVector, uint64_t prp);
+        adminStatus_e issueAdminCreateIOSubmissionQueue(uio_c& uioDrv, uint32_t queueId, uint32_t queueSize, uint32_t priority , uint32_t completionQueueId, uint64_t prp);
+        adminStatus_e issueFormatNvm(uio_c& uioDrv, uint32_t lbaf, uint32_t ms, uint32_t pi, uint32_t pil, uint32_t sess);
+        adminStatus_e issueGetLogPage(uio_c& uioDrv, uint32_t logPageId);
+        adminStatus_e issueAsyncEventRequest(uio_c& uioDrv);
 
-        uint32_t getQueueId();
-        uint32_t getAsqSize();
-        uint32_t getAcqSize();
-        uint64_t getAsqBaseAddress();
-        uint64_t getAsqBaseAddressPhysical();
-        uint64_t getAcqBaseAddress();
-        uint64_t getAcqBaseAddressPhysical();
-        uint32_t getCommandId();
-        uint32_t getControllerId();
-        uint64_t getAdminDataAddress();
-        uint64_t getAdminDataAddressPhysical();
+        uint32_t getQueueId(uio_c& uioDrv);
+        uint32_t getAsqSize(uio_c& uioDrv);
+        uint32_t getAcqSize(uio_c& uioDrv);
+        uint64_t getAsqBaseAddress(uio_c& uioDrv);
+        uint64_t getAsqBaseAddressPhysical(uio_c& uioDrv);
+        uint64_t getAcqBaseAddress(uio_c& uioDrv);
+        uint64_t getAcqBaseAddressPhysical(uio_c& uioDrv);
+        uint32_t getCommandId(uio_c& uioDrv);
+        uint32_t getControllerId(uio_c& uioDrv);
+        uint64_t getAdminDataAddress(uio_c& uioDrv);
+        uint64_t getAdminDataAddressPhysical(uio_c& uioDrv);
 };
