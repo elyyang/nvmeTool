@@ -34,9 +34,6 @@
 
 #pragma once
 
-#include "nvmeStructs.h"
-#include "pcieStructs.h"
-
 class uio_c
 {
     private:

@@ -39,10 +39,11 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 #include "uio.h"
+
 #include "assertLib.h"
 #include "debugPrint.h"
-#include "pcieStructs.h"
 #include "nvmeStructs.h"
+#include "pcieStructs.h"
 
 uio_c::uio_c(int id)
 {

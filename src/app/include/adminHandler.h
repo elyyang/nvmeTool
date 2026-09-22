@@ -35,6 +35,7 @@
 #pragma once
 
 #include <stdint.h>
+#include "uio.h"
 #include "nvmeStructs.h"
 
 class uio_c;

@@ -36,10 +36,7 @@
 
 #include <stdio.h>
 #include <stdint.h>
-#include <string.h>
 #include <unistd.h>
-#include <fcntl.h>
-#include <sys/mman.h>
 
 controller_c::controller_c(void)
 {
