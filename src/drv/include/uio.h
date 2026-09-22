@@ -56,7 +56,7 @@ class uio_c
         uintptr_t getBar0Address() const;
         int getId() const;
 
-        void dumpNvmeControllerMem(uint32_t itr, uint32_t offset) const;
+        void dumpBar0MemorySpace(uint32_t offset, uint32_t iterations) const;
 
         friend class controller_c;        
 };

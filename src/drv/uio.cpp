@@ -96,12 +96,12 @@ int uio_c::getId() const
     return mUioId;
 }
 
-void uio_c::dumpNvmeControllerMem(uint32_t itr, uint32_t offset) const
+void uio_c::dumpBar0MemorySpace(uint32_t offset, uint32_t iterations) const
 {
     NVME_DBG_ASSERT((offset%0x8)==0, "offset must in multiples of 0x8")
-    NVME_DBG_ASSERT_IF_GREATER_THAN((offset+(itr*0x8)), 0x4000, "out of range")
+    NVME_DBG_ASSERT_IF_GREATER_THAN((offset+(iterations*0x8)), 0x4000, "out of range")
 
-    for(uint32_t i=0; i<itr; i++)
+    for(uint32_t i=0; i<iterations; i++)
     {
         printf("%.02xh: \t 0x%.16lx \n", (0x8*i)+offset, *(uint64_t*)((uint64_t)mPfBar0Address+(0x8*i)+offset)); 
     }    
