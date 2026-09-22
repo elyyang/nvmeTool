@@ -43,15 +43,11 @@
 #endif // __cplusplus
 
 /**************************************************************
-NVM-Express-Base-Specification-Revision-2.2-2025.03.11-Ratified
+NVM-Express-Base-Specification-Revision-2.4-Ratified-2026.07.31
 3.1.4 Controller Properties
 **************************************************************/
 
 #define NVM_CONTROLLER_MMIO_REG_SIZE                        (0x4000)
-
-/**************************************************************
-controller register defines
-**************************************************************/
 
 #define CONTROLLER_REG_STARTING_OFFSET                      (0x0)
 #define CONTROLLER_REG_OFFSET_CAP                           (CONTROLLER_REG_STARTING_OFFSET)
@@ -95,35 +91,31 @@ controller register defines
 #define CONTROLLER_REG_SIZE_CC                              (0x4)
 #define CONTROLLER_REG_SIZE_CSTS                            (0x4)
 #define CONTROLLER_REG_SIZE_NSSR                            (0x4)
-#define CONTROLLER_REG_SIZE_AQA                             (0x4) 							
-#define CONTROLLER_REG_SIZE_ASQ                             (0x8) 	
+#define CONTROLLER_REG_SIZE_AQA                             (0x4)
+#define CONTROLLER_REG_SIZE_ASQ                             (0x8)
 #define CONTROLLER_REG_SIZE_ACQ                             (0x8)
-#define CONTROLLER_REG_SIZE_CMBLOC                          (0x4)         
-#define CONTROLLER_REG_SIZE_CMBSZ                           (0x4)        
-#define CONTROLLER_REG_SIZE_BPINFO                          (0x4)         
-#define CONTROLLER_REG_SIZE_BPRSEL                          (0x4)         
-#define CONTROLLER_REG_SIZE_BPMBL                           (0x8)        
-#define CONTROLLER_REG_SIZE_CMBMSC                          (0x8)         
-#define CONTROLLER_REG_SIZE_CMBSTS                          (0x4)         
-#define CONTROLLER_REG_SIZE_CMBEBS                          (0x4)         
-#define CONTROLLER_REG_SIZE_CMBSWTP                         (0x4)          
-#define CONTROLLER_REG_SIZE_NSSD                            (0x4)       
+#define CONTROLLER_REG_SIZE_CMBLOC                          (0x4)
+#define CONTROLLER_REG_SIZE_CMBSZ                           (0x4)
+#define CONTROLLER_REG_SIZE_BPINFO                          (0x4)
+#define CONTROLLER_REG_SIZE_BPRSEL                          (0x4)
+#define CONTROLLER_REG_SIZE_BPMBL                           (0x8)
+#define CONTROLLER_REG_SIZE_CMBMSC                          (0x8)
+#define CONTROLLER_REG_SIZE_CMBSTS                          (0x4)
+#define CONTROLLER_REG_SIZE_CMBEBS                          (0x4)
+#define CONTROLLER_REG_SIZE_CMBSWTP                         (0x4)
+#define CONTROLLER_REG_SIZE_NSSD                            (0x4)
 #define CONTROLLER_REG_SIZE_CRTO                            (0x4)
-#define CONTROLLER_REG_SIZE_PMRCAP                          (0x4)         
-#define CONTROLLER_REG_SIZE_PMRCTL                          (0x4)         
-#define CONTROLLER_REG_SIZE_PMRSTS                          (0x4)         
-#define CONTROLLER_REG_SIZE_PMREBS                          (0x4)         
-#define CONTROLLER_REG_SIZE_PMRSWTP                         (0x4)          
-#define CONTROLLER_REG_SIZE_PMRMSCL                         (0x4)          
+#define CONTROLLER_REG_SIZE_PMRCAP                          (0x4)
+#define CONTROLLER_REG_SIZE_PMRCTL                          (0x4)
+#define CONTROLLER_REG_SIZE_PMRSTS                          (0x4)
+#define CONTROLLER_REG_SIZE_PMREBS                          (0x4)
+#define CONTROLLER_REG_SIZE_PMRSWTP                         (0x4)
+#define CONTROLLER_REG_SIZE_PMRMSCL                         (0x4)
 #define CONTROLLER_REG_SIZE_PMRMSCU                         (0x4)
 
 #define CONTROLLER_REG_SQT_ENTRY_SIZE                       (0x4)
 #define CONTROLLER_REG_CQH_ENTRY_SIZE                       (0x4)
 #define CONTROLLER_REG_MSIX_ENTRY_SIZE                      (0x10)
-
-/********************************************************************
-* NVME 2.4 - controller register 
-********************************************************************/
 
 typedef union __attribute__((packed, aligned (4))) cap_t
 {
@@ -147,8 +139,7 @@ typedef union __attribute__((packed, aligned (4))) cap_t
     };
 
     volatile uint64_t all;
-}
-cap_t;
+}cap_t;
 static_assert(sizeof(cap_t) == CONTROLLER_REG_SIZE_CAP, "cap_t size incorrect");
 
 typedef union __attribute__((packed, aligned (4))) vs_t
@@ -454,9 +445,11 @@ typedef union __attribute__((packed, aligned (4)))  pmrmscu_t
 }pmrmscu_t;
 static_assert(sizeof(pmrmscu_t) == CONTROLLER_REG_SIZE_PMRMSCU, "pmrmscu_t size incorrect");
 
-/********************************************************************
-* NVME 2.4 - sq tail
-********************************************************************/
+
+/*************************************************************************************************
+NVM-Express-NVMe-over-PCIe-Transport-Specification-Revision-1.4-Ratified-2026.07.31
+3.1.2.1 Offset (1000h + ((2y) * (4 << CAP.DSTRD))): SQyTDBL – Submission Queue y Tail Doorbell
+*************************************************************************************************/
 
 typedef union __attribute__((packed, aligned (4))) sqtdbl_t
 {
@@ -471,9 +464,10 @@ typedef union __attribute__((packed, aligned (4))) sqtdbl_t
 sqtdbl_t;
 static_assert(sizeof(sqtdbl_t) == CONTROLLER_REG_SQT_ENTRY_SIZE, "sqtdbl_t size incorrect");
 
-/********************************************************************
-* NVME 2.4 - cq head
-********************************************************************/
+/*************************************************************************************************
+NVM-Express-NVMe-over-PCIe-Transport-Specification-Revision-1.4-Ratified-2026.07.31
+3.1.2.2 Offset (1000h + ((2y + 1) * (4 << CAP.DSTRD))): CQyHDBL – Completion Queue y Head Doorbell
+*************************************************************************************************/
 
 typedef union __attribute__((packed, aligned (4))) cqhdbl_t
 {
@@ -489,7 +483,11 @@ cqhdbl_t;
 static_assert(sizeof(cqhdbl_t) == CONTROLLER_REG_CQH_ENTRY_SIZE, "cqhdbl_t size incorrect");
 
 /********************************************************************
-* NVME 2.4 - msi-x
+NCB-PCI_Express_Base_4.0r1.0_September-27-2017-c
+7.7.2.5 Message Address Register for MSI-X Table Entries
+7.7.2.6 Message Upper Address Register for MSI-X Table Entries
+7.7.2.7 Message Data Register for MSI-X Table Entries
+7.7.2.8 Vector Control Register for MSI-X Table Entries
 ********************************************************************/
 
 typedef struct __attribute__((packed, aligned (4))) msix_t
