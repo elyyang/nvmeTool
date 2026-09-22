@@ -43,7 +43,7 @@ void demo_udma()
     udma_c& udmaDriver = udma_c::getInstance();
 
     //example on udma drv
-    udmaDriver.getUdmaBufferInformation();
+    udmaDriver.dumpUdmaBufferInformation();
 }
 
 void demo_uio()

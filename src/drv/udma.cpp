@@ -100,7 +100,7 @@ uint64_t udma_c::getBufferPhysicalAddress(uint32_t bufferIndex)
     return (uint64_t)bufferPhysicalAddress[bufferIndex];
 }
 
-void udma_c::getUdmaBufferInformation(void)
+void udma_c::dumpUdmaBufferInformation(void)
 {   
     for(uint32_t i=0; i<UDMA_BUFFER_COUNT; i++)
     {

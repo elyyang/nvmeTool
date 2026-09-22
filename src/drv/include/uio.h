@@ -59,4 +59,5 @@ class uio_c
         void dumpBar0MemorySpace(uint32_t offset, uint32_t iterations) const;
 
         friend class controller_c;        
+        friend class admin_c;
 };

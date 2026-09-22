@@ -47,7 +47,6 @@ class controller_c
     public:
 
         static controller_c& getInstance();
-        
 
         void setBusMasterEnable(uio_c& uioDrv, bool status);
         pcieConfigurationHeader_t getPcieConfigHeader(uio_c& uioDrv) const;
