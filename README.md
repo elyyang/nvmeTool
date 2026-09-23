@@ -1,4 +1,4 @@
-# NVMe Test Tool 2.0 #
+# NVMe Tool Kit #
 -------------------------------------------------
 
 ## Getting started
