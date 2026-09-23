@@ -34,7 +34,7 @@
 TARGET = nvmeToolKit
 VERBOSE = FALSE
 RUN = FALSE
-SOURCE_NAME = app drv 
+SOURCE_NAME = app drv lib
 UTIL_NAME = general menu
 TEST_NAME = sample
 

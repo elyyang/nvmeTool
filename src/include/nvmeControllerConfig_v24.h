@@ -77,6 +77,7 @@ NVM-Express-Base-Specification-Revision-2.4-Ratified-2026.07.31
 #define CONTROLLER_REG_OFFSET_PMRSWTP                       (0xE10)
 #define CONTROLLER_REG_OFFSET_PMRMSCL                       (0xE14)
 #define CONTROLLER_REG_OFFSET_PMRMSCU                       (0xE18)
+
 #define CONTROLLER_REG_TRANSPORT_SPECIFIC_STARTING_OFFSET   (0x1000)
 #define CONTROLLER_REG_SQT_CQH_STARTING_OFFSET              (CONTROLLER_REG_TRANSPORT_SPECIFIC_STARTING_OFFSET)
 #define CONTROLLER_REG_VENDOR_SPECIFIC_STARTING_OFFSET      (0x1300)
@@ -347,6 +348,56 @@ typedef union __attribute__((packed, aligned (4))) cmbsts_t
     volatile uint32_t all;
 }cmbsts_t;
 static_assert(sizeof(cmbsts_t) == CONTROLLER_REG_SIZE_CMBSTS, "cmbsts_t size incorrect");
+
+typedef union __attribute__((packed, aligned (4))) cmbebs_t
+{
+    volatile struct
+    {
+        uint32_t    CMBEBSZU    :4;
+        uint32_t    CMBRBB      :1;
+        uint32_t    rsvd0       :3;
+        uint32_t    CMBWBZ      :24;
+    };
+
+    volatile uint32_t all;
+}cmbebs_t;
+static_assert(sizeof(cmbebs_t) == CONTROLLER_REG_SIZE_CMBEBS, "cmbebs_t size incorrect");
+
+typedef union __attribute__((packed, aligned (4))) cmbswtp_t
+{
+    volatile struct
+    {
+        uint32_t    CMBSWTU :4;
+        uint32_t    rsvd0   :4;
+        uint32_t    CMBSWTV :24;
+    };
+
+    volatile uint32_t all;
+}cmbswtp_t;
+static_assert(sizeof(cmbswtp_t) == CONTROLLER_REG_SIZE_CMBSWTP, "cmbswtp_t size incorrect");
+
+typedef union __attribute__((packed, aligned (4))) nssd_t
+{
+    volatile struct
+    {
+        uint32_t    NSSC;
+    };
+
+    volatile uint32_t all;
+}nssd_t;
+static_assert(sizeof(nssd_t) == CONTROLLER_REG_SIZE_NSSD, "nssd_t size incorrect");
+
+typedef union __attribute__((packed, aligned (4))) crto_t
+{
+    volatile struct
+    {
+        uint32_t    CRWMT   :16;
+        uint32_t    CRIMT   :16;
+    };
+
+    volatile uint32_t all;
+}crto_t;
+static_assert(sizeof(crto_t) == CONTROLLER_REG_SIZE_CRTO, "crto_t size incorrect");
 
 typedef union __attribute__((packed, aligned (4))) pmrcap_t
 {

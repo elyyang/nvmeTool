@@ -171,6 +171,34 @@ cmbsts_t controller_c::getControllerMemoryBufferStatus(uio_c& uioDrv) const
     return shadowReg;
 }
 
+cmbebs_t controller_c::getControllerMemoryBufferElasticityBufferSize(uio_c& uioDrv) const
+{
+    cmbebs_t shadowReg;
+    pread(uioDrv.mUioResource0_fd, &shadowReg, sizeof(cmbebs_t), CONTROLLER_REG_OFFSET_CMBEBS);
+    return shadowReg;
+}
+
+cmbswtp_t controller_c::getControllerMemoryBufferSustainedWriteThroughput(uio_c& uioDrv) const
+{
+    cmbswtp_t shadowReg;
+    pread(uioDrv.mUioResource0_fd, &shadowReg, sizeof(cmbswtp_t), CONTROLLER_REG_OFFSET_CMBSWTP);
+    return shadowReg;
+}
+
+nssd_t controller_c::getNvmSubsystemShutdown(uio_c& uioDrv) const
+{
+    nssd_t shadowReg;
+    pread(uioDrv.mUioResource0_fd, &shadowReg, sizeof(nssd_t), CONTROLLER_REG_OFFSET_NSSD);
+    return shadowReg;
+}
+
+crto_t controller_c::getControllerReadyTimeout(uio_c& uioDrv) const
+{
+    crto_t shadowReg;
+    pread(uioDrv.mUioResource0_fd, &shadowReg, sizeof(crto_t), CONTROLLER_REG_OFFSET_CRTO);
+    return shadowReg;
+}
+
 pmrcap_t controller_c::getPersistentMemoryCapabilities(uio_c& uioDrv) const
 {
     pmrcap_t shadowReg;
@@ -219,4 +247,3 @@ pmrmscu_t controller_c::getPersistentMemoryRegionControllerMemorySpaceControlUpp
     pread(uioDrv.mUioResource0_fd, &shadowReg, sizeof(pmrmscu_t), CONTROLLER_REG_OFFSET_PMRMSCU);
     return shadowReg;
 }
-

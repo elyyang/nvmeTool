@@ -48,10 +48,8 @@ void demo_udma()
 
 void demo_uio()
 {
-
     uio_c& uioDriver = uio_c::getInstance(g_uioId);
     pcieHandler_c& pcieDrv = pcieHandler_c::getInstance();
-
 
     //example on uio drv to mem access 
     printf("Bar0 Address: 0x%lx \n", uioDriver.getBar0Address());    
@@ -64,9 +62,7 @@ void demo_uio()
     
     pcieConfigurationHeader_t pcieHeaderShadow = pcieDrv.getPcieConfigHeader(uioDriver);
     printf("pcie vendor id: 0x%x \n", pcieHeaderShadow.dw0.vendorId);
-    printf("pcie device id: 0x%x \n", pcieHeaderShadow.dw0.deviceId);    
-
-
+    printf("pcie device id: 0x%x \n", pcieHeaderShadow.dw0.deviceId);
 }
 
 void demo_uio2()

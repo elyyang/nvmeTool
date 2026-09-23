@@ -64,7 +64,11 @@ class controller_c
         bprsel_t getBootParitionReadSelect(uio_c& uioDrv) const;
         bpmbl_t getBootParitionMemoryBufferLocation(uio_c& uioDrv) const;
         cmbmsc_t getControllerMemoryBufferMemorySpaceControl(uio_c& uioDrv) const;
-        cmbsts_t getControllerMemoryBufferStatus(uio_c& uioDrv) const;
+        cmbsts_t getControllerMemoryBufferStatus(uio_c& uioDrv) const;        
+        cmbebs_t getControllerMemoryBufferElasticityBufferSize(uio_c& uioDrv) const;
+        cmbswtp_t getControllerMemoryBufferSustainedWriteThroughput(uio_c& uioDrv) const;
+        nssd_t getNvmSubsystemShutdown(uio_c& uioDrv) const;
+        crto_t getControllerReadyTimeout(uio_c& uioDrv) const;        
         pmrcap_t getPersistentMemoryCapabilities(uio_c& uioDrv) const;
         pmrctl_t getPersistentMemoryRegionControl(uio_c& uioDrv) const;
         pmrsts_t getPersistentMemoryRegionStatus(uio_c& uioDrv) const;
