@@ -36,7 +36,6 @@
 #include <stdint.h>
 #include "uio.h"
 #include "nvmeStructs.h"
-#include "pcieStructs.h"
 
 class controller_c
 {
