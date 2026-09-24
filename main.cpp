@@ -35,7 +35,7 @@
 #include <stdint.h>
 #include <stdlib.h> 
 
-#include "menu.h"
+#include "demo.h"
 
 int g_uioId= 0;
 
@@ -46,8 +46,8 @@ int main(int argc, char* argv[])
     g_uioId = atoi(argv[1]);
   }  
 
-  menuBuilder();
+  demoMenu();
 
-  printf("NVMe Tool all done! \n");
+  printf("goodbye! \n");
   return 0;
 }

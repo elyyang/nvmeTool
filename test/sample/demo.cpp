@@ -35,6 +35,9 @@
 #include "uio.h"
 #include "controller.h"
 #include "pcieHandler.h"
+#include "menu.h"
+
+#include "demo.h"
 
 extern int g_uioId;
 
@@ -70,4 +73,29 @@ void demo_uio2()
     uio_c& uioDriver = uio_c::getInstance(g_uioId);
     uioDriver.dumpBar0MemorySpace(0, 4);
     uioDriver.dumpBar0MemorySpace(0x1000, 6);
+}
+
+menu_c::subMenu pcieUtil_subMenu_g;
+menu_c::subMenu nvmeUtil_subMenu_g;
+menu_c::subMenu tests_subMenu_g;
+menu_c::mainMenu nvmeTool_mainMenu_g;
+menu_c nvmeToolMenu_g;
+
+void demoMenu(void)
+{
+    pcieUtil_subMenu_g.addDescription("PCIe utilities");
+    nvmeUtil_subMenu_g.addDescription("NVMe utilities");
+
+    tests_subMenu_g.addDescription("tests");
+    tests_subMenu_g.addItem(demo_uio, "a brief demo on uio_c driver...");
+    tests_subMenu_g.addItem(demo_uio2, "bar 0 mem dump...");
+    tests_subMenu_g.addItem(demo_udma, "udma_c driver");
+
+    nvmeTool_mainMenu_g.addDescription("NVMe tools 2.0");
+    nvmeTool_mainMenu_g.addItem(pcieUtil_subMenu_g, "pcie utilities");
+    nvmeTool_mainMenu_g.addItem(nvmeUtil_subMenu_g, "nvme utilities");
+    nvmeTool_mainMenu_g.addItem(tests_subMenu_g,    "tests");
+
+    nvmeToolMenu_g.build(nvmeTool_mainMenu_g);
+    nvmeToolMenu_g.run();
 }
