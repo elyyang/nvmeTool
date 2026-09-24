@@ -71,8 +71,8 @@ void demo_uio()
 void demo_uio2()
 {
     uio_c& uioDriver = uio_c::getInstance(g_uioId);
-    uioDriver.dumpBar0MemorySpace(0, 4);
-    uioDriver.dumpBar0MemorySpace(0x1000, 6);
+    uioDriver.dumpBar0MemorySpace(0, 12);
+    uioDriver.dumpBar0MemorySpace(0x1000, 32);
 }
 
 menu_c::subMenu pcieUtil_subMenu_g;
