@@ -247,3 +247,144 @@ pmrmscu_t controller_c::getPersistentMemoryRegionControllerMemorySpaceControlUpp
     pread(uioDrv.mUioResource0_fd, &shadowReg, sizeof(pmrmscu_t), CONTROLLER_REG_OFFSET_PMRMSCU);
     return shadowReg;
 }
+
+void controller_c::setControllerCapabilities(uio_c& uioDrv, cap_t cap) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &cap, sizeof(cap_t), CONTROLLER_REG_OFFSET_CAP);
+}
+
+void controller_c::setVersion(uio_c& uioDrv, vs_t vs) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &vs, sizeof(vs_t), CONTROLLER_REG_OFFSET_VS);
+}
+
+void controller_c::setInterruptMaskSet(uio_c& uioDrv, intms_t intms) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &intms, sizeof(intms_t), CONTROLLER_REG_OFFSET_INTMS);
+}
+
+void controller_c::setInterruptMaskClear(uio_c& uioDrv, intmc_t intmc) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &intmc, sizeof(intmc_t), CONTROLLER_REG_OFFSET_INTMC);
+}
+
+void controller_c::setControllerConfiguration(uio_c& uioDrv, cc_t cc) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &cc, sizeof(cc_t), CONTROLLER_REG_OFFSET_CC);
+}
+
+void controller_c::setControllerStatus(uio_c& uioDrv, csts_t csts) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &csts, sizeof(csts_t), CONTROLLER_REG_OFFSET_CSTS);
+}
+
+void controller_c::setNvmSubsystemReset(uio_c& uioDrv, nssr_t nssr) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &nssr, sizeof(nssr_t), CONTROLLER_REG_OFFSET_NSSR);
+}
+
+void controller_c::setAdminQueueAttributes(uio_c& uioDrv, aqa_t aqa) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &aqa, sizeof(aqa_t), CONTROLLER_REG_OFFSET_AQA);
+}
+
+void controller_c::setAdminSubmissionQueueBaseAddress(uio_c& uioDrv, asq_t asq) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &asq, sizeof(asq_t), CONTROLLER_REG_OFFSET_ASQ);
+}
+
+void controller_c::setAdminCompletionQueueBaseAddress(uio_c& uioDrv, acq_t acq) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &acq, sizeof(acq_t), CONTROLLER_REG_OFFSET_ACQ);
+}
+
+void controller_c::setControllerMemoryBufferLocation(uio_c& uioDrv, cmbloc_t cmbloc) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &cmbloc, sizeof(cmbloc_t), CONTROLLER_REG_OFFSET_CMBLOC);
+}
+
+void controller_c::setControllerMemoryBufferSize(uio_c& uioDrv, cmbsz_t cmbsz) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &cmbsz, sizeof(cmbsz_t), CONTROLLER_REG_OFFSET_CMBSZ);
+}
+
+void controller_c::setBootParitionInformation(uio_c& uioDrv, bpinfo_t bpinfo) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &bpinfo, sizeof(bpinfo_t), CONTROLLER_REG_OFFSET_BPINFO);
+}
+
+void controller_c::setBootParitionReadSelect(uio_c& uioDrv, bprsel_t bprsel) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &bprsel, sizeof(bprsel_t), CONTROLLER_REG_OFFSET_BPRSEL);
+}
+
+void controller_c::setBootParitionMemoryBufferLocation(uio_c& uioDrv, bpmbl_t bpmbl) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &bpmbl, sizeof(bpmbl_t), CONTROLLER_REG_OFFSET_BPMBL);
+}
+
+void controller_c::setControllerMemoryBufferMemorySpaceControl(uio_c& uioDrv, cmbmsc_t cmbmsc) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &cmbmsc, sizeof(cmbmsc_t), CONTROLLER_REG_OFFSET_CMBMSC);
+}
+
+void controller_c::setControllerMemoryBufferStatus(uio_c& uioDrv, cmbsts_t cmbsts) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &cmbsts, sizeof(cmbsts_t), CONTROLLER_REG_OFFSET_CMBSTS);
+}
+
+void controller_c::setControllerMemoryBufferElasticityBufferSize(uio_c& uioDrv, cmbebs_t cmbebs) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &cmbebs, sizeof(cmbebs_t), CONTROLLER_REG_OFFSET_CMBEBS);
+}
+
+void controller_c::setControllerMemoryBufferSustainedWriteThroughput(uio_c& uioDrv, cmbswtp_t cmbswtp) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &cmbswtp, sizeof(cmbswtp_t), CONTROLLER_REG_OFFSET_CMBSWTP);
+}
+
+void controller_c::setNvmSubsystemShutdown(uio_c& uioDrv, nssd_t nssd) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &nssd, sizeof(nssd_t), CONTROLLER_REG_OFFSET_NSSD);
+}
+
+void controller_c::setControllerReadyTimeout(uio_c& uioDrv, crto_t crto) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &crto, sizeof(crto_t), CONTROLLER_REG_OFFSET_CRTO);
+}
+
+void controller_c::setPersistentMemoryCapabilities(uio_c& uioDrv, pmrcap_t pmrcap) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &pmrcap, sizeof(pmrcap_t), CONTROLLER_REG_OFFSET_PMRCAP);
+}
+
+void controller_c::setPersistentMemoryRegionControl(uio_c& uioDrv, pmrctl_t pmrctl) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &pmrctl, sizeof(pmrctl_t), CONTROLLER_REG_OFFSET_PMRCTL);
+}
+
+void controller_c::setPersistentMemoryRegionStatus(uio_c& uioDrv, pmrsts_t pmrsts) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &pmrsts, sizeof(pmrsts_t), CONTROLLER_REG_OFFSET_PMRSTS);
+}
+
+void controller_c::setPersistentMemoryRegionElasticityBufferSize(uio_c& uioDrv, pmrebs_t pmrebs) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &pmrebs, sizeof(pmrebs_t), CONTROLLER_REG_OFFSET_PMREBS);
+}
+
+void controller_c::setPersistentMemorySustainedWriteThroughput(uio_c& uioDrv, pmrswtp_t pmrswtp) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &pmrswtp, sizeof(pmrswtp_t), CONTROLLER_REG_OFFSET_PMRSWTP);
+}
+
+void controller_c::setPersistentMemoryRegionControllerMemorySpaceControlLower(uio_c& uioDrv, pmrmscl_t pmrmscl) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &pmrmscl, sizeof(pmrmscl_t), CONTROLLER_REG_OFFSET_PMRMSCL);
+}
+
+void controller_c::setPersistentMemoryRegionControllerMemorySpaceControlUpper(uio_c& uioDrv, pmrmscu_t pmrmscu) const
+{
+    pwrite(uioDrv.mUioResource0_fd, &pmrmscu, sizeof(pmrmscu_t), CONTROLLER_REG_OFFSET_PMRMSCU);
+}
+
