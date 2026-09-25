@@ -64,8 +64,8 @@ void demo_uio()
     printf("MSIX pba offset: 0x%x \n", msixShadow.pbaOffset*8);
     
     pcieConfigurationHeader_t pcieHeaderShadow = pcieDrv.getPcieConfigHeader(uioDriver);
-    printf("pcie vendor id: 0x%x \n", pcieHeaderShadow.dw0.vendorId);
-    printf("pcie device id: 0x%x \n", pcieHeaderShadow.dw0.deviceId);
+    printf("pcie vendor id: 0x%x \n", pcieHeaderShadow.type0.vendorId);
+    printf("pcie device id: 0x%x \n", pcieHeaderShadow.type0.deviceId);
 }
 
 void demo_uio2()

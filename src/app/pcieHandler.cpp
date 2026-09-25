@@ -87,9 +87,9 @@ capability_msix_t pcieHandler_c::getMsixCapability(uio_c& uioDrv) const
     pcieConfigurationHeader_t  configSpace;
     pread(uioDrv.mUioConfig_fd, &configSpace, sizeof(pcieConfigurationHeader_t), 0x0);    
         
-    if(configSpace.dw1.status.capabilityList)
+    if(configSpace.type0.status.capabilityList)
     {   
-        nextCapPtr = configSpace.dw13.capPtr;            
+        nextCapPtr = configSpace.type0.capPtr;            
 
         while(nextCapPtr != PCIE_EXT_CAP_ID_NULL)
         {

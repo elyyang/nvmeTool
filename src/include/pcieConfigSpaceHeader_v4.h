@@ -153,223 +153,146 @@ statusReg_t;
 // PCIe configuration headers
 //-------------------------------------------------
 
-typedef struct __attribute__((packed, aligned (4))) pcieConfigurationHeader_t
+typedef struct __attribute__((packed, aligned (4))) pcieConfigurationHeaderType0_t
+{ 
+    //dword 0 (byte offset 00h)
+    uint32_t vendorId       :16;    
+    uint32_t deviceId       :16;
+
+    //dword 1 (byte offset 04h)
+    commandReg_t command;                           
+    statusReg_t status;                         
+
+    //dword 2 (byte offset 08h)
+    uint32_t revId          :8;     
+    uint32_t classCode      :24;    
+    
+    //dword 3 (byte offset 0Ch)
+    uint32_t cacheLineSize  :8;     
+    uint32_t latencyTimer   :8;
+    uint32_t headerType     :8;
+    uint32_t bist           :8;
+    
+    //dword 4 (byte offset 10h)
+    uint32_t bar0;
+    
+    //dword 5 (byte offset 14h)
+    uint32_t bar1;
+    
+    //dword 6 (byte offset 18h)
+    uint32_t bar2;
+    
+    //dword 7 (byte offset 1Ch)
+    uint32_t bar3;
+    
+    //dword 8 (byte offset 20h)
+    uint32_t bar4;
+    
+    //dword 9 (byte offset 24h)
+    uint32_t bar5;
+    
+    //dword 10 (byte offset 28h)
+    uint32_t cardBusCisPtr;
+    
+    //type 0 config space header specific
+    uint32_t subsysVendorId :16;
+    uint32_t subsysDeviceId :16;
+    
+    //dword 12 (byte offset 30h)    
+    uint32_t expansionRomBaseAddr;
+    
+    //dword 13 (byte offset 34h)
+    uint32_t capPtr         :8;
+    uint32_t _reserved0     :24;
+    
+    //dword 14 (byte offset 38h)
+    uint32_t _reserved1;
+    
+    //dword 15 (byte offset 3Ch)
+    uint32_t interruptLine  :8;
+    uint32_t interruptPin   :8;            
+    uint32_t minGnt         :8;
+    uint32_t maxLat         :8;    
+}pcieConfigurationHeaderType0_t;    
+static_assert(sizeof(pcieConfigurationHeaderType0_t) == PCIE_CONFIG_SPACE_HEADER_SIZE);
+
+typedef struct __attribute__((packed, aligned (4))) pcieConfigurationHeaderType1_t
 {
-    //PCIe config header Dword 0 (byte offset 00h)
-    union
-    {
-        volatile struct
-        {
-            uint32_t vendorId :16;    
-            uint32_t deviceId :16;    
-        };
+    //dword 0 (byte offset 00h)
+    uint32_t vendorId                   :16;    
+    uint32_t deviceId                   :16;    
 
-        volatile uint32_t all;
-    }dw0;
-
-    //PCIe config header Dword 1 (byte offset 04h)
-    union
-    {
-        volatile struct
-        {
-            commandReg_t command;                           
-            statusReg_t status;                         
-        };
-
-        uint32_t all;
-    }dw1;
-
-    //PCIe config header Dword 2 (byte offset 08h)
-    union
-    {
-        volatile struct
-        {
-            uint32_t revId     :8;     
-            uint32_t classCode :24;    
-        };
-
-        volatile uint32_t all;
-    }dw2;
-
-    //PCIe config header Dword 3 (byte offset 0Ch)
-    union
-    {
-        volatile struct
-        {
-            uint32_t cacheLineSize :8;     
-            uint32_t latencyTimer  :8;
-            uint32_t headerType    :8;
-            uint32_t bist          :8;
-        };
-
-        volatile uint32_t all;
-    }dw3;
-
-    //PCIe config header Dword 4 (byte offset 10h)
-    volatile uint32_t bar0;
+    //dword 1 (byte offset 04h)
+    commandReg_t command;                           
+    statusReg_t status;                         
+ 
+    //dword 2 (byte offset 08h)
+    uint32_t revId                      :8;     
+    uint32_t classCode                  :24;    
     
-    //PCIe config header Dword 5 (byte offset 14h)
-    volatile uint32_t bar1;
+    //dword 3 (byte offset 0Ch)
+    uint32_t cacheLineSize              :8;     
+    uint32_t latencyTimer               :8;
+    uint32_t headerType                 :8;
+    uint32_t bist                       :8;
     
-    //PCIe config header Dword 6 (byte offset 18h)
-    union
-    {
-        //type 1 config space header specific
-        volatile struct 
-        {
-            uint32_t primaryBusNumber       :8;
-            uint32_t secondaryBusNumber     :8;
-            uint32_t subordinateBusNumber   :8;
-            uint32_t secondaryLatencyTimer  :8;
-        };
-
-        //type 0 config space header specific
-        volatile uint32_t bar2;
-
-        volatile uint32_t all;
-    }dw6;
+    //dword 4 (byte offset 10h)
+    uint32_t bar0;
     
-    //PCIe config header Dword 7 (byte offset 1Ch)
-    union
-    {
-        //type 1 config space header specific
-        volatile struct 
-        {
-            uint32_t ioBase          :8;
-            uint32_t ioLimit         :8;
-            uint32_t secondaryStatus :16;
-        };
-
-        //type 0 config space header specific
-        volatile uint32_t bar3;
-
-        volatile uint32_t all;
-    }dw7;
-
-    //PCIe config header Dword 8 (byte offset 20h)
-    union
-    {
-        //type 1 config space header specific
-        volatile struct 
-        {
-            uint32_t memoryBase  :16;
-            uint32_t memoryLimit :16;
-        };
-
-        //type 0 config space header specific
-        volatile uint32_t bar4;
-
-        volatile uint32_t all;
-    }dw8;
-
-    //PCIe config header Dword 9 (byte offset 24h)
-    union
-    {
-        //type 1 config space header specific
-        volatile struct 
-        {
-            uint32_t prefetchableMemoryBase  :16;
-            uint32_t prefetchableMemoryLimit :16;
-        };
-
-        //type 0 config space header specific
-        volatile uint32_t bar5;
-
-        volatile uint32_t all;
-    }dw9;
-
-    //PCIe config header Dword 10 (byte offset 28h)
-    union
-    {
-        //type 1 config space header specific
-        volatile uint32_t prefetchableBaseUpper;
-
-        //type 0 config space header specific
-        volatile uint32_t cardBusCisPtr;
-
-        volatile uint32_t all;
-    }dw10;
-
-    //PCIe config header Dword 11 (byte offset 2Ch)
-    union
-    {
-        //type 1 config space header specific
-        volatile uint32_t prefetchableBaseLower;
-
-        //type 0 config space header specific
-        volatile struct
-        {
-            uint32_t subsysVendorId :16;
-            uint32_t subsysDeviceId :16;
-        };
-
-        volatile uint32_t all;
-    }dw11;
+    //dword 5 (byte offset 14h)
+    uint32_t bar1;
     
-    //PCIe config header Dword 12 (byte offset 30h)
-    union
-    {
-        //type 1 config space header specific
-        volatile struct
-        {
-            uint32_t ioBaseUpper  :16;
-            uint32_t ioLimitUpper :16;
-        };
+    //dword 6 (byte offset 18h)
+    uint32_t primaryBusNumber           :8;
+    uint32_t secondaryBusNumber         :8;
+    uint32_t subordinateBusNumber       :8;
+    uint32_t secondaryLatencyTimer      :8;
+    
+    //dword 7 (byte offset 1Ch)
+    uint32_t ioBase                     :8;
+    uint32_t ioLimit                    :8;
+    uint32_t secondaryStatus            :16;
+    
+    //dword 8 (byte offset 20h)
+    uint32_t memoryBase                 :16;
+    uint32_t memoryLimit                :16;
+    
+    //dword 9 (byte offset 24h)
+    uint32_t prefetchableMemoryBase     :16;
+    uint32_t prefetchableMemoryLimit    :16;
 
-        //type 0 config space header specific
-        volatile uint32_t expansionRomBaseAddr;
+    //dword 10 (byte offset 28h)
+    uint32_t prefetchableBaseUpper;
 
-        volatile uint32_t all;
-    }dw12;
 
-    //PCIe config header Dword 13 (byte offset 34h)
-    union
-    {
-        volatile struct
-        {
-            uint32_t capPtr    :8;
-            uint32_t reserved  :24;
-        };
+    //dword 11 (byte offset 2Ch)
+    uint32_t prefetchableBaseLower;
 
-        volatile uint32_t all;
-    }dw13;
+    //dword 12 (byte offset 30h)
+    uint32_t ioBaseUpper                :16;
+    uint32_t ioLimitUpper               :16;
 
-    //PCIe config header Dword 14 (byte offset 38h)
-    union
-    {
-        //type 1 config space header specific
-        volatile uint32_t expansionRomBaseAddr;
+    //dword 13 (byte offset 34h)
+    uint32_t capPtr                     :8;
+    uint32_t reserved                   :24;
 
-        //type 0 config space header specific
-        volatile uint32_t reserved;
+    //dword 14 (byte offset 38h)
+    uint32_t expansionRomBaseAddr;
 
-        volatile uint32_t all;
-    }dw14;
+    //dword 15 (byte offset 3Ch)
+    uint32_t interruptLine              :8;
+    uint32_t interruptPin               :8;
+    uint32_t bridgeControl              :16;
+}pcieConfigurationHeaderType1_t;
+static_assert(sizeof(pcieConfigurationHeaderType1_t) == PCIE_CONFIG_SPACE_HEADER_SIZE);
 
-    //PCIe config header Dword 15 (byte offset 3Ch)
-    union
-    {
-        volatile struct
-        {
-            uint32_t interruptLine :8;
-            uint32_t interruptPin  :8;
-            
-            union
-            {
-                //type 1 config space header specific
-                uint16_t bridgeControl;                
+typedef union __attribute__((packed, aligned (4))) pcieConfigurationHeader_t
+{
+    uint32_t all[16];
 
-                //type 0 config space header specific
-                volatile struct
-                {
-                    uint16_t minGnt :8;
-                    uint16_t maxLat :8;                    
-                };
-            };
-        };
+    pcieConfigurationHeaderType0_t type0;
 
-        volatile uint32_t all;
-    }dw15;
-}
-pcieConfigurationSpaceHeader_t;
-static_assert(sizeof(pcieConfigurationSpaceHeader_t) == PCIE_CONFIG_SPACE_HEADER_SIZE);
+    pcieConfigurationHeaderType1_t type1;
+
+}pcieConfigurationHeader_t;
+static_assert(sizeof(pcieConfigurationHeader_t) == PCIE_CONFIG_SPACE_HEADER_SIZE);
