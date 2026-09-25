@@ -31,31 +31,46 @@
 *
 *********************************************************************************************/
 
-#include "udma.h"
-#include "prbs32.h"
-#include "util.h"
+#pragma once
 
-void test_udma()
+#include <stdint.h>
+
+static inline void regWrite64Bit(const uintptr_t address, const uint64_t value)
 {
-    udma_c& udmaDriver = udma_c::getInstance();
-   
-    for(uint32_t bufferIndex=0; bufferIndex<DEFAULT_UDMA_BUFFER_COUNT; bufferIndex++)
-    {        
-        uintptr_t bufferAddressUnderTest = udmaDriver.getBufferAddress(bufferIndex);
-        uint32_t bufferSizeUnderTest = udmaDriver.getBufferSize(bufferIndex);
+    *(volatile uint64_t*)(address) = value;
+}
 
-        prbs32_fill(bufferAddressUnderTest, 0x1, BYTE_TO_DWORD(bufferSizeUnderTest));
+static inline uint64_t regRead64Bit(const uintptr_t address)
+{
+    return *(volatile uint64_t*)(address);
+}
 
-        bool verificationResult = prbs32_verify(bufferAddressUnderTest, 0x1, BYTE_TO_DWORD(bufferSizeUnderTest));
+static inline void regWrite32Bit(const uintptr_t address, const uint32_t value)
+{
+    *(volatile uint32_t*)(address) = value;
+}
 
-        if(verificationResult)
-        {
-            printf("PRBS32 verification passed for buffer index %u\n", bufferIndex);
-        }
-        else
-        {
-            printf("PRBS32 verification failed for buffer index %u\n", bufferIndex);
-        }
-    }
+static inline uint32_t regRead32Bit(const uintptr_t address)
+{
+    return *(volatile uint32_t*)(address);
+}
 
+static inline void regWrite16Bit(const uintptr_t address, const uint16_t value)
+{
+    *(volatile uint16_t*)(address) = value;
+}
+
+static inline uint16_t regRead16Bit(const uintptr_t address)
+{
+    return *(volatile uint16_t*)(address);
+}
+
+static inline void regWrite8Bit(const uintptr_t address, const uint8_t value)
+{
+    *(volatile uint8_t*)(address) = value;
+}
+
+static inline uint8_t regRead8Bit(const uintptr_t address)
+{
+    return *(volatile uint8_t*)(address);
 }

@@ -40,7 +40,7 @@ repoURL=https://github.com/ikwzm/udmabuf.git
 cloneDir="$rootdir/../subrepo/udmabuf"
 module=u-dma-buf.ko
 module_name=u_dma_buf
-defineBufferSizeKeyWord="DEFAULT_UDMA_BUFFER_SIZE"
+defaultsBufferSize=0x400000
 defineBufferCountKeyWord="DEFAULT_UDMA_BUFFER_COUNT"
 definePath="$rootdir../src/drv/include/udma.h"
 
@@ -48,12 +48,7 @@ definePath="$rootdir../src/drv/include/udma.h"
 
 function get_buffer_size
 {
-    bufferSize=$(awk -v key="$defineBufferSizeKeyWord" '$1 == "#define" && $2 == key { print $3; exit }' "$definePath")
-
-    if [[ -z $bufferSize ]]; then
-        bufferSize=0x100000
-    fi
-
+    bufferSize=$defaultsBufferSize
     echo "buffer size: " $bufferSize    
 }
 

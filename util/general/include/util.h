@@ -31,31 +31,15 @@
 *
 *********************************************************************************************/
 
-#include "udma.h"
-#include "prbs32.h"
-#include "util.h"
+#pragma once
 
-void test_udma()
-{
-    udma_c& udmaDriver = udma_c::getInstance();
-   
-    for(uint32_t bufferIndex=0; bufferIndex<DEFAULT_UDMA_BUFFER_COUNT; bufferIndex++)
-    {        
-        uintptr_t bufferAddressUnderTest = udmaDriver.getBufferAddress(bufferIndex);
-        uint32_t bufferSizeUnderTest = udmaDriver.getBufferSize(bufferIndex);
 
-        prbs32_fill(bufferAddressUnderTest, 0x1, BYTE_TO_DWORD(bufferSizeUnderTest));
+#define BYTE_TO_DWORD(x)    (x/4)
+#define DWORD_TO_BYTE(x)    (x*4)
 
-        bool verificationResult = prbs32_verify(bufferAddressUnderTest, 0x1, BYTE_TO_DWORD(bufferSizeUnderTest));
-
-        if(verificationResult)
-        {
-            printf("PRBS32 verification passed for buffer index %u\n", bufferIndex);
-        }
-        else
-        {
-            printf("PRBS32 verification failed for buffer index %u\n", bufferIndex);
-        }
+#define copyStringToBuffer(pDest, pSrc, count) {    \
+    for(uint32_t i=0;i<count;i++){                  \
+    *(pDest) = *(pSrc);                             \
+    pSrc++;                                         \
+    pDest++;}                                       \
     }
-
-}
