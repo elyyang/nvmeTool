@@ -37,6 +37,8 @@
 
 #include "menu.h"
 #include "demo.h"
+#include "unitTests.h"
+
 
 int g_uioId= 0;
 
@@ -55,6 +57,7 @@ void menuInit()
     g_demo_subMenu.addItem(demo_udma, "udma_c driver");
 
     g_tests_subMenu.addDescription("tests");
+    g_tests_subMenu.addItem(test_udma, "udma test");
 
     g_pcieUtil_subMenu.addDescription("pcie utilities");
 

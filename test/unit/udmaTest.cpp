@@ -37,11 +37,19 @@
 void test_udma()
 {
     udma_c& udmaDriver = udma_c::getInstance();
-    
-    udmaDriver.dumpUdmaBufferInformation();
+   
+    uint32_t bufferIndexUnderTest = 0;
+    uintptr_t bufferAddressUnderTest = udmaDriver.getBufferAddress(bufferIndexUnderTest);
 
+    prbs32_fill(bufferAddressUnderTest, 0x1, 0x100000);    
 
-
-
+    bool verificationResult = prbs32_verify(bufferAddressUnderTest, 0x1, 0x100000);
+    if(verificationResult)
+    {
+        printf("PRBS32 verification passed for buffer index %u\n", bufferIndexUnderTest);
+    }
+    else
+    {
+        printf("PRBS32 verification failed for buffer index %u\n", bufferIndexUnderTest);
+    }
 }
-

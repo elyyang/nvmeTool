@@ -48,8 +48,8 @@ void prbs32_fill(uintptr_t startingAddress, uint32_t startingSeed, uint32_t iter
 {
     for (uint32_t i=0; i<iteration; i++)
     {
-        *(uint32_t*)(startingAddress) = startingSeed;        
-        startingSeed = prbs32_next(startingSeed);
+        *(uint32_t*)(startingAddress + i * sizeof(uint32_t)) = startingSeed;
+        startingSeed = prbs32_next(startingSeed);        
     }
 }
 
