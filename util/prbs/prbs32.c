@@ -31,54 +31,38 @@
 *
 *********************************************************************************************/
 
-#include <stdio.h>
 #include <stdint.h>
-#include <stdlib.h> 
+#include <stdbool.h>
 
-#include "menu.h"
-#include "demo.h"
-
-int g_uioId= 0;
-
-menu_c::subMenu g_demo_subMenu;
-menu_c::subMenu g_tests_subMenu;
-menu_c::subMenu g_pcieUtil_subMenu;
-menu_c::subMenu g_nvmeUtil_subMenu;
-menu_c::mainMenu g_nvmeTool_mainMenu;
-menu_c g_nvmeToolMenu;
-
-void menuInit()
+static uint32_t prbs32_next(const uint32_t seed)
 {
-    g_demo_subMenu.addDescription("demo");
-    g_demo_subMenu.addItem(demo_uio, "a brief demo on uio_c driver...");
-    g_demo_subMenu.addItem(demo_uio2, "bar 0 mem dump...");
-    g_demo_subMenu.addItem(demo_udma, "udma_c driver");
+    uint32_t mask = (1UL << 32) - 1;
 
-    g_tests_subMenu.addDescription("tests");
-
-    g_pcieUtil_subMenu.addDescription("pcie utilities");
-
-    g_nvmeUtil_subMenu.addDescription("nvme utilities");
-
-    g_nvmeTool_mainMenu.addDescription("NVMe Toolkit");
-    g_nvmeTool_mainMenu.addItem(g_demo_subMenu,     "demo");
-    g_nvmeTool_mainMenu.addItem(g_tests_subMenu,    "tests");
-    g_nvmeTool_mainMenu.addItem(g_pcieUtil_subMenu, "pcie utilities");
-    g_nvmeTool_mainMenu.addItem(g_nvmeUtil_subMenu, "nvme utilities");
-    
-    g_nvmeToolMenu.build(g_nvmeTool_mainMenu);
-    g_nvmeToolMenu.run();
+    return( ((seed << 1) | (((seed >> 31) ^
+                             (seed >> 21) ^
+                             (seed >> 1)  ^
+                             (seed >> 0)) & 1 )) & mask);
 }
 
-int main(int argc, char* argv[])
-{  
-  if((argc>1)&&(argv[1]!=NULL))
-  { 
-    g_uioId = atoi(argv[1]);
-  }  
+void prbs32_fill(uintptr_t startingAddress, uint32_t startingSeed, uint32_t iteration)
+{
+    for (uint32_t i=0; i<iteration; i++)
+    {
+        *(uint32_t*)(startingAddress) = startingSeed;        
+        startingSeed = prbs32_next(startingSeed);
+    }
+}
 
-  menuInit(); 
-  
-  printf("goodbye! \n");
-  return 0;
+bool prbs32_verify(uintptr_t startingAddress, uint32_t startingSeed, uint32_t iteration)
+{
+    for (uint32_t i=0; i<iteration; i++)
+    {
+        if(*(uint32_t*)(startingAddress) != startingSeed)
+        {
+            return false;
+        }
+        startingSeed = prbs32_next(startingSeed);
+        startingAddress += sizeof(uint32_t);
+    }    
+    return true;
 }

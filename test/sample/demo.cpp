@@ -74,29 +74,3 @@ void demo_uio2()
     uioDriver.dumpBar0MemorySpace(0, 12);
     uioDriver.dumpBar0MemorySpace(0x1000, 32);
 }
-
-menu_c::subMenu pcieUtil_subMenu_g;
-menu_c::subMenu nvmeUtil_subMenu_g;
-menu_c::subMenu tests_subMenu_g;
-menu_c::mainMenu nvmeTool_mainMenu_g;
-menu_c nvmeToolMenu_g;
-
-void demoMenu(void)
-{
-    pcieUtil_subMenu_g.addDescription("pcie utilities");
-    nvmeUtil_subMenu_g.addDescription("nvme utilities");
-
-    tests_subMenu_g.addDescription("demo");
-    tests_subMenu_g.addItem(demo_uio, "a brief demo on uio_c driver...");
-    tests_subMenu_g.addItem(demo_uio2, "bar 0 mem dump...");
-    tests_subMenu_g.addItem(demo_udma, "udma_c driver");
-
-    nvmeTool_mainMenu_g.addDescription("NVMe Toolkit");
-    nvmeTool_mainMenu_g.addItem(tests_subMenu_g,    "demo");
-    nvmeTool_mainMenu_g.addItem(pcieUtil_subMenu_g, "pcie utilities");
-    nvmeTool_mainMenu_g.addItem(nvmeUtil_subMenu_g, "nvme utilities");
-    
-
-    nvmeToolMenu_g.build(nvmeTool_mainMenu_g);
-    nvmeToolMenu_g.run();
-}

@@ -31,54 +31,10 @@
 *
 *********************************************************************************************/
 
-#include <stdio.h>
+#pragma once
+
 #include <stdint.h>
-#include <stdlib.h> 
+#include <stdbool.h>
 
-#include "menu.h"
-#include "demo.h"
-
-int g_uioId= 0;
-
-menu_c::subMenu g_demo_subMenu;
-menu_c::subMenu g_tests_subMenu;
-menu_c::subMenu g_pcieUtil_subMenu;
-menu_c::subMenu g_nvmeUtil_subMenu;
-menu_c::mainMenu g_nvmeTool_mainMenu;
-menu_c g_nvmeToolMenu;
-
-void menuInit()
-{
-    g_demo_subMenu.addDescription("demo");
-    g_demo_subMenu.addItem(demo_uio, "a brief demo on uio_c driver...");
-    g_demo_subMenu.addItem(demo_uio2, "bar 0 mem dump...");
-    g_demo_subMenu.addItem(demo_udma, "udma_c driver");
-
-    g_tests_subMenu.addDescription("tests");
-
-    g_pcieUtil_subMenu.addDescription("pcie utilities");
-
-    g_nvmeUtil_subMenu.addDescription("nvme utilities");
-
-    g_nvmeTool_mainMenu.addDescription("NVMe Toolkit");
-    g_nvmeTool_mainMenu.addItem(g_demo_subMenu,     "demo");
-    g_nvmeTool_mainMenu.addItem(g_tests_subMenu,    "tests");
-    g_nvmeTool_mainMenu.addItem(g_pcieUtil_subMenu, "pcie utilities");
-    g_nvmeTool_mainMenu.addItem(g_nvmeUtil_subMenu, "nvme utilities");
-    
-    g_nvmeToolMenu.build(g_nvmeTool_mainMenu);
-    g_nvmeToolMenu.run();
-}
-
-int main(int argc, char* argv[])
-{  
-  if((argc>1)&&(argv[1]!=NULL))
-  { 
-    g_uioId = atoi(argv[1]);
-  }  
-
-  menuInit(); 
-  
-  printf("goodbye! \n");
-  return 0;
-}
+void prbs32_fill(uintptr_t startingAddress, uint32_t startingSeed, uint32_t iteration);
+bool prbs32_verify(uintptr_t startingAddress, uint32_t startingSeed, uint32_t iteration);

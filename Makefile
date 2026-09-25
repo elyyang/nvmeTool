@@ -35,8 +35,8 @@ TARGET = nvmeToolKit
 VERBOSE = FALSE
 RUN = FALSE
 SOURCE_NAME = app drv lib
-UTIL_NAME = general menu
-TEST_NAME = sample mock
+UTIL_NAME = general menu prbs
+TEST_NAME = sample mock unit
 
 ##############################################################################################################
 
