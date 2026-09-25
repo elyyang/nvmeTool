@@ -43,10 +43,10 @@ void test_udma()
     {        
         uintptr_t bufferAddressUnderTest = udmaDriver.getBufferAddress(bufferIndex);
         uint32_t bufferSizeUnderTest = udmaDriver.getBufferSize(bufferIndex);
+        uint32_t prbs32StartingSeed = 0x1;
 
-        prbs32_fill(bufferAddressUnderTest, 0x1, BYTE_TO_DWORD(bufferSizeUnderTest));
-
-        bool verificationResult = prbs32_verify(bufferAddressUnderTest, 0x1, BYTE_TO_DWORD(bufferSizeUnderTest));
+        prbs32_fill(bufferAddressUnderTest, prbs32StartingSeed, BYTE_TO_DWORD(bufferSizeUnderTest));
+        bool verificationResult = prbs32_verify(bufferAddressUnderTest, prbs32StartingSeed, BYTE_TO_DWORD(bufferSizeUnderTest));
 
         if(verificationResult)
         {
