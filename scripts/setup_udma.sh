@@ -116,6 +116,16 @@ elif [ "$mode" == "reset" ]; then
     echo "running: $rmmodCmd"
     echo $($rmmodCmd 2>&1)
     
+
+elif [ "$mode" == "clean" ]; then
+
+    echo "removing udma module...."
+    rmmodCmd="sudo rmmod $module_name"
+    echo "running: $rmmodCmd"
+    echo $($rmmodCmd 2>&1)
+    echo "delete subrepo $cloneDir...."
+    sudo rm -rf "$cloneDir"
+
 else
 
     echo "Invalid argument '$mode'"
