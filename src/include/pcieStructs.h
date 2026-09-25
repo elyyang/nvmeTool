@@ -39,9 +39,9 @@
 
 #if (PCIE_GEN_SUPPORTED==4)
 
-#include "pcieConfigHeader_g4.h"
-#include "pcieCapability_g4.h"
-#include "pcieMsix_g4.h"
+#include "pcieConfigSpaceHeader_v4.h"
+#include "pcieCapability_v4.h"
+#include "pcieMsix_v4.h"
 
 #else 
 

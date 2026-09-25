@@ -57,5 +57,4 @@ void test_udma()
             printf("PRBS32 verification failed for buffer index %u\n", bufferIndex);
         }
     }
-
 }
