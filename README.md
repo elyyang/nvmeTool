@@ -1,5 +1,6 @@
 # NVMe Tool Kit #
 
+
 ## Getting started
 
 ### bind uio driver to nvme device
@@ -24,6 +25,7 @@
 
   $ sudo ./scripts/setup.sh reset
   $ sudo ./scripts/setup_udma.sh reset
+
 
 ## Troubleshoot
 
