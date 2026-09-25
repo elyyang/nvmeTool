@@ -101,14 +101,14 @@ udma_c& udma_c::getInstance(void)
     return instance;
 }
 
-uint64_t udma_c::getBufferAddress(uint32_t bufferIndex)
+uintptr_t udma_c::getBufferAddress(uint32_t bufferIndex)
 {
-    return (uint64_t)bufferAddress[bufferIndex];
+    return (uintptr_t)bufferAddress[bufferIndex];
 }
 
-uint64_t udma_c::getBufferPhysicalAddress(uint32_t bufferIndex)
+uintptr_t udma_c::getBufferPhysicalAddress(uint32_t bufferIndex)
 {
-    return (uint64_t)bufferPhysicalAddress[bufferIndex];
+    return (uintptr_t)bufferPhysicalAddress[bufferIndex];
 }
 
 uint32_t udma_c::getBufferSize(uint32_t bufferIndex)
@@ -120,6 +120,6 @@ void udma_c::dumpUdmaBufferInformation(void)
 {   
     for(uint32_t i=0; i<DEFAULT_UDMA_BUFFER_COUNT; i++)
     {
-        printf("[udma buffer %d] address: 0x%lx physical address: 0x%lx size: %u(%#x)\n", i, (uint64_t)bufferAddress[i], (uint64_t)bufferPhysicalAddress[i], mBufferSize[i], mBufferSize[i]);    
+        printf("[udma buffer %d] address: 0x%lx physical address: 0x%lx size: %u(%#x)\n", i, (uintptr_t)bufferAddress[i], (uintptr_t)bufferPhysicalAddress[i], mBufferSize[i], mBufferSize[i]);    
     }
 }
