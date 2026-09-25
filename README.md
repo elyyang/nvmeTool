@@ -1,5 +1,4 @@
 # NVMe Tool Kit #
--------------------------------------------------
 
 ## Getting started
 
@@ -25,8 +24,6 @@
 
   $ sudo ./scripts/setup.sh reset
   $ sudo ./scripts/setup_udma.sh reset
-
---------------------------------------------------
 
 ## Troubleshoot
 
