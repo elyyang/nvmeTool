@@ -274,14 +274,14 @@ typedef union __attribute__((packed, aligned (4))) cmbsz_t
 {    
     struct    
     {
-        uint32_t    SQS     :1;
-        uint32_t    CQS     :1;
-        uint32_t    LISTS   :1;
-        uint32_t    RDS     :1;
-        uint32_t    WDS     :1;
-        uint32_t    rsvd0   :3;
-        uint32_t    SZU     :4;
-        uint32_t    SZ      :20;
+        uint32_t    submissionQueueSupport   :1;
+        uint32_t    completionQueueSupport   :1;
+        uint32_t    prpSglListSupport        :1;
+        uint32_t    readDataSupport          :1;
+        uint32_t    writeDataSupport         :1;
+        uint32_t    _reserved0               :3;
+        uint32_t    sizeUnits                :4;
+        uint32_t    size                     :20;
     };
 
     uint32_t all;
@@ -292,11 +292,11 @@ typedef union __attribute__((packed, aligned (4))) bpinfo_t
 {
     struct
     {
-        uint32_t    BPSZ    :15;
-        uint32_t    rsvd0   :5;
-        uint32_t    BRS     :2;
-        uint32_t    rsvd1   :9;
-        uint32_t    ABPID   :1;
+        uint32_t    bootPartitionSize       :15;
+        uint32_t    _reserved0              :9;
+        uint32_t    bootReadStatus          :2;
+        uint32_t    _reserved1              :5;
+        uint32_t    activeBootPartitionId   :1;
     };
 
     uint32_t all;
@@ -307,10 +307,10 @@ typedef union __attribute__((packed, aligned (4))) bprsel_t
 {
     struct
     {
-        uint32_t    BPRSZ   :10;
-        uint32_t    BPROF   :20;
-        uint32_t    rsvd0   :1;
-        uint32_t    BPID    :1;
+        uint32_t    bootPartitionReadSize      :10;
+        uint32_t    bootPartitionReadOffset    :20;
+        uint32_t    _reserved0                 :1;
+        uint32_t    bootPartitionIdentifier    :1;
     };
 
     uint32_t all;
@@ -321,8 +321,8 @@ typedef union __attribute__((packed, aligned (8))) bpmbl_t
 {
     struct
     {
-        uint32_t    rsvd0   :12;
-        uint64_t    BMBBA   :52;
+        uint32_t    _reserved0                              :12;
+        uint64_t    bootPartitionMemoryBufferBaseAddress    :52;
     };
 
     uint64_t all;
@@ -333,10 +333,10 @@ typedef union __attribute__((packed, aligned (8))) cmbmsc_t
 {
     struct
     {
-        uint32_t    CRE     :1;
-        uint32_t    CMSE    :1;
-        uint32_t    rsvd0   :10;
-        uint64_t    CBA     :52;
+        uint32_t    capabilitiesRegistersEnabled    :1;
+        uint32_t    controllerMemorySpaceEnable     :1;
+        uint32_t    _reserved0                      :10;
+        uint64_t    controllerBaseAddress           :52;
     };
 
     uint64_t all;
@@ -347,8 +347,8 @@ typedef union __attribute__((packed, aligned (4))) cmbsts_t
 {
     struct
     {
-        uint32_t    CBAI    :1;
-        uint32_t    rsvd0   :31;
+        uint32_t    controllerBaseAddressInvalid    :1;
+        uint32_t    _reserved0                      :31;
     };
 
     uint32_t all;
@@ -359,10 +359,10 @@ typedef union __attribute__((packed, aligned (4))) cmbebs_t
 {
     struct
     {
-        uint32_t    CMBEBSZU    :4;
-        uint32_t    CMBRBB      :1;
-        uint32_t    rsvd0       :3;
-        uint32_t    CMBWBZ      :24;
+        uint32_t    cmbElasticityBufferSizeUnits    :4;
+        uint32_t    cmbReadBypassBehavior           :1;
+        uint32_t    _reserved0                      :3;
+        uint32_t    cmbElasticityBufferSizeBase     :24;
     };
 
     uint32_t all;
@@ -373,23 +373,18 @@ typedef union __attribute__((packed, aligned (4))) cmbswtp_t
 {
     struct
     {
-        uint32_t    CMBSWTU :4;
-        uint32_t    rsvd0   :4;
-        uint32_t    CMBSWTV :24;
+        uint32_t    cmbSustainedWriteThroughputUnits :4;
+        uint32_t    _reserved0                       :4;
+        uint32_t    cmbSustainedWriteThroughput      :24;
     };
 
     uint32_t all;
 }cmbswtp_t;
 static_assert(sizeof(cmbswtp_t) == CONTROLLER_REG_SIZE_CMBSWTP, "cmbswtp_t size incorrect");
 
-typedef union __attribute__((packed, aligned (4))) nssd_t
+typedef struct __attribute__((packed, aligned (4))) nssd_t
 {
-    struct
-    {
-        uint32_t    NSSC;
-    };
-
-    uint32_t all;
+    uint32_t    nvmSubsystemShutdownControl;
 }nssd_t;
 static_assert(sizeof(nssd_t) == CONTROLLER_REG_SIZE_NSSD, "nssd_t size incorrect");
 
@@ -397,8 +392,8 @@ typedef union __attribute__((packed, aligned (4))) crto_t
 {
     struct
     {
-        uint32_t    CRWMT   :16;
-        uint32_t    CRIMT   :16;
+        uint32_t    controllerReadyWithMediaTimeout          :16;
+        uint32_t    controllerReadyIndependentOfMediaTimeout :16;
     };
 
     uint32_t all;
@@ -409,16 +404,16 @@ typedef union __attribute__((packed, aligned (4))) pmrcap_t
 {
     struct
     {
-        uint32_t    rsvd0   :3;
-        uint32_t    RDS     :1;
-        uint32_t    WDS     :1;
-        uint32_t    BIR     :3;
-        uint32_t    PMRTU   :2;
-        uint32_t    PMRWBM  :4;
-        uint32_t    rsvd1   :2;
-        uint32_t    PMRTO   :8;
-        uint32_t    CMSS    :1;
-        uint32_t    rsvd2   :7;
+        uint32_t    _reserved0                                     :3;
+        uint32_t    readDataSupport                                :1;
+        uint32_t    writeDataSupport                               :1;
+        uint32_t    baseIndicatorRegister                          :3;
+        uint32_t    persistentMemoryRegionTimeUnits                :2;
+        uint32_t    persistentMemoryRegionWriteBarrierMechanisms   :4;
+        uint32_t    _reserved1                                     :2;
+        uint32_t    persistentMemoryRegionTimeout                  :8;
+        uint32_t    controllerMemorySpaceSupported                 :1;
+        uint32_t    _reserved2                                     :7;
     };
 
     uint32_t all;
@@ -429,8 +424,8 @@ typedef union __attribute__((packed, aligned (4))) pmrctl_t
 {
     struct
     {
-        uint32_t    EN      :1;
-        uint32_t    rsvd0   :31;
+        uint32_t    enable      :1;
+        uint32_t    _reserved0  :31;
     };
 
     uint32_t all;
@@ -441,11 +436,11 @@ typedef union __attribute__((packed, aligned (4))) pmrsts_t
 {
     struct
     {
-        uint32_t    ERR     :8;
-        uint32_t    NRDY    :1;
-        uint32_t    HSTS    :3;
-        uint32_t    CBAI    :1;
-        uint32_t    rsvd0   :19;
+        uint32_t    error                         :8;
+        uint32_t    notReady                     :1;
+        uint32_t    healthStatus                 :3;
+        uint32_t    controllerBaseAddressInvalid :1;
+        uint32_t    _reserved0                   :19;
     };
 
     uint32_t all;
@@ -456,10 +451,10 @@ typedef union __attribute__((packed, aligned (4)))  pmrebs_t
 {
     struct
     {
-        uint32_t    PMRSZU  :4; 
-        uint32_t    RBB     :1;
-        uint32_t    rsvd0   :3;
-        uint32_t    PMRWBZ  :24;
+        uint32_t    pmrElasticityBufferSizeUnits :4;
+        uint32_t    pmrReadBypassBehavior        :1;
+        uint32_t    _reserved0                   :3;
+        uint32_t    pmrElasticityBufferSizeBase  :24;
     };
 
     uint32_t all;
@@ -470,9 +465,9 @@ typedef union __attribute__((packed, aligned (4)))  pmrswtp_t
 {
     struct
     {
-        uint32_t    PMRSWTU :4;
-        uint32_t    rsvd0   :4;
-        uint32_t    PMRSWTV :24;
+        uint32_t    pmrSustainedWriteThroughputUnits :4;
+        uint32_t    _reserved0                      :4;
+        uint32_t    pmrSustainedWriteThroughput      :24;
     };
 
     uint32_t all;
@@ -483,20 +478,19 @@ typedef union __attribute__((packed, aligned (4)))  pmrmscl_t
 {
     struct
     {
-        uint32_t    rsvd0   :1;
-        uint32_t    CMSE    :1;
-        uint32_t    rsvd1   :10;
-        uint32_t    CBA     :20;
+        uint32_t    _reserved0                  :1;
+        uint32_t    controllerMemorySpaceEnable :1;
+        uint32_t    _reserved1                  :10;
+        uint32_t    controllerBaseAddress       :20;
     };
 
     uint32_t all;
 }pmrmscl_t;
 static_assert(sizeof(pmrmscl_t) == CONTROLLER_REG_SIZE_PMRMSCL, "pmrmscl_t size incorrect");
 
-typedef union __attribute__((packed, aligned (4)))  pmrmscu_t 
+typedef struct __attribute__((packed, aligned (4)))  pmrmscu_t 
 {
-    uint32_t CBA;
-    uint32_t all;
+    uint32_t controllerBaseAddress;    
 }pmrmscu_t;
 static_assert(sizeof(pmrmscu_t) == CONTROLLER_REG_SIZE_PMRMSCU, "pmrmscu_t size incorrect");
 
