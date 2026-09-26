@@ -255,15 +255,15 @@ typedef union __attribute__((packed, aligned (4))) cmbloc_t
 {
     struct
     {
-        uint32_t    BIR     :3;
-        uint32_t    CQMMS   :1;
-        uint32_t    CQPDS   :1;
-        uint32_t    CDPMLS  :1;
-        uint32_t    CDPCILS :1;
-        uint32_t    CDMMMS  :1;
-        uint32_t    CQDA    :1;
-        uint32_t    rsvd0   :3;
-        uint32_t    OFST    :20;
+        uint32_t    baseIndicatorRegister                               :3;
+        uint32_t    cmbQueueMixedMemorySupport                          :1;
+        uint32_t    cmbQueuePhysicallyDiscontiguousSupport              :1;
+        uint32_t    cmbDataPointerMixedLocationsSupport                 :1;
+        uint32_t    cmbDataPointerandCommandIndependentLocationsSupport :1;
+        uint32_t    cmbDataMetadataMixedMemorySupport                   :1;
+        uint32_t    cmbQueueDwordAlignment                              :1;
+        uint32_t    _reserved0                                          :3;
+        uint32_t    offset                                              :20;
     };
 
     uint32_t all;    
@@ -510,8 +510,8 @@ typedef union __attribute__((packed, aligned (4))) sqtdbl_t
 {
     struct
     {
-        uint32_t    SQT     :16;
-        uint32_t    rsvd0   :16;
+        uint32_t    submissionQueueTail :16;
+        uint32_t    _reserved0          :16;
     };
 
     uint32_t all;
@@ -527,8 +527,8 @@ typedef union __attribute__((packed, aligned (4))) cqhdbl_t
 {
     struct
     {
-        uint32_t    CQH     :16;
-        uint32_t    rsvd0   :16;
+        uint32_t    completionQueueHead :16;
+        uint32_t    _reserved0          :16;
     };
  
     uint32_t all;

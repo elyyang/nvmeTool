@@ -451,7 +451,7 @@ uint16_t controllerMmio_c::getSqTailDoorbell(int uioId, uint32_t sqId) const
     uio_c& uioDrv = uio_c::getInstance(uioId);
     sqtdbl_t shadowReg;
     pread(uioDrv.mUioResource0_fd, &shadowReg, sizeof(sqtdbl_t), CONTROLLER_REG_SQT_CQH_STARTING_OFFSET + sqId * 8);
-    return shadowReg.SQT;
+    return shadowReg.submissionQueueTail;
 }
 
 uint16_t controllerMmio_c::getCqHeadDoorbell(int uioId, uint32_t cqId) const
@@ -459,14 +459,14 @@ uint16_t controllerMmio_c::getCqHeadDoorbell(int uioId, uint32_t cqId) const
     uio_c& uioDrv = uio_c::getInstance(uioId);
     cqhdbl_t shadowReg;
     pread(uioDrv.mUioResource0_fd, &shadowReg, sizeof(cqhdbl_t), CONTROLLER_REG_SQT_CQH_STARTING_OFFSET + cqId * 8);
-    return shadowReg.CQH;
+    return shadowReg.completionQueueHead;
 }
 
 void controllerMmio_c::setSqTailDoorbell(int uioId, uint32_t sqId, uint16_t value) const
 {
     uio_c& uioDrv = uio_c::getInstance(uioId);
     sqtdbl_t shadowReg;
-    shadowReg.SQT = value;
+    shadowReg.submissionQueueTail = value;
     pwrite(uioDrv.mUioResource0_fd, &shadowReg, sizeof(sqtdbl_t), CONTROLLER_REG_SQT_CQH_STARTING_OFFSET + sqId * 8);
 }
 
@@ -474,7 +474,7 @@ void controllerMmio_c::setCqHeadDoorbell(int uioId, uint32_t cqId, uint16_t valu
 {
     uio_c& uioDrv = uio_c::getInstance(uioId);
     cqhdbl_t shadowReg;
-    shadowReg.CQH = value;
+    shadowReg.completionQueueHead = value;
     pwrite(uioDrv.mUioResource0_fd, &shadowReg, sizeof(cqhdbl_t), CONTROLLER_REG_SQT_CQH_STARTING_OFFSET + cqId * 8);
 }
 
@@ -483,13 +483,13 @@ void controllerMmio_c::incrementSqTailDoorbell(int uioId, uint32_t sqId) const
     uio_c& uioDrv = uio_c::getInstance(uioId);
     sqtdbl_t shadowReg;
     pread(uioDrv.mUioResource0_fd, &shadowReg, sizeof(sqtdbl_t), CONTROLLER_REG_SQT_CQH_STARTING_OFFSET + sqId * 8);
-    if (shadowReg.SQT == 0xFFFF)
+    if (shadowReg.submissionQueueTail == 0xFFFF)
     {
-        shadowReg.SQT = 0;
+        shadowReg.submissionQueueTail = 0;
     }
     else
     {
-        shadowReg.SQT++;
+        shadowReg.submissionQueueTail++;
     }
     pwrite(uioDrv.mUioResource0_fd, &shadowReg, sizeof(sqtdbl_t), CONTROLLER_REG_SQT_CQH_STARTING_OFFSET + sqId * 8);
 }
@@ -499,13 +499,13 @@ void controllerMmio_c::incrementCqHeadDoorbell(int uioId, uint32_t cqId) const
     uio_c& uioDrv = uio_c::getInstance(uioId);
     cqhdbl_t shadowReg;
     pread(uioDrv.mUioResource0_fd, &shadowReg, sizeof(cqhdbl_t), CONTROLLER_REG_SQT_CQH_STARTING_OFFSET + cqId * 8);
-    if (shadowReg.CQH == 0xFFFF)
+    if (shadowReg.completionQueueHead == 0xFFFF)
     {
-        shadowReg.CQH = 0;
+        shadowReg.completionQueueHead = 0;
     }
     else
     {
-        shadowReg.CQH++;
+        shadowReg.completionQueueHead++;
     }
     pwrite(uioDrv.mUioResource0_fd, &shadowReg, sizeof(cqhdbl_t), CONTROLLER_REG_SQT_CQH_STARTING_OFFSET + cqId * 8);
 }
