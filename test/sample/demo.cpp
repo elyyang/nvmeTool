@@ -69,3 +69,42 @@ void demo_uio2()
     uioDriver.dumpBar0MemorySpace(0, 12);
     uioDriver.dumpBar0MemorySpace(0x1000, 32);
 }
+
+void demo_pcieCfgSpace()
+{
+    pcieCfgSpace_c& pcieDrv = pcieCfgSpace_c::getInstance();
+
+    pcieConfigurationHeader_t pcieHeaderShadow = pcieDrv.getPcieConfigHeader(g_uioId);
+
+    printf("pcie config space (type 0) header:\n");
+    printf("vendor id: 0x%x \n", pcieHeaderShadow.type0.vendorId);
+    printf("device id: 0x%x \n", pcieHeaderShadow.type0.deviceId);
+    printf("command: 0x%x \n", pcieHeaderShadow.type0.command.all);
+    printf("status: 0x%x \n", pcieHeaderShadow.type0.status.all);
+    printf("rev id: 0x%x \n", pcieHeaderShadow.type0.revId);
+    printf("class code: 0x%x \n", pcieHeaderShadow.type0.classCode);
+    printf("cache line size: 0x%x \n", pcieHeaderShadow.type0.cacheLineSize);
+    printf("latency timer: 0x%x \n", pcieHeaderShadow.type0.latencyTimer);
+    printf("header type: 0x%x \n", pcieHeaderShadow.type0.headerType);
+    printf("bist: 0x%x \n", pcieHeaderShadow.type0.bist);
+    printf("bar0: 0x%x \n", pcieHeaderShadow.type0.bar0);
+    printf("bar1: 0x%x \n", pcieHeaderShadow.type0.bar1);
+    printf("bar2: 0x%x \n", pcieHeaderShadow.type0.bar2);
+    printf("bar3: 0x%x \n", pcieHeaderShadow.type0.bar3);
+    printf("bar4: 0x%x \n", pcieHeaderShadow.type0.bar4);
+    printf("bar5: 0x%x \n", pcieHeaderShadow.type0.bar5);
+    printf("card bus cis ptr: 0x%x \n", pcieHeaderShadow.type0.cardBusCisPtr);
+    printf("subsys vendor id: 0x%x \n", pcieHeaderShadow.type0.subsysVendorId); 
+    printf("subsys device id: 0x%x \n", pcieHeaderShadow.type0.subsysDeviceId);
+    printf("expansion rom base addr: 0x%x \n", pcieHeaderShadow.type0.expansionRomBaseAddr);
+    printf("cap ptr: 0x%x \n", pcieHeaderShadow.type0.capPtr);
+    printf("interrupt line: 0x%x \n", pcieHeaderShadow.type0.interruptLine);
+    printf("interrupt pin: 0x%x \n", pcieHeaderShadow.type0.interruptPin);
+    printf("min gnt: 0x%x \n", pcieHeaderShadow.type0.minGnt);
+    printf("max lat: 0x%x \n", pcieHeaderShadow.type0.maxLat);
+}
+
+void demo_nvmControllerMmioSpace()
+{
+    
+}
