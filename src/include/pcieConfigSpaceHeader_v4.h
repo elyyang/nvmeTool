@@ -119,35 +119,45 @@ https://pcisig.com/sites/default/files/files/PCI_Code-ID_r_1_11__v24_Jan_2019.pd
 // PCIe configure header individual registers
 //-------------------------------------------------
 
-typedef struct commandReg_t
+typedef union commandReg_t
 {
-    uint16_t    ioSpaceEnable       :1;   
-    uint16_t    memorySpaceEnable   :1;
-    uint16_t    busMasterEnable     :1;
-    uint16_t    reserved0           :3;
-    uint16_t    parityErrorResponse :1;
-    uint16_t    reserved1           :1;
-    uint16_t    serrEnable          :1;
-    uint16_t    reserved2           :1;
-    uint16_t    interruptDisable    :1;
-    uint16_t    reserved3           :5;
+    struct
+    {
+        uint16_t    ioSpaceEnable       :1;   
+        uint16_t    memorySpaceEnable   :1;
+        uint16_t    busMasterEnable     :1;
+        uint16_t    reserved0           :3;
+        uint16_t    parityErrorResponse :1;
+        uint16_t    reserved1           :1;
+        uint16_t    serrEnable          :1;
+        uint16_t    reserved2           :1;
+        uint16_t    interruptDisable    :1;
+        uint16_t    reserved3           :5;
+    };
+
+    uint16_t all;
 }
 commandReg_t;
 
-typedef struct statusReg_t
+typedef union statusReg_t
 {
-    uint16_t    immediateReadiness      :1; //bit 0
-    uint16_t    reserved0               :2; //bit 1-2
-    uint16_t    interruptStatus         :1; //bit 3
-    uint16_t    capabilityList          :1; //bit 4
-    uint16_t    reserved1               :3; //bit 5-7
-    uint16_t    masterDataParityError   :1; //bit 8
-    uint16_t    reserved2               :2; //bit 9-10
-    uint16_t    signaledTargetAbort     :1; //bit 11
-    uint16_t    receivedTargetAbort     :1; //bit 12
-    uint16_t    receivedMasterAbort     :1; //bit 13
-    uint16_t    signaledSystemError     :1; //bit 14
-    uint16_t    detectedParityError     :1; //bit 15
+    struct
+    {
+        uint16_t    immediateReadiness      :1; //bit 0
+        uint16_t    reserved0               :2; //bit 1-2
+        uint16_t    interruptStatus         :1; //bit 3
+        uint16_t    capabilityList          :1; //bit 4
+        uint16_t    reserved1               :3; //bit 5-7
+        uint16_t    masterDataParityError   :1; //bit 8
+        uint16_t    reserved2               :2; //bit 9-10
+        uint16_t    signaledTargetAbort     :1; //bit 11
+        uint16_t    receivedTargetAbort     :1; //bit 12
+        uint16_t    receivedMasterAbort     :1; //bit 13
+        uint16_t    signaledSystemError     :1; //bit 14
+        uint16_t    detectedParityError     :1; //bit 15
+    };
+
+    uint16_t all;
 }
 statusReg_t;
 

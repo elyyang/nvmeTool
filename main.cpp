@@ -57,6 +57,7 @@ void menuInit()
     g_tests_subMenu.addItem(test_udma, "udma test");
 
     g_pcieUtil_subMenu.addDescription("pcie utilities");
+    g_pcieUtil_subMenu.addItem(demo_pcieCfgSpace, "pcie config space dump");
 
     g_nvmeUtil_subMenu.addDescription("nvme utilities");
 
