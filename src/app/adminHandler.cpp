@@ -35,6 +35,8 @@
 #include "controllerMmio.h"
 #include "udma.h"   
 
+extern int g_uioId;
+
 adminCmdHandle_c::adminCmdHandle_c()
 {
 }
@@ -64,7 +66,7 @@ void adminCmdHandle_c::createAdminQueuePair()
 
     controllerMmio_c& nvmeControllerDrv = controllerMmio_c::getInstance();
 
-    nvmeControllerDrv.setAdminQueueAttributes(aqaShadowReg);
-    nvmeControllerDrv.setAdminCompletionQueueBaseAddress(acqShadowReg);
-    nvmeControllerDrv.setAdminSubmissionQueueBaseAddress(asqShadowReg); 
+    nvmeControllerDrv.setAdminQueueAttributes(g_uioId, aqaShadowReg);
+    nvmeControllerDrv.setAdminCompletionQueueBaseAddress(g_uioId, acqShadowReg);
+    nvmeControllerDrv.setAdminSubmissionQueueBaseAddress(g_uioId, asqShadowReg); 
 }

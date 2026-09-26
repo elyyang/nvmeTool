@@ -55,34 +55,42 @@ pcieCfgSpace_c& pcieCfgSpace_c::getInstance()
 }
 
 
-void pcieCfgSpace_c::setBusMasterEnable(uio_c& uioDrv, bool status)
+void pcieCfgSpace_c::setBusMasterEnable(int uioId, bool status) const
 {
+    uio_c& uioDrv = uio_c::getInstance(uioId);
+    
     commandReg_t reg;
     pread(uioDrv.mUioConfig_fd, &reg, sizeof(commandReg_t), PCIE_CONFIG_SPACE_HEADER_OFFSET_COMMAND);
     reg.busMasterEnable = status;
     pwrite(uioDrv.mUioConfig_fd, &reg, sizeof(commandReg_t), PCIE_CONFIG_SPACE_HEADER_OFFSET_COMMAND);
 }
 
-pcieConfigurationHeader_t pcieCfgSpace_c::getPcieConfigHeader(uio_c& uioDrv) const
+pcieConfigurationHeader_t pcieCfgSpace_c::getPcieConfigHeader(int uioId) const
 {   
+    uio_c& uioDrv = uio_c::getInstance(uioId);
+    
     pcieConfigurationHeader_t configSpace;
     pread(uioDrv.mUioConfig_fd, &configSpace, sizeof(pcieConfigurationHeader_t), 0x0);
     return configSpace;    
 }
 
-bool pcieCfgSpace_c::getBusMasterEnable(uio_c& uioDrv) const
+bool pcieCfgSpace_c::getBusMasterEnable(int uioId) const
 {    
+    uio_c& uioDrv = uio_c::getInstance(uioId);
+
     commandReg_t reg;
     pread(uioDrv.mUioConfig_fd, &reg, sizeof(commandReg_t), PCIE_CONFIG_SPACE_HEADER_OFFSET_COMMAND);    
     return reg.busMasterEnable;
 }
 
-capability_msix_t pcieCfgSpace_c::getMsixCapability(uio_c& uioDrv) const
+capability_msix_t pcieCfgSpace_c::getMsixCapability(int uioId) const
 {
     uint8_t capPtr;
     uint8_t nextCapPtr;
     uint8_t capId;
     
+    uio_c& uioDrv = uio_c::getInstance(uioId);
+
     capability_msix_t shadow = {};
     pcieConfigurationHeader_t  configSpace;
     pread(uioDrv.mUioConfig_fd, &configSpace, sizeof(pcieConfigurationHeader_t), 0x0);    
@@ -110,3 +118,4 @@ capability_msix_t pcieCfgSpace_c::getMsixCapability(uio_c& uioDrv) const
  
     return shadow;
 }
+

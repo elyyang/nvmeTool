@@ -45,8 +45,8 @@ menu_c::subMenu g_demo_subMenu;
 menu_c::subMenu g_tests_subMenu;
 menu_c::subMenu g_pcieUtil_subMenu;
 menu_c::subMenu g_nvmeUtil_subMenu;
-menu_c::mainMenu g_nvmeTool_mainMenu;
-menu_c g_nvmeToolMenu;
+menu_c::mainMenu g_nvmeToolKit_mainMenu;
+menu_c g_nvmeToolKit;
 
 void menuInit()
 {
@@ -55,21 +55,21 @@ void menuInit()
     g_demo_subMenu.addItem(demo_uio2, "bar 0 mem dump...");
     g_demo_subMenu.addItem(demo_udma, "udma_c driver");
 
-    g_tests_subMenu.addDescription("tests");
+    g_tests_subMenu.addDescription("unit tests");
     g_tests_subMenu.addItem(test_udma, "udma test");
 
     g_pcieUtil_subMenu.addDescription("pcie utilities");
 
     g_nvmeUtil_subMenu.addDescription("nvme utilities");
 
-    g_nvmeTool_mainMenu.addDescription("NVMe Toolkit");
-    g_nvmeTool_mainMenu.addItem(g_demo_subMenu,     "demo");
-    g_nvmeTool_mainMenu.addItem(g_tests_subMenu,    "tests");
-    g_nvmeTool_mainMenu.addItem(g_pcieUtil_subMenu, "pcie utilities");
-    g_nvmeTool_mainMenu.addItem(g_nvmeUtil_subMenu, "nvme utilities");
+    g_nvmeToolKit_mainMenu.addDescription("NVMe Toolkit");
+    g_nvmeToolKit_mainMenu.addItem(g_demo_subMenu,     "demo");
+    g_nvmeToolKit_mainMenu.addItem(g_tests_subMenu,    "unit tests");
+    g_nvmeToolKit_mainMenu.addItem(g_pcieUtil_subMenu, "pcie utilities");
+    g_nvmeToolKit_mainMenu.addItem(g_nvmeUtil_subMenu, "nvme utilities");
     
-    g_nvmeToolMenu.build(g_nvmeTool_mainMenu);
-    g_nvmeToolMenu.run();
+    g_nvmeToolKit.build(g_nvmeToolKit_mainMenu);
+    g_nvmeToolKit.run();
 }
 
 int main(int argc, char* argv[])

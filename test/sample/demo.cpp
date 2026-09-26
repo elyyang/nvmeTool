@@ -50,20 +50,18 @@ void demo_udma()
 }
 
 void demo_uio()
-{
-    uio_c& uioDriver = uio_c::getInstance(g_uioId);
+{    
     pcieCfgSpace_c& pcieDrv = pcieCfgSpace_c::getInstance();
 
-    //example on uio drv to mem access 
-    printf("Bar0 Address: 0x%lx \n", uioDriver.getBar0Address());    
-    printf("BME status: %d \n", pcieDrv.getBusMasterEnable(uioDriver));
+    //example on uio drv to mem access     
+    printf("BME status: %d \n", pcieDrv.getBusMasterEnable(g_uioId));
 
-    capability_msix_t msixShadow = pcieDrv.getMsixCapability(uioDriver);
+    capability_msix_t msixShadow = pcieDrv.getMsixCapability(g_uioId);
     printf("MSIX table BIR: 0x%x \n", msixShadow.msixTableBir);
     printf("MSIX table offset: 0x%x \n", msixShadow.msixTableOffset*8);
     printf("MSIX pba offset: 0x%x \n", msixShadow.pbaOffset*8);
     
-    pcieConfigurationHeader_t pcieHeaderShadow = pcieDrv.getPcieConfigHeader(uioDriver);
+    pcieConfigurationHeader_t pcieHeaderShadow = pcieDrv.getPcieConfigHeader(g_uioId);
     printf("pcie vendor id: 0x%x \n", pcieHeaderShadow.type0.vendorId);
     printf("pcie device id: 0x%x \n", pcieHeaderShadow.type0.deviceId);
 }

@@ -48,8 +48,8 @@ class pcieCfgSpace_c
 
         static pcieCfgSpace_c& getInstance();
 
-        void setBusMasterEnable(uio_c& uioDrv, bool status);
-        bool getBusMasterEnable(uio_c& uioDrv) const;
-        pcieConfigurationHeader_t getPcieConfigHeader(uio_c& uioDrv) const;        
-        capability_msix_t getMsixCapability(uio_c& uioDrv) const;
+        void setBusMasterEnable(int uioId, bool status) const;
+        bool getBusMasterEnable(int uioId) const;
+        pcieConfigurationHeader_t getPcieConfigHeader(int uioId) const;        
+        capability_msix_t getMsixCapability(int uioId) const;
 };
