@@ -117,72 +117,76 @@ NVM-Express-Base-Specification-Revision-2.4-Ratified-2026.07.31
 3.1.4 Controller Properties
 **************************************************************/
 
-typedef union __attribute__((packed, aligned (4))) cap_t
+typedef union __attribute__((packed, aligned (8))) cap_t
 {
-    volatile struct
+    struct
     {
-        uint32_t    MQES    :16;
-        uint32_t    CQR     :1;
-        uint32_t    AMS     :2;
-        uint32_t    rsvd0   :5;
-        uint32_t    TO      :8;
-        uint32_t    DSTRD   :4;
-        uint32_t    NSSRS   :1;
-        uint32_t    CSS     :8;
-        uint32_t    BSP     :1;
-        uint32_t    rsvd1   :2;
-        uint32_t    MPSMIN  :4;
-        uint32_t    MPSMAX  :4;
-        uint32_t    PMRS    :1;
-        uint32_t    CMBS    :1;
-        uint32_t    rsvd2   :6;
+        uint64_t    maximumQueueEntriesSupported                :16;
+        uint64_t    contiguousQueuesRequired                    :1;
+        uint64_t    arbitrationMechanismSupported               :2;
+        uint64_t    _reserved0                                  :5;
+        uint64_t    timeout                                     :8;
+        uint64_t    doorbellStride                              :4;
+        uint64_t    nvmSubsystemResetSupported                  :1;
+        uint64_t    commandSetsSupported                        :8;
+        uint64_t    bootPartitionSupport                        :1;
+        uint64_t    controllerPowerScope                        :2;
+        uint64_t    memoryPageSizeMinimum                       :4;
+        uint64_t    memoryPageSizeMaximum                       :4;
+        uint64_t    persistentMemoryRegionSupported             :1;
+        uint64_t    controllerMemoryBufferSupported             :1;
+        uint64_t    nvmSubsystemShutdownSupported               :1;
+        uint64_t    controllerReadyModesSupported               :2;
+        uint64_t    nvmSubsystemShutdownEnhancementsSupported   :1;
+        uint64_t    _reserved1                                  :2;        
     };
 
-    volatile uint64_t all;
+    uint64_t all;
 }cap_t;
 static_assert(sizeof(cap_t) == CONTROLLER_REG_SIZE_CAP, "cap_t size incorrect");
 
 typedef union __attribute__((packed, aligned (4))) vs_t
 {
-    volatile struct 
+    struct 
     {    
-        uint32_t    TER     :16;
-        uint32_t    MNR     :8;
-        uint32_t    MJR     :8;
+        uint32_t    tertiaryVersion :16;
+        uint32_t    minorVersion    :8;
+        uint32_t    majorVersion    :8;
     };
 
-    volatile uint32_t all;
+    uint32_t all;
 }vs_t;
 static_assert(sizeof(vs_t) == CONTROLLER_REG_SIZE_VS, "vs_t size incorrect");
 
 typedef struct __attribute__((packed, aligned (4))) intms_t
 {
-    volatile uint32_t    IVMS;
+    uint32_t    interruptVectorMaskSet;
 }intms_t;
 static_assert(sizeof(intms_t) == CONTROLLER_REG_SIZE_INTMS, "intms_t size incorrect");
 
 typedef struct __attribute__((packed, aligned (4))) intmc_t
 {
-    volatile uint32_t    IVMC;
+    uint32_t    interruptVectorMaskClear;
 }intmc_t;
 static_assert(sizeof(intmc_t) == CONTROLLER_REG_SIZE_INTMC, "intmc_t size incorrect");
 
 typedef union __attribute__((packed, aligned (4))) cc_t
 {
-    volatile struct
+    struct
     {
-        uint32_t    EN      :1;
-        uint32_t    rsvd0   :3;
-        uint32_t    CSS     :3;
-        uint32_t    MPS     :4;
-        uint32_t    AMS     :3;
-        uint32_t    SHN     :2;
-        uint32_t    IOSQES  :4;
-        uint32_t    IOCQES  :4;
-        uint32_t    rsvd1   :8;
+        uint32_t    enable                                  :1;
+        uint32_t    _reserved0                              :3;
+        uint32_t    ioCommandSetSelected                    :3;
+        uint32_t    memoryPageSize                          :4;
+        uint32_t    arbitrationMechanismSelected            :3;
+        uint32_t    shutdownNotification                    :2;
+        uint32_t    ioSubmissionQueueEntrySize              :4;
+        uint32_t    ioCompletionQueueEntrySize              :4;
+        uint32_t    controllerReadyIndependentofMediaEnable :1;
+        uint32_t    _reserved1                              :7;
     };
 
-    volatile uint32_t all;
+    uint32_t all;
 }cc_t;
 static_assert(sizeof(cc_t) == CONTROLLER_REG_SIZE_CC, "cc_t size incorrect");
 
@@ -190,12 +194,13 @@ typedef union __attribute__((packed, aligned (4))) csts_t
 {
     volatile struct
     {
-        uint32_t     RDY     :1;
-        uint32_t     CFS     :1;
-        uint32_t     SHST    :2;
-        uint32_t     NSSRO   :1;
-        uint32_t     PP      :1;
-        uint32_t     SHN     :25;
+        uint32_t     ready                      :1;
+        uint32_t     controllerFatalStatus      :1;
+        uint32_t     shutdownStatus             :2;
+        uint32_t     nvmSubsystemResetOccurred  :1;
+        uint32_t     processingPaused           :1;
+        uint32_t     shutdownType               :1;
+        uint32_t     _reserved0                 :25;
     };
 
     volatile uint32_t all;
@@ -204,45 +209,45 @@ static_assert(sizeof(csts_t) == CONTROLLER_REG_SIZE_CSTS, "csts_t size incorrect
 
 typedef struct __attribute__((packed, aligned (4))) nssr_t
 {
-    volatile uint32_t NSSRC;
+    uint32_t nvmSubsystemResetControl;
 }nssr_t;
 static_assert(sizeof(nssr_t) == CONTROLLER_REG_SIZE_NSSR, "nssr_t size incorrect");
 
 typedef union __attribute__((packed, aligned (4))) aqa_t
 {
-    volatile struct
+    struct
     {
-        uint32_t    ASQS    :12;
-        uint32_t    rsvd0   :4;
-        uint32_t    ACQS    :12;
-        uint32_t    rsvd1   :4;
+        uint32_t    adminSubmissionQueueSize    :12;
+        uint32_t    rsvd0                       :4;
+        uint32_t    adminCompletionQueueSize    :12;
+        uint32_t    rsvd1                       :4;
     };
 
-    volatile uint32_t all;
+    uint32_t all;
 }aqa_t;
 static_assert(sizeof(aqa_t )== CONTROLLER_REG_SIZE_AQA, "aqa_t size incorrect");
 
-typedef union __attribute__((packed, aligned (4))) asq_t
+typedef union __attribute__((packed, aligned (8))) asq_t
 {
-    volatile struct 
+    struct 
     {    
-        uint32_t    rsvd0   :12;
-        uint64_t    ASQB    :52;
+        uint64_t    _reserved0                  :12;
+        uint64_t    adminSubmissionQueueBase    :52;
     };
 
-    volatile uint64_t    all;    
+    uint64_t    all;    
 }asq_t;
 static_assert(sizeof(asq_t) == CONTROLLER_REG_SIZE_ASQ, "asq_t size incorrect");
 
 typedef union __attribute__((packed, aligned (4))) acq_t
 {
-    volatile struct
+    struct
     {
-        uint32_t    rsvd0   :12;
-        uint64_t    ACQB    :52;
+        uint32_t    _reserved0                  :12;
+        uint64_t    adminCompletionQueueBase    :52;
     };
 
-    volatile uint64_t all;
+    uint64_t all;
 }acq_t;
 static_assert(sizeof(acq_t) == CONTROLLER_REG_SIZE_ACQ, "acq_t size incorrect");
 
