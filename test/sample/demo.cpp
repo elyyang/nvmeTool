@@ -106,5 +106,26 @@ void demo_pcieCfgSpace()
 
 void demo_nvmControllerMmioSpace()
 {
-    
+    controllerMmio_c& controllerMmioDriver = controllerMmio_c::getInstance();
+
+    cap_t controllerCapabiltiyShadow = controllerMmioDriver.getControllerCapabilities(g_uioId);
+
+    printf("controller capabilities:\n");
+    printf("maximum queue entries supported: 0x%x \n", controllerCapabiltiyShadow.maximumQueueEntriesSupported);
+    printf("contiguous queues required: 0x%x \n", controllerCapabiltiyShadow.contiguousQueuesRequired);
+    printf("arbitration mechanism supported: 0x%x \n", controllerCapabiltiyShadow.arbitrationMechanismSupported);
+    printf("timeout: 0x%x \n", controllerCapabiltiyShadow.timeout);
+    printf("doorbell stride: 0x%x \n", controllerCapabiltiyShadow.doorbellStride);
+    printf("NVM subsystem reset supported: 0x%x \n", controllerCapabiltiyShadow.nvmSubsystemResetSupported);
+    printf("command sets supported: 0x%x \n", controllerCapabiltiyShadow.commandSetsSupported);
+    printf("boot partition support: 0x%x \n", controllerCapabiltiyShadow.bootPartitionSupport);
+    printf("controller power scope: 0x%x \n", controllerCapabiltiyShadow.controllerPowerScope);
+    printf("memory page size minimum: 0x%x \n", controllerCapabiltiyShadow.memoryPageSizeMinimum);
+    printf("memory page size maximum: 0x%x \n", controllerCapabiltiyShadow.memoryPageSizeMaximum);
+    printf("persistent memory region supported: 0x%x \n", controllerCapabiltiyShadow.persistentMemoryRegionSupported);
+    printf("controller memory buffer supported: 0x%x \n", controllerCapabiltiyShadow.controllerMemoryBufferSupported);
+    printf("NVM subsystem shutdown supported: 0x%x \n", controllerCapabiltiyShadow.nvmSubsystemShutdownSupported);
+    printf("controller ready modes supported: 0x%x \n", controllerCapabiltiyShadow.controllerReadyModesSupported);
+    printf("NVM subsystem shutdown enhancements supported: 0x%x \n", controllerCapabiltiyShadow.nvmSubsystemShutdownEnhancementsSupported);
+
 }

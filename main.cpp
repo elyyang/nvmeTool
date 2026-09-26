@@ -60,6 +60,7 @@ void menuInit()
     g_pcieUtil_subMenu.addItem(demo_pcieCfgSpace, "pcie config space dump");
 
     g_nvmeUtil_subMenu.addDescription("nvme utilities");
+    g_nvmeUtil_subMenu.addItem(demo_nvmControllerMmioSpace, "nvme controller capabilities");
 
     g_nvmeToolKit_mainMenu.addDescription("NVMe Toolkit");
     g_nvmeToolKit_mainMenu.addItem(g_demo_subMenu,     "demo");
@@ -71,7 +72,7 @@ void menuInit()
     g_nvmeToolKit.run();
 }
 
-int g_uioId= 0;
+int g_uioId = 0;
 
 int main(int argc, char* argv[])
 {  
