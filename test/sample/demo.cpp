@@ -44,16 +44,13 @@ extern int g_uioId;
 void demo_udma()
 {
     udma_c& udmaDriver = udma_c::getInstance();
-
-    //example on udma drv
     udmaDriver.dumpUdmaBufferInformation();
 }
 
 void demo_uio()
 {    
     pcieCfgSpace_c& pcieDrv = pcieCfgSpace_c::getInstance();
-
-    //example on uio drv to mem access     
+  
     printf("BME status: %d \n", pcieDrv.getBusMasterEnable(g_uioId));
 
     capability_msix_t msixShadow = pcieDrv.getMsixCapability(g_uioId);

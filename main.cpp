@@ -39,8 +39,6 @@
 #include "demo.h"
 #include "unitTests.h"
 
-int g_uioId= 0;
-
 menu_c::subMenu g_demo_subMenu;
 menu_c::subMenu g_tests_subMenu;
 menu_c::subMenu g_pcieUtil_subMenu;
@@ -71,6 +69,8 @@ void menuInit()
     g_nvmeToolKit.build(g_nvmeToolKit_mainMenu);
     g_nvmeToolKit.run();
 }
+
+int g_uioId= 0;
 
 int main(int argc, char* argv[])
 {  
