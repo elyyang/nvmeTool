@@ -105,4 +105,11 @@ class controllerMmio_c
         void setPersistentMemorySustainedWriteThroughput(uio_c& uioDrv, pmrswtp_t pmrswtp) const;
         void setPersistentMemoryRegionControllerMemorySpaceControlLower(uio_c& uioDrv, pmrmscl_t pmrmscl) const;
         void setPersistentMemoryRegionControllerMemorySpaceControlUpper(uio_c& uioDrv, pmrmscu_t pmrmscu) const;
+
+        void incrementSqTailDoorbell(uio_c& uioDrv, uint32_t sqId) const;
+        void incrementCqHeadDoorbell(uio_c& uioDrv, uint32_t cqId) const;
+        uint16_t getSqTailDoorbell(uio_c& uioDrv, uint32_t sqId) const;
+        uint16_t getCqHeadDoorbell(uio_c& uioDrv, uint32_t cqId) const;
+        void setSqTailDoorbell(uio_c& uioDrv, uint32_t sqId, uint16_t value) const;
+        void setCqHeadDoorbell(uio_c& uioDrv, uint32_t cqId, uint16_t value) const;
 };

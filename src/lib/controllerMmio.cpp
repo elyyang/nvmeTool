@@ -388,3 +388,61 @@ void controllerMmio_c::setPersistentMemoryRegionControllerMemorySpaceControlUppe
     pwrite(uioDrv.mUioResource0_fd, &pmrmscu, sizeof(pmrmscu_t), CONTROLLER_REG_OFFSET_PMRMSCU);
 }
 
+
+uint16_t controllerMmio_c::getSqTailDoorbell(uio_c& uioDrv, uint32_t sqId) const
+{
+    sqtdbl_t shadowReg;
+    pread(uioDrv.mUioResource0_fd, &shadowReg, sizeof(sqtdbl_t), CONTROLLER_REG_SQT_CQH_STARTING_OFFSET + sqId * 8);
+    return shadowReg.SQT;
+}
+
+uint16_t controllerMmio_c::getCqHeadDoorbell(uio_c& uioDrv, uint32_t cqId) const
+{
+    cqhdbl_t shadowReg;
+    pread(uioDrv.mUioResource0_fd, &shadowReg, sizeof(cqhdbl_t), CONTROLLER_REG_SQT_CQH_STARTING_OFFSET + cqId * 8);
+    return shadowReg.CQH;
+}
+
+void controllerMmio_c::setSqTailDoorbell(uio_c& uioDrv, uint32_t sqId, uint16_t value) const
+{
+    sqtdbl_t shadowReg;
+    shadowReg.SQT = value;
+    pwrite(uioDrv.mUioResource0_fd, &shadowReg, sizeof(sqtdbl_t), CONTROLLER_REG_SQT_CQH_STARTING_OFFSET + sqId * 8);
+}
+
+void controllerMmio_c::setCqHeadDoorbell(uio_c& uioDrv, uint32_t cqId, uint16_t value) const
+{
+    cqhdbl_t shadowReg;
+    shadowReg.CQH = value;
+    pwrite(uioDrv.mUioResource0_fd, &shadowReg, sizeof(cqhdbl_t), CONTROLLER_REG_SQT_CQH_STARTING_OFFSET + cqId * 8);
+}
+
+void controllerMmio_c::incrementSqTailDoorbell(uio_c& uioDrv, uint32_t sqId) const
+{
+    sqtdbl_t shadowReg;
+    pread(uioDrv.mUioResource0_fd, &shadowReg, sizeof(sqtdbl_t), CONTROLLER_REG_SQT_CQH_STARTING_OFFSET + sqId * 8);
+    if (shadowReg.SQT == 0xFFFF)
+    {
+        shadowReg.SQT = 0;
+    }
+    else
+    {
+        shadowReg.SQT++;
+    }
+    pwrite(uioDrv.mUioResource0_fd, &shadowReg, sizeof(sqtdbl_t), CONTROLLER_REG_SQT_CQH_STARTING_OFFSET + sqId * 8);
+}
+
+void controllerMmio_c::incrementCqHeadDoorbell(uio_c& uioDrv, uint32_t cqId) const
+{
+    cqhdbl_t shadowReg;
+    pread(uioDrv.mUioResource0_fd, &shadowReg, sizeof(cqhdbl_t), CONTROLLER_REG_SQT_CQH_STARTING_OFFSET + cqId * 8);
+    if (shadowReg.CQH == 0xFFFF)
+    {
+        shadowReg.CQH = 0;
+    }
+    else
+    {
+        shadowReg.CQH++;
+    }
+    pwrite(uioDrv.mUioResource0_fd, &shadowReg, sizeof(cqhdbl_t), CONTROLLER_REG_SQT_CQH_STARTING_OFFSET + cqId * 8);
+}
