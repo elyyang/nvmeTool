@@ -37,20 +37,19 @@
 #include "uio.h"
 #include "pcieStructs.h"
 
-class pcieHandler_c
+class pcieCfgSpace_c
 {
     private:
 
-        pcieHandler_c();
-        ~pcieHandler_c();
+        pcieCfgSpace_c();
+        ~pcieCfgSpace_c();
 
     public:
 
-        static pcieHandler_c& getInstance();
+        static pcieCfgSpace_c& getInstance();
 
         void setBusMasterEnable(uio_c& uioDrv, bool status);
         bool getBusMasterEnable(uio_c& uioDrv) const;
         pcieConfigurationHeader_t getPcieConfigHeader(uio_c& uioDrv) const;        
         capability_msix_t getMsixCapability(uio_c& uioDrv) const;
-
 };

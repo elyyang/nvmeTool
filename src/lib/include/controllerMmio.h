@@ -37,16 +37,16 @@
 #include "uio.h"
 #include "nvmeStructs.h"
 
-class controller_c
+class controllerMmio_c
 {
     private:
 
-        controller_c();
-        ~controller_c();
+        controllerMmio_c();
+        ~controllerMmio_c();
 
     public:
 
-        static controller_c& getInstance();
+        static controllerMmio_c& getInstance();
         
         cap_t getControllerCapabilities(uio_c& uioDrv) const;
         vs_t getVersion(uio_c& uioDrv) const;

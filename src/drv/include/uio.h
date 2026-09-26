@@ -54,7 +54,7 @@ class uio_c
 
         void dumpBar0MemorySpace(uint32_t offset, uint32_t iterations) const;
 
-        friend class controller_c;        
-        friend class pcieHandler_c;
+        friend class controllerMmio_c;        
+        friend class pcieCfgSpace_c;
         friend class adminHandler_c;
 };

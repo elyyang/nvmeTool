@@ -31,8 +31,6 @@
 *
 *********************************************************************************************/
 
-#include "pcieHandler.h"
-
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
@@ -40,22 +38,24 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 
-pcieHandler_c::pcieHandler_c(void)
+#include "pcieCfgSpace.h"
+
+pcieCfgSpace_c::pcieCfgSpace_c(void)
 {
 }
 
-pcieHandler_c::~pcieHandler_c(void)    
+pcieCfgSpace_c::~pcieCfgSpace_c(void)    
 {	
 }
 
-pcieHandler_c& pcieHandler_c::getInstance(void)
+pcieCfgSpace_c& pcieCfgSpace_c::getInstance(void)
 {
-    static pcieHandler_c mInstance;
+    static pcieCfgSpace_c mInstance;
     return mInstance;
 }
 
 
-void pcieHandler_c::setBusMasterEnable(uio_c& uioDrv, bool status)
+void pcieCfgSpace_c::setBusMasterEnable(uio_c& uioDrv, bool status)
 {
     commandReg_t reg;
     pread(uioDrv.mUioConfig_fd, &reg, sizeof(commandReg_t), PCIE_CONFIG_SPACE_HEADER_OFFSET_COMMAND);
@@ -63,21 +63,21 @@ void pcieHandler_c::setBusMasterEnable(uio_c& uioDrv, bool status)
     pwrite(uioDrv.mUioConfig_fd, &reg, sizeof(commandReg_t), PCIE_CONFIG_SPACE_HEADER_OFFSET_COMMAND);
 }
 
-pcieConfigurationHeader_t pcieHandler_c::getPcieConfigHeader(uio_c& uioDrv) const
+pcieConfigurationHeader_t pcieCfgSpace_c::getPcieConfigHeader(uio_c& uioDrv) const
 {   
     pcieConfigurationHeader_t configSpace;
     pread(uioDrv.mUioConfig_fd, &configSpace, sizeof(pcieConfigurationHeader_t), 0x0);
     return configSpace;    
 }
 
-bool pcieHandler_c::getBusMasterEnable(uio_c& uioDrv) const
+bool pcieCfgSpace_c::getBusMasterEnable(uio_c& uioDrv) const
 {    
     commandReg_t reg;
     pread(uioDrv.mUioConfig_fd, &reg, sizeof(commandReg_t), PCIE_CONFIG_SPACE_HEADER_OFFSET_COMMAND);    
     return reg.busMasterEnable;
 }
 
-capability_msix_t pcieHandler_c::getMsixCapability(uio_c& uioDrv) const
+capability_msix_t pcieCfgSpace_c::getMsixCapability(uio_c& uioDrv) const
 {
     uint8_t capPtr;
     uint8_t nextCapPtr;

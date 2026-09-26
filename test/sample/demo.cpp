@@ -33,8 +33,8 @@
 
 #include "udma.h"
 #include "uio.h"
-#include "controller.h"
-#include "pcieHandler.h"
+#include "controllerMmio.h"
+#include "pcieCfgSpace.h"
 #include "menu.h"
 
 #include "demo.h"
@@ -52,7 +52,7 @@ void demo_udma()
 void demo_uio()
 {
     uio_c& uioDriver = uio_c::getInstance(g_uioId);
-    pcieHandler_c& pcieDrv = pcieHandler_c::getInstance();
+    pcieCfgSpace_c& pcieDrv = pcieCfgSpace_c::getInstance();
 
     //example on uio drv to mem access 
     printf("Bar0 Address: 0x%lx \n", uioDriver.getBar0Address());    
