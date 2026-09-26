@@ -248,6 +248,7 @@ pmrmscu_t controllerMmio_c::getPersistentMemoryRegionControllerMemorySpaceContro
     return shadowReg;
 }
 
+
 void controllerMmio_c::setControllerCapabilities(uio_c& uioDrv, cap_t cap) const
 {
     pwrite(uioDrv.mUioResource0_fd, &cap, sizeof(cap_t), CONTROLLER_REG_OFFSET_CAP);

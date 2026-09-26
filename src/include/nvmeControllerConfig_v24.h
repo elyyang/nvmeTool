@@ -41,11 +41,6 @@
     #endif
 #endif // __cplusplus
 
-/**************************************************************
-NVM-Express-Base-Specification-Revision-2.4-Ratified-2026.07.31
-3.1.4 Controller Properties
-**************************************************************/
-
 #define NVM_CONTROLLER_MMIO_REG_SIZE                        (0x4000)
 
 #define CONTROLLER_REG_STARTING_OFFSET                      (0x0)
@@ -115,6 +110,12 @@ NVM-Express-Base-Specification-Revision-2.4-Ratified-2026.07.31
 
 #define CONTROLLER_REG_SQT_ENTRY_SIZE                       (0x4)
 #define CONTROLLER_REG_CQH_ENTRY_SIZE                       (0x4)
+
+
+/**************************************************************
+NVM-Express-Base-Specification-Revision-2.4-Ratified-2026.07.31
+3.1.4 Controller Properties
+**************************************************************/
 
 typedef union __attribute__((packed, aligned (4))) cap_t
 {
@@ -509,8 +510,7 @@ typedef union __attribute__((packed, aligned (4))) sqtdbl_t
     };
 
     volatile uint32_t all;
-}
-sqtdbl_t;
+}sqtdbl_t;
 static_assert(sizeof(sqtdbl_t) == CONTROLLER_REG_SQT_ENTRY_SIZE, "sqtdbl_t size incorrect");
 
 /*************************************************************************************************
@@ -527,6 +527,5 @@ typedef union __attribute__((packed, aligned (4))) cqhdbl_t
     };
  
     volatile uint32_t all;
-}
-cqhdbl_t;
+}cqhdbl_t;
 static_assert(sizeof(cqhdbl_t) == CONTROLLER_REG_CQH_ENTRY_SIZE, "cqhdbl_t size incorrect");
