@@ -45,6 +45,8 @@
 PCIe config space header (type 0)
 **************************************************************/
 
+#define PCIE_CONFIG_SPACE_HEADER_BASE                               (0x0)
+
 #define PCIE_CONFIG_SPACE_HEADER_OFFSET_VENDOR_ID                   (0x0)
 #define PCIE_CONFIG_SPACE_HEADER_OFFSET_DEVICE_ID                   (0x2)
 #define PCIE_CONFIG_SPACE_HEADER_OFFSET_COMMAND                     (0x4)

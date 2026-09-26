@@ -70,7 +70,7 @@ pcieConfigurationHeader_t pcieCfgSpace_c::getPcieConfigHeader(int uioId) const
     uio_c& uioDrv = uio_c::getInstance(uioId);
     
     pcieConfigurationHeader_t configSpace;
-    pread(uioDrv.mUioConfig_fd, &configSpace, sizeof(pcieConfigurationHeader_t), 0x0);
+    pread(uioDrv.mUioConfig_fd, &configSpace, sizeof(pcieConfigurationHeader_t), PCIE_CONFIG_SPACE_HEADER_BASE);
     return configSpace;    
 }
 
@@ -93,7 +93,7 @@ capability_msix_t pcieCfgSpace_c::getMsixCapability(int uioId) const
 
     capability_msix_t shadow = {};
     pcieConfigurationHeader_t  configSpace;
-    pread(uioDrv.mUioConfig_fd, &configSpace, sizeof(pcieConfigurationHeader_t), 0x0);    
+    pread(uioDrv.mUioConfig_fd, &configSpace, sizeof(pcieConfigurationHeader_t), PCIE_CONFIG_SPACE_HEADER_BASE);    
         
     if(configSpace.type0.status.capabilityList)
     {   
