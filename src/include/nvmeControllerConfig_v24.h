@@ -239,7 +239,7 @@ typedef union __attribute__((packed, aligned (8))) asq_t
 }asq_t;
 static_assert(sizeof(asq_t) == CONTROLLER_REG_SIZE_ASQ, "asq_t size incorrect");
 
-typedef union __attribute__((packed, aligned (4))) acq_t
+typedef union __attribute__((packed, aligned (8))) acq_t
 {
     struct
     {
@@ -253,7 +253,7 @@ static_assert(sizeof(acq_t) == CONTROLLER_REG_SIZE_ACQ, "acq_t size incorrect");
 
 typedef union __attribute__((packed, aligned (4))) cmbloc_t
 {
-    volatile struct
+    struct
     {
         uint32_t    BIR     :3;
         uint32_t    CQMMS   :1;
@@ -266,13 +266,13 @@ typedef union __attribute__((packed, aligned (4))) cmbloc_t
         uint32_t    OFST    :20;
     };
 
-    volatile uint32_t all;    
+    uint32_t all;    
 }cmbloc_t;
 static_assert(sizeof(cmbloc_t) == CONTROLLER_REG_SIZE_CMBLOC, "cmbloc_t size incorrect");
 
 typedef union __attribute__((packed, aligned (4))) cmbsz_t
 {    
-    volatile struct    
+    struct    
     {
         uint32_t    SQS     :1;
         uint32_t    CQS     :1;
@@ -284,13 +284,13 @@ typedef union __attribute__((packed, aligned (4))) cmbsz_t
         uint32_t    SZ      :20;
     };
 
-    volatile uint32_t all;
+    uint32_t all;
 }cmbsz_t;
 static_assert(sizeof(cmbsz_t) == CONTROLLER_REG_SIZE_CMBSZ, "cmbsz_t size incorrect");
 
 typedef union __attribute__((packed, aligned (4))) bpinfo_t
 {
-    volatile struct
+    struct
     {
         uint32_t    BPSZ    :15;
         uint32_t    rsvd0   :5;
@@ -299,13 +299,13 @@ typedef union __attribute__((packed, aligned (4))) bpinfo_t
         uint32_t    ABPID   :1;
     };
 
-    volatile uint32_t all;
+    uint32_t all;
 }bpinfo_t;
 static_assert(sizeof(bpinfo_t) == CONTROLLER_REG_SIZE_BPINFO, "bpinfo_t size incorrect");
 
 typedef union __attribute__((packed, aligned (4))) bprsel_t
 {
-    volatile struct
+    struct
     {
         uint32_t    BPRSZ   :10;
         uint32_t    BPROF   :20;
@@ -313,25 +313,25 @@ typedef union __attribute__((packed, aligned (4))) bprsel_t
         uint32_t    BPID    :1;
     };
 
-    volatile uint32_t all;
+    uint32_t all;
 }bprsel_t;
 static_assert(sizeof(bprsel_t) == CONTROLLER_REG_SIZE_BPRSEL, "bprsel_t size incorrect");
 
-typedef union __attribute__((packed, aligned (4))) bpmbl_t
+typedef union __attribute__((packed, aligned (8))) bpmbl_t
 {
-    volatile struct
+    struct
     {
         uint32_t    rsvd0   :12;
         uint64_t    BMBBA   :52;
     };
 
-    volatile uint64_t all;
+    uint64_t all;
 }bpmbl_t;
 static_assert(sizeof(bpmbl_t) == CONTROLLER_REG_SIZE_BPMBL, "bpmbl_t size incorrect");
 
-typedef union __attribute__((packed, aligned (4))) cmbmsc_t
+typedef union __attribute__((packed, aligned (8))) cmbmsc_t
 {
-    volatile struct
+    struct
     {
         uint32_t    CRE     :1;
         uint32_t    CMSE    :1;
@@ -339,25 +339,25 @@ typedef union __attribute__((packed, aligned (4))) cmbmsc_t
         uint64_t    CBA     :52;
     };
 
-    volatile uint64_t all;
+    uint64_t all;
 }cmbmsc_t;
 static_assert(sizeof(cmbmsc_t) == CONTROLLER_REG_SIZE_CMBMSC, "cmbmsc_t size incorrect");
 
 typedef union __attribute__((packed, aligned (4))) cmbsts_t
 {
-    volatile struct
+    struct
     {
         uint32_t    CBAI    :1;
         uint32_t    rsvd0   :31;
     };
 
-    volatile uint32_t all;
+    uint32_t all;
 }cmbsts_t;
 static_assert(sizeof(cmbsts_t) == CONTROLLER_REG_SIZE_CMBSTS, "cmbsts_t size incorrect");
 
 typedef union __attribute__((packed, aligned (4))) cmbebs_t
 {
-    volatile struct
+    struct
     {
         uint32_t    CMBEBSZU    :4;
         uint32_t    CMBRBB      :1;
@@ -365,49 +365,49 @@ typedef union __attribute__((packed, aligned (4))) cmbebs_t
         uint32_t    CMBWBZ      :24;
     };
 
-    volatile uint32_t all;
+    uint32_t all;
 }cmbebs_t;
 static_assert(sizeof(cmbebs_t) == CONTROLLER_REG_SIZE_CMBEBS, "cmbebs_t size incorrect");
 
 typedef union __attribute__((packed, aligned (4))) cmbswtp_t
 {
-    volatile struct
+    struct
     {
         uint32_t    CMBSWTU :4;
         uint32_t    rsvd0   :4;
         uint32_t    CMBSWTV :24;
     };
 
-    volatile uint32_t all;
+    uint32_t all;
 }cmbswtp_t;
 static_assert(sizeof(cmbswtp_t) == CONTROLLER_REG_SIZE_CMBSWTP, "cmbswtp_t size incorrect");
 
 typedef union __attribute__((packed, aligned (4))) nssd_t
 {
-    volatile struct
+    struct
     {
         uint32_t    NSSC;
     };
 
-    volatile uint32_t all;
+    uint32_t all;
 }nssd_t;
 static_assert(sizeof(nssd_t) == CONTROLLER_REG_SIZE_NSSD, "nssd_t size incorrect");
 
 typedef union __attribute__((packed, aligned (4))) crto_t
 {
-    volatile struct
+    struct
     {
         uint32_t    CRWMT   :16;
         uint32_t    CRIMT   :16;
     };
 
-    volatile uint32_t all;
+    uint32_t all;
 }crto_t;
 static_assert(sizeof(crto_t) == CONTROLLER_REG_SIZE_CRTO, "crto_t size incorrect");
 
 typedef union __attribute__((packed, aligned (4))) pmrcap_t
 {
-    volatile struct
+    struct
     {
         uint32_t    rsvd0   :3;
         uint32_t    RDS     :1;
@@ -421,25 +421,25 @@ typedef union __attribute__((packed, aligned (4))) pmrcap_t
         uint32_t    rsvd2   :7;
     };
 
-    volatile uint32_t all;
+    uint32_t all;
 }pmrcap_t;
 static_assert(sizeof(pmrcap_t) == CONTROLLER_REG_SIZE_PMRCAP, "pmrcap_t size incorrect");
 
 typedef union __attribute__((packed, aligned (4))) pmrctl_t
 {
-    volatile struct
+    struct
     {
         uint32_t    EN      :1;
         uint32_t    rsvd0   :31;
     };
 
-    volatile uint32_t all;
+    uint32_t all;
 }pmrctl_t;
 static_assert(sizeof(pmrctl_t) == CONTROLLER_REG_SIZE_PMRCTL, "pmrctl_t size incorrect");
 
 typedef union __attribute__((packed, aligned (4))) pmrsts_t
 {
-    volatile struct
+    struct
     {
         uint32_t    ERR     :8;
         uint32_t    NRDY    :1;
@@ -448,13 +448,13 @@ typedef union __attribute__((packed, aligned (4))) pmrsts_t
         uint32_t    rsvd0   :19;
     };
 
-    volatile uint32_t all;
+    uint32_t all;
 }pmrsts_t;
 static_assert(sizeof(pmrsts_t) == CONTROLLER_REG_SIZE_PMRSTS, "pmrsts_t size incorrect");
 
 typedef union __attribute__((packed, aligned (4)))  pmrebs_t
 {
-    volatile struct
+    struct
     {
         uint32_t    PMRSZU  :4; 
         uint32_t    RBB     :1;
@@ -462,26 +462,26 @@ typedef union __attribute__((packed, aligned (4)))  pmrebs_t
         uint32_t    PMRWBZ  :24;
     };
 
-    volatile uint32_t all;
+    uint32_t all;
 }pmrebs_t;
 static_assert(sizeof(pmrebs_t) == CONTROLLER_REG_SIZE_PMREBS, "pmrebs_t size incorrect");
 
 typedef union __attribute__((packed, aligned (4)))  pmrswtp_t
 {
-    volatile struct
+    struct
     {
         uint32_t    PMRSWTU :4;
         uint32_t    rsvd0   :4;
         uint32_t    PMRSWTV :24;
     };
 
-    volatile uint32_t all;
+    uint32_t all;
 }pmrswtp_t;
 static_assert(sizeof(pmrswtp_t) == CONTROLLER_REG_SIZE_PMRSWTP, "pmrswtp_t size incorrect");
 
 typedef union __attribute__((packed, aligned (4)))  pmrmscl_t 
 {
-    volatile struct
+    struct
     {
         uint32_t    rsvd0   :1;
         uint32_t    CMSE    :1;
@@ -489,14 +489,14 @@ typedef union __attribute__((packed, aligned (4)))  pmrmscl_t
         uint32_t    CBA     :20;
     };
 
-    volatile uint32_t all;
+    uint32_t all;
 }pmrmscl_t;
 static_assert(sizeof(pmrmscl_t) == CONTROLLER_REG_SIZE_PMRMSCL, "pmrmscl_t size incorrect");
 
 typedef union __attribute__((packed, aligned (4)))  pmrmscu_t 
 {
-    volatile uint32_t CBA;
-    volatile uint32_t all;
+    uint32_t CBA;
+    uint32_t all;
 }pmrmscu_t;
 static_assert(sizeof(pmrmscu_t) == CONTROLLER_REG_SIZE_PMRMSCU, "pmrmscu_t size incorrect");
 
@@ -508,13 +508,13 @@ NVM-Express-NVMe-over-PCIe-Transport-Specification-Revision-1.4-Ratified-2026.07
 
 typedef union __attribute__((packed, aligned (4))) sqtdbl_t
 {
-    volatile struct
+    struct
     {
         uint32_t    SQT     :16;
         uint32_t    rsvd0   :16;
     };
 
-    volatile uint32_t all;
+    uint32_t all;
 }sqtdbl_t;
 static_assert(sizeof(sqtdbl_t) == CONTROLLER_REG_SQT_ENTRY_SIZE, "sqtdbl_t size incorrect");
 
@@ -525,12 +525,12 @@ NVM-Express-NVMe-over-PCIe-Transport-Specification-Revision-1.4-Ratified-2026.07
 
 typedef union __attribute__((packed, aligned (4))) cqhdbl_t
 {
-    volatile struct
+    struct
     {
         uint32_t    CQH     :16;
         uint32_t    rsvd0   :16;
     };
  
-    volatile uint32_t all;
+    uint32_t all;
 }cqhdbl_t;
 static_assert(sizeof(cqhdbl_t) == CONTROLLER_REG_CQH_ENTRY_SIZE, "cqhdbl_t size incorrect");

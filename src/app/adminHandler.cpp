@@ -59,10 +59,10 @@ void adminCmdHandle_c::createAdminQueuePair()
 
     udma_c& udmaDrv = udma_c::getInstance();
 
-    aqaShadowReg.ASQS = 128;
-    aqaShadowReg.ACQS = 128;
-    acqShadowReg.ACQB = udmaDrv.getBufferPhysicalAddress(0);
-    asqShadowReg.ASQB = udmaDrv.getBufferPhysicalAddress(1);
+    aqaShadowReg.adminSubmissionQueueSize = 128;
+    aqaShadowReg.adminCompletionQueueSize = 128;
+    acqShadowReg.adminCompletionQueueBase = udmaDrv.getBufferPhysicalAddress(0);
+    asqShadowReg.adminSubmissionQueueBase = udmaDrv.getBufferPhysicalAddress(1);
 
     controllerMmio_c& nvmeControllerDrv = controllerMmio_c::getInstance();
 
