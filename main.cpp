@@ -39,7 +39,6 @@
 #include "demo.h"
 #include "unitTests.h"
 
-
 int g_uioId= 0;
 
 menu_c::subMenu g_demo_subMenu;

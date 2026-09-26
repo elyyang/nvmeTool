@@ -83,7 +83,7 @@ udma_c::udma_c(void)
     }
 }
 
-udma_c::~udma_c(void)
+udma_c::~udma_c()
 {   
     NVME_DBG_PRINTF(info, "clean-up udma_c!");    
 
@@ -95,7 +95,7 @@ udma_c::~udma_c(void)
     } 
 }
 
-udma_c& udma_c::getInstance(void)
+udma_c& udma_c::getInstance()
 {
     static udma_c instance;
     return instance;
@@ -116,7 +116,7 @@ uint32_t udma_c::getBufferSize(uint32_t bufferIndex)
     return mBufferSize[bufferIndex];
 }
 
-void udma_c::dumpUdmaBufferInformation(void)
+void udma_c::dumpUdmaBufferInformation()
 {   
     for(uint32_t i=0; i<DEFAULT_UDMA_BUFFER_COUNT; i++)
     {

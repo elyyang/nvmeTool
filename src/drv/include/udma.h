@@ -40,7 +40,7 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 
-#define DEFAULT_UDMA_BUFFER_COUNT   8
+#define DEFAULT_UDMA_BUFFER_COUNT   (8)
 
 class udma_c
 {
@@ -57,11 +57,11 @@ class udma_c
 
     public:
 
-        static udma_c& getInstance(void);      
+        static udma_c& getInstance();      
 
         uintptr_t getBufferAddress(uint32_t bufferIndex);        
         uintptr_t getBufferPhysicalAddress(uint32_t bufferIndex);
         uint32_t getBufferSize(uint32_t bufferIndex);
 
-        void dumpUdmaBufferInformation(void);
+        void dumpUdmaBufferInformation();
 };

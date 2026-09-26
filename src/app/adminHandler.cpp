@@ -32,17 +32,39 @@
 *********************************************************************************************/
 
 #include "adminHandler.h"
+#include "controllerMmio.h"
+#include "udma.h"   
 
-admin_c::admin_c(void)
+adminCmdHandle_c::adminCmdHandle_c()
 {
 }
 
-admin_c::~admin_c(void)    
+adminCmdHandle_c::~adminCmdHandle_c()    
 {	
 }
 
-admin_c& admin_c::getInstance(void)
+adminCmdHandle_c& adminCmdHandle_c::getInstance()
 {
-    static admin_c mInstance;
+    static adminCmdHandle_c mInstance;
     return mInstance;
+}
+
+void adminCmdHandle_c::createAdminQueuePair()
+{    
+    aqa_t aqaShadowReg;
+    acq_t acqShadowReg;
+    asq_t asqShadowReg;
+
+    udma_c& udmaDrv = udma_c::getInstance();
+
+    aqaShadowReg.ASQS = 128;
+    aqaShadowReg.ACQS = 128;
+    acqShadowReg.ACQB = udmaDrv.getBufferPhysicalAddress(0);
+    asqShadowReg.ASQB = udmaDrv.getBufferPhysicalAddress(1);
+
+    controllerMmio_c& nvmeControllerDrv = controllerMmio_c::getInstance();
+
+    nvmeControllerDrv.setAdminQueueAttributes(aqaShadowReg);
+    nvmeControllerDrv.setAdminCompletionQueueBaseAddress(acqShadowReg);
+    nvmeControllerDrv.setAdminSubmissionQueueBaseAddress(asqShadowReg); 
 }

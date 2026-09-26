@@ -40,15 +40,15 @@
 
 #include "pcieCfgSpace.h"
 
-pcieCfgSpace_c::pcieCfgSpace_c(void)
+pcieCfgSpace_c::pcieCfgSpace_c()
 {
 }
 
-pcieCfgSpace_c::~pcieCfgSpace_c(void)    
+pcieCfgSpace_c::~pcieCfgSpace_c()    
 {	
 }
 
-pcieCfgSpace_c& pcieCfgSpace_c::getInstance(void)
+pcieCfgSpace_c& pcieCfgSpace_c::getInstance()
 {
     static pcieCfgSpace_c mInstance;
     return mInstance;
