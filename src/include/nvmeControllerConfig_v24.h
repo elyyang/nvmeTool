@@ -121,25 +121,25 @@ typedef union __attribute__((packed, aligned (8))) cap_t
 {
     struct
     {
-        uint64_t    maximumQueueEntriesSupported                :16;
-        uint64_t    contiguousQueuesRequired                    :1;
-        uint64_t    arbitrationMechanismSupported               :2;
-        uint64_t    _reserved0                                  :5;
-        uint64_t    timeout                                     :8;
-        uint64_t    doorbellStride                              :4;
-        uint64_t    nvmSubsystemResetSupported                  :1;
-        uint64_t    commandSetsSupported                        :8;
-        uint64_t    bootPartitionSupport                        :1;
-        uint64_t    controllerPowerScope                        :2;
-        uint64_t    memoryPageSizeMinimum                       :4;
-        uint64_t    memoryPageSizeMaximum                       :4;
-        uint64_t    persistentMemoryRegionSupported             :1;
-        uint64_t    controllerMemoryBufferSupported             :1;
-        uint64_t    nvmSubsystemShutdownSupported               :1;
-        uint64_t    controllerReadyModesSupported               :2;
-        uint64_t    nvmSubsystemShutdownEnhancementsSupported   :1;
-        uint64_t    _reserved1                                  :2;        
-    };
+        uint64_t    maximumQueueEntriesSupported                :16; //bit 0-15
+        uint64_t    contiguousQueuesRequired                    :1;  //bit 16
+        uint64_t    arbitrationMechanismSupported               :2;  //bit 17-18
+        uint64_t    _reserved0                                  :5;  //bit 19-23
+        uint64_t    timeout                                     :8;  //bit 24-31
+        uint64_t    doorbellStride                              :4;  //bit 32-35
+        uint64_t    nvmSubsystemResetSupported                  :1;  //bit 36
+        uint64_t    commandSetsSupported                        :8;  //bit 37-44
+        uint64_t    bootPartitionSupport                        :1;  //bit 45
+        uint64_t    controllerPowerScope                        :2;  //bit 46-47
+        uint64_t    memoryPageSizeMinimum                       :4;  //bit 48-51
+        uint64_t    memoryPageSizeMaximum                       :4;  //bit 52-55
+        uint64_t    persistentMemoryRegionSupported             :1;  //bit 56
+        uint64_t    controllerMemoryBufferSupported             :1;  //bit 57
+        uint64_t    nvmSubsystemShutdownSupported               :1;  //bit 58
+        uint64_t    controllerReadyModesSupported               :2;  //bit 59-60
+        uint64_t    nvmSubsystemShutdownEnhancementsSupported   :1;  //bit 61
+        uint64_t    _reserved1                                  :2;  //bit 62-63        
+    }; 
 
     uint64_t all;
 }cap_t;
@@ -149,9 +149,9 @@ typedef union __attribute__((packed, aligned (4))) vs_t
 {
     struct 
     {    
-        uint32_t    tertiaryVersion :16;
-        uint32_t    minorVersion    :8;
-        uint32_t    majorVersion    :8;
+        uint32_t    tertiaryVersion :8;  //bit 0-7
+        uint32_t    minorVersion    :8;  //bit 8-15
+        uint32_t    majorVersion    :16; //bit 16-31
     };
 
     uint32_t all;
@@ -174,16 +174,16 @@ typedef union __attribute__((packed, aligned (4))) cc_t
 {
     struct
     {
-        uint32_t    enable                                  :1;
-        uint32_t    _reserved0                              :3;
-        uint32_t    ioCommandSetSelected                    :3;
-        uint32_t    memoryPageSize                          :4;
-        uint32_t    arbitrationMechanismSelected            :3;
-        uint32_t    shutdownNotification                    :2;
-        uint32_t    ioSubmissionQueueEntrySize              :4;
-        uint32_t    ioCompletionQueueEntrySize              :4;
-        uint32_t    controllerReadyIndependentofMediaEnable :1;
-        uint32_t    _reserved1                              :7;
+        uint32_t    enable                                  :1;  // bit 0
+        uint32_t    _reserved0                              :3;  // bit 1-3
+        uint32_t    ioCommandSetSelected                    :3;  // bit 4-6
+        uint32_t    memoryPageSize                          :4;  // bit 7-10
+        uint32_t    arbitrationMechanismSelected            :3;  // bit 11-13
+        uint32_t    shutdownNotification                    :2;  // bit 14-15
+        uint32_t    ioSubmissionQueueEntrySize              :4;  // bit 16-19
+        uint32_t    ioCompletionQueueEntrySize              :4;  // bit 20-23
+        uint32_t    controllerReadyIndependentofMediaEnable :1;  // bit 24
+        uint32_t    _reserved1                              :7;  // bit 25-31
     };
 
     uint32_t all;
@@ -194,13 +194,13 @@ typedef union __attribute__((packed, aligned (4))) csts_t
 {
     volatile struct
     {
-        uint32_t     ready                      :1;
-        uint32_t     controllerFatalStatus      :1;
-        uint32_t     shutdownStatus             :2;
-        uint32_t     nvmSubsystemResetOccurred  :1;
-        uint32_t     processingPaused           :1;
-        uint32_t     shutdownType               :1;
-        uint32_t     _reserved0                 :25;
+        uint32_t     ready                      :1;  // bit 0
+        uint32_t     controllerFatalStatus      :1;  // bit 1
+        uint32_t     shutdownStatus             :2;  // bit 2-3
+        uint32_t     nvmSubsystemResetOccurred  :1;  // bit 4
+        uint32_t     processingPaused           :1;  // bit 5
+        uint32_t     shutdownType               :1;  // bit 6
+        uint32_t     _reserved0                 :25; // bit 7-31
     };
 
     volatile uint32_t all;
@@ -217,10 +217,10 @@ typedef union __attribute__((packed, aligned (4))) aqa_t
 {
     struct
     {
-        uint32_t    adminSubmissionQueueSize    :12;
-        uint32_t    rsvd0                       :4;
-        uint32_t    adminCompletionQueueSize    :12;
-        uint32_t    rsvd1                       :4;
+        uint32_t    adminSubmissionQueueSize    :12; // bit 0-11
+        uint32_t    rsvd0                       :4;  // bit 12-15
+        uint32_t    adminCompletionQueueSize    :12; // bit 16-27
+        uint32_t    rsvd1                       :4;  // bit 28-31
     };
 
     uint32_t all;
@@ -231,8 +231,8 @@ typedef union __attribute__((packed, aligned (8))) asq_t
 {
     struct 
     {    
-        uint64_t    _reserved0                  :12;
-        uint64_t    adminSubmissionQueueBase    :52;
+        uint64_t    _reserved0                  :12; // bit 0-11
+        uint64_t    adminSubmissionQueueBase    :52; // bit 12-63
     };
 
     uint64_t    all;    
@@ -243,8 +243,8 @@ typedef union __attribute__((packed, aligned (8))) acq_t
 {
     struct
     {
-        uint32_t    _reserved0                  :12;
-        uint64_t    adminCompletionQueueBase    :52;
+        uint32_t    _reserved0                  :12; // bit 0-11
+        uint64_t    adminCompletionQueueBase    :52; // bit 12-63
     };
 
     uint64_t all;
@@ -255,15 +255,15 @@ typedef union __attribute__((packed, aligned (4))) cmbloc_t
 {
     struct
     {
-        uint32_t    baseIndicatorRegister                               :3;
-        uint32_t    cmbQueueMixedMemorySupport                          :1;
-        uint32_t    cmbQueuePhysicallyDiscontiguousSupport              :1;
-        uint32_t    cmbDataPointerMixedLocationsSupport                 :1;
-        uint32_t    cmbDataPointerandCommandIndependentLocationsSupport :1;
-        uint32_t    cmbDataMetadataMixedMemorySupport                   :1;
-        uint32_t    cmbQueueDwordAlignment                              :1;
-        uint32_t    _reserved0                                          :3;
-        uint32_t    offset                                              :20;
+        uint32_t    baseIndicatorRegister                               :3;  // bit 0-2
+        uint32_t    cmbQueueMixedMemorySupport                          :1;  // bit 3
+        uint32_t    cmbQueuePhysicallyDiscontiguousSupport              :1;  // bit 4
+        uint32_t    cmbDataPointerMixedLocationsSupport                 :1;  // bit 5
+        uint32_t    cmbDataPointerandCommandIndependentLocationsSupport :1;  // bit 6
+        uint32_t    cmbDataMetadataMixedMemorySupport                   :1;  // bit 7
+        uint32_t    cmbQueueDwordAlignment                              :1;  // bit 8
+        uint32_t    _reserved0                                          :3;  // bit 9-11
+        uint32_t    offset                                              :20; // bit 12-31
     };
 
     uint32_t all;    
@@ -274,14 +274,14 @@ typedef union __attribute__((packed, aligned (4))) cmbsz_t
 {    
     struct    
     {
-        uint32_t    submissionQueueSupport   :1;
-        uint32_t    completionQueueSupport   :1;
-        uint32_t    prpSglListSupport        :1;
-        uint32_t    readDataSupport          :1;
-        uint32_t    writeDataSupport         :1;
-        uint32_t    _reserved0               :3;
-        uint32_t    sizeUnits                :4;
-        uint32_t    size                     :20;
+        uint32_t    submissionQueueSupport   :1;  // bit 0
+        uint32_t    completionQueueSupport   :1;  // bit 1
+        uint32_t    prpSglListSupport        :1;  // bit 2
+        uint32_t    readDataSupport          :1;  // bit 3
+        uint32_t    writeDataSupport         :1;  // bit 4
+        uint32_t    _reserved0               :3;  // bit 5-7
+        uint32_t    sizeUnits                :4;  // bit 8-11
+        uint32_t    size                     :20; // bit 12-31
     };
 
     uint32_t all;
@@ -292,11 +292,11 @@ typedef union __attribute__((packed, aligned (4))) bpinfo_t
 {
     struct
     {
-        uint32_t    bootPartitionSize       :15;
-        uint32_t    _reserved0              :9;
-        uint32_t    bootReadStatus          :2;
-        uint32_t    _reserved1              :5;
-        uint32_t    activeBootPartitionId   :1;
+        uint32_t    bootPartitionSize       :15; // bit 0-14
+        uint32_t    _reserved0              :9;  // bit 15-23
+        uint32_t    bootReadStatus          :2;  // bit 24-25
+        uint32_t    _reserved1              :5;  // bit 26-30
+        uint32_t    activeBootPartitionId   :1;  // bit 31
     };
 
     uint32_t all;
@@ -307,10 +307,10 @@ typedef union __attribute__((packed, aligned (4))) bprsel_t
 {
     struct
     {
-        uint32_t    bootPartitionReadSize      :10;
-        uint32_t    bootPartitionReadOffset    :20;
-        uint32_t    _reserved0                 :1;
-        uint32_t    bootPartitionIdentifier    :1;
+        uint32_t    bootPartitionReadSize      :10; // bit 0-9
+        uint32_t    bootPartitionReadOffset    :20; // bit 10-29
+        uint32_t    _reserved0                 :1;  // bit 30
+        uint32_t    bootPartitionIdentifier    :1;  // bit 31
     };
 
     uint32_t all;
@@ -321,8 +321,8 @@ typedef union __attribute__((packed, aligned (8))) bpmbl_t
 {
     struct
     {
-        uint32_t    _reserved0                              :12;
-        uint64_t    bootPartitionMemoryBufferBaseAddress    :52;
+        uint32_t    _reserved0                              :12; // bit 0-11
+        uint64_t    bootPartitionMemoryBufferBaseAddress    :52; // bit 12-63
     };
 
     uint64_t all;
@@ -333,10 +333,10 @@ typedef union __attribute__((packed, aligned (8))) cmbmsc_t
 {
     struct
     {
-        uint32_t    capabilitiesRegistersEnabled    :1;
-        uint32_t    controllerMemorySpaceEnable     :1;
-        uint32_t    _reserved0                      :10;
-        uint64_t    controllerBaseAddress           :52;
+        uint32_t    capabilitiesRegistersEnabled    :1;  // bit 0
+        uint32_t    controllerMemorySpaceEnable     :1;  // bit 1
+        uint32_t    _reserved0                      :10; // bit 2-11
+        uint64_t    controllerBaseAddress           :52; // bit 12-63
     };
 
     uint64_t all;
@@ -347,8 +347,8 @@ typedef union __attribute__((packed, aligned (4))) cmbsts_t
 {
     struct
     {
-        uint32_t    controllerBaseAddressInvalid    :1;
-        uint32_t    _reserved0                      :31;
+        uint32_t    controllerBaseAddressInvalid    :1;  // bit 0
+        uint32_t    _reserved0                      :31; // bit 1-31
     };
 
     uint32_t all;
@@ -359,10 +359,10 @@ typedef union __attribute__((packed, aligned (4))) cmbebs_t
 {
     struct
     {
-        uint32_t    cmbElasticityBufferSizeUnits    :4;
-        uint32_t    cmbReadBypassBehavior           :1;
-        uint32_t    _reserved0                      :3;
-        uint32_t    cmbElasticityBufferSizeBase     :24;
+        uint32_t    cmbElasticityBufferSizeUnits    :4;  // bit 0-3
+        uint32_t    cmbReadBypassBehavior           :1;  // bit 4
+        uint32_t    _reserved0                      :3;  // bit 5-7
+        uint32_t    cmbElasticityBufferSizeBase     :24; // bit 8-31
     };
 
     uint32_t all;
@@ -373,9 +373,9 @@ typedef union __attribute__((packed, aligned (4))) cmbswtp_t
 {
     struct
     {
-        uint32_t    cmbSustainedWriteThroughputUnits :4;
-        uint32_t    _reserved0                       :4;
-        uint32_t    cmbSustainedWriteThroughput      :24;
+        uint32_t    cmbSustainedWriteThroughputUnits :4;  // bit 0-3
+        uint32_t    _reserved0                       :4;  // bit 4-7
+        uint32_t    cmbSustainedWriteThroughput      :24; // bit 8-31
     };
 
     uint32_t all;
@@ -392,8 +392,8 @@ typedef union __attribute__((packed, aligned (4))) crto_t
 {
     struct
     {
-        uint32_t    controllerReadyWithMediaTimeout          :16;
-        uint32_t    controllerReadyIndependentOfMediaTimeout :16;
+        uint32_t    controllerReadyWithMediaTimeout          :16; // bit 0-15
+        uint32_t    controllerReadyIndependentOfMediaTimeout :16; // bit 16-31
     };
 
     uint32_t all;
@@ -404,16 +404,16 @@ typedef union __attribute__((packed, aligned (4))) pmrcap_t
 {
     struct
     {
-        uint32_t    _reserved0                                     :3;
-        uint32_t    readDataSupport                                :1;
-        uint32_t    writeDataSupport                               :1;
-        uint32_t    baseIndicatorRegister                          :3;
-        uint32_t    persistentMemoryRegionTimeUnits                :2;
-        uint32_t    persistentMemoryRegionWriteBarrierMechanisms   :4;
-        uint32_t    _reserved1                                     :2;
-        uint32_t    persistentMemoryRegionTimeout                  :8;
-        uint32_t    controllerMemorySpaceSupported                 :1;
-        uint32_t    _reserved2                                     :7;
+        uint32_t    _reserved0                                     :3;  // bit 0-2
+        uint32_t    readDataSupport                                :1;  // bit 3
+        uint32_t    writeDataSupport                               :1;  // bit 4
+        uint32_t    baseIndicatorRegister                          :3;  // bit 5-7
+        uint32_t    persistentMemoryRegionTimeUnits                :2;  // bit 8-9
+        uint32_t    persistentMemoryRegionWriteBarrierMechanisms   :4;  // bit 10-13
+        uint32_t    _reserved1                                     :2;  // bit 14-15
+        uint32_t    persistentMemoryRegionTimeout                  :8;  // bit 16-23
+        uint32_t    controllerMemorySpaceSupported                 :1;  // bit 24
+        uint32_t    _reserved2                                     :7;  // bit 25-31
     };
 
     uint32_t all;
@@ -424,8 +424,8 @@ typedef union __attribute__((packed, aligned (4))) pmrctl_t
 {
     struct
     {
-        uint32_t    enable      :1;
-        uint32_t    _reserved0  :31;
+        uint32_t    enable      :1;  // bit 0
+        uint32_t    _reserved0  :31; // bit 1-31
     };
 
     uint32_t all;
@@ -436,11 +436,11 @@ typedef union __attribute__((packed, aligned (4))) pmrsts_t
 {
     struct
     {
-        uint32_t    error                         :8;
-        uint32_t    notReady                     :1;
-        uint32_t    healthStatus                 :3;
-        uint32_t    controllerBaseAddressInvalid :1;
-        uint32_t    _reserved0                   :19;
+        uint32_t    error                         :8;  // bit 0-7
+        uint32_t    notReady                      :1;  // bit 8
+        uint32_t    healthStatus                  :3;  // bit 9-11
+        uint32_t    controllerBaseAddressInvalid  :1;  // bit 12
+        uint32_t    _reserved0                    :19; // bit 13-31
     };
 
     uint32_t all;
@@ -451,10 +451,10 @@ typedef union __attribute__((packed, aligned (4)))  pmrebs_t
 {
     struct
     {
-        uint32_t    pmrElasticityBufferSizeUnits :4;
-        uint32_t    pmrReadBypassBehavior        :1;
-        uint32_t    _reserved0                   :3;
-        uint32_t    pmrElasticityBufferSizeBase  :24;
+        uint32_t    pmrElasticityBufferSizeUnits :4;  // bit 0-3
+        uint32_t    pmrReadBypassBehavior        :1;  // bit 4
+        uint32_t    _reserved0                   :3;  // bit 5-7
+        uint32_t    pmrElasticityBufferSizeBase  :24; // bit 8-31
     };
 
     uint32_t all;
@@ -465,9 +465,9 @@ typedef union __attribute__((packed, aligned (4)))  pmrswtp_t
 {
     struct
     {
-        uint32_t    pmrSustainedWriteThroughputUnits :4;
-        uint32_t    _reserved0                      :4;
-        uint32_t    pmrSustainedWriteThroughput      :24;
+        uint32_t    pmrSustainedWriteThroughputUnits :4;  // bit 0-3
+        uint32_t    _reserved0                       :4;  // bit 4-7
+        uint32_t    pmrSustainedWriteThroughput      :24; // bit 8-31
     };
 
     uint32_t all;
@@ -478,10 +478,10 @@ typedef union __attribute__((packed, aligned (4)))  pmrmscl_t
 {
     struct
     {
-        uint32_t    _reserved0                  :1;
-        uint32_t    controllerMemorySpaceEnable :1;
-        uint32_t    _reserved1                  :10;
-        uint32_t    controllerBaseAddress       :20;
+        uint32_t    _reserved0                  :1;  // bit 0
+        uint32_t    controllerMemorySpaceEnable :1;  // bit 1
+        uint32_t    _reserved1                  :10; // bit 2-11
+        uint32_t    controllerBaseAddress       :20; // bit 12-31
     };
 
     uint32_t all;
@@ -504,8 +504,8 @@ typedef union __attribute__((packed, aligned (4))) sqtdbl_t
 {
     struct
     {
-        uint32_t    submissionQueueTail :16;
-        uint32_t    _reserved0          :16;
+        uint32_t    submissionQueueTail :16; // bit 0-15
+        uint32_t    _reserved0          :16; // bit 16-31
     };
 
     uint32_t all;
@@ -521,8 +521,8 @@ typedef union __attribute__((packed, aligned (4))) cqhdbl_t
 {
     struct
     {
-        uint32_t    completionQueueHead :16;
-        uint32_t    _reserved0          :16;
+        uint32_t    completionQueueHead :16; // bit 0-15
+        uint32_t    _reserved0          :16; // bit 16-31
     };
  
     uint32_t all;
